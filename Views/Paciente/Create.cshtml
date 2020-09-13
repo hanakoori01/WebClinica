@@ -1,0 +1,72 @@
+﻿@model WebClinica.Models.Especialidad
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+    <link href="~/css/StyleSheet.css" rel="stylesheet" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/animate.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/owl.carousel.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css" asp-append-version="true">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="~/css/tooplate-style.css" asp-append-version="true">
+    <link href="~/css/especializado.css" rel="stylesheet" asp-append-version="true" />
+</head>
+<body>
+    <partial name="_Menu" />
+    <div class="container">
+        <h4>Especialidad</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="EspecialidadId" class="control-label"></label>
+                        <input asp-for="EspecialidadId" class="form-control" />
+                        <span asp-validation-for="EspecialidadId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Nombre" class="control-label"></label>
+                        <input asp-for="Nombre" class="form-control" />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Descripcion" class="control-label"></label>
+                        <input asp-for="Descripcion" class="form-control" />
+                        <span asp-validation-for="Descripcion" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </div>
+
+    <script src="~/js/jquery.js" asp-append-version="true"></script>
+    <script src="~/js/bootstrap.min.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.sticky.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.stellar.min.js" asp-append-version="true"></script>
+    <script src="~/js/wow.min.js" asp-append-version="true"></script>
+    <script src="~/js/smoothscroll.js" asp-append-version="true"></script>
+    <script src="~/js/owl.carousel.min.js" asp-append-version="true"></script>
+    <script src="~/js/custom.js" asp-append-version="true"></script>
+    <script src="~/js/datatables.min.js" asp-append-version="true"></script>
+    <script src="~/js/especializado.js" asp-append-version="true"></script>
+    <script src="~/js/Utilitarios.js" asp-append-version="true"></script>
+    <script src="~/js/sweetalert2.js" asp-append-version="true"></script>
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+</body>
+</html>

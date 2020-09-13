@@ -1,0 +1,94 @@
+﻿.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    vertical-align: middle !important;
+}
+
+#agregar {
+    border-color: transparent;
+    background-color: #007f7e;
+}
+
+    #agregar:hover {
+        border-color:transparent;
+        background-color: #4267b2;
+    }
+
+#regresar {
+    border-color:transparent;
+}
+
+    #regresar:hover {
+        border-color:transparent;
+        background-color: #4267b2;
+    }
+
+#tituloEspecialidad {
+    text-align: center;
+}
+
+.crear {
+    border: none;
+    width: 100%;
+    height: 100%;
+    padding: 6px;
+    background-color: #007f7e;
+}
+
+    .crear:hover {
+        background-color: #4267b2;
+    }
+
+.inicio {
+    width: 100%;
+    height: 100%;
+    padding: 6px;
+}
+
+    .inicio:hover {
+        background-color: #4267b2;
+    }
+
+.regresarIndexEspecialidad {
+    background-color: #007f7e;
+}
+    .regresarIndexEspecialidad:hover {
+        background-color: #4267b2;
+    }
+
+.contenedorEspecialidad {
+    display: flex;
+}
+
+.contenedorCrear {
+    margin-top: 25px;
+    display: flex;
+}
+
+.boton-delete {
+    background-color: white;
+    border: none;
+    background-color: transparent;
+}
+
+    .boton-delete:hover {
+        background-color: rgba(199, 199, 199, 1);
+    }
+
+.boton-list {
+    background-color: white;
+    border: none;
+    background-color: transparent;
+}
+
+    .boton-list:hover {
+        background-color: rgba(199, 199, 199, 1);
+    }
+
+.boton-edit {
+    background-color: white;
+    border: none;
+    background-color: transparent;
+}
+
+    .boton-edit:hover {
+        background-color: rgba(199, 199, 199, 1);
+    }

@@ -1,0 +1,61 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using WebClinica.Models;
+
+namespace WebClinica.Controllers
+{
+    public class PacienteController : Controller
+    {
+        private readonly DBClinicaAcmeContext _db;
+        List<Paciente> listaPaciente = new List<Paciente>();
+        public PacienteController(DBClinicaAcmeContext db)
+        {
+            _db = db;
+        }
+        public IActionResult Index()
+        {
+            listaPaciente = (from paciente in _db.Paciente
+                             select new Paciente
+                             {
+                                 PacienteId = paciente.PacienteId,
+                                 Nombre = paciente.Nombre,
+                                 Apellidos = paciente.Apellidos,
+                                 Direccion = paciente.Direccion,
+                                 TelefonoContacto = paciente.TelefonoContacto,
+                                 Foto = paciente.Foto
+                             }).ToList();
+            var model = listaPaciente;
+            return View("Index", model);
+        }
+        public IActionResult Create()
+        {
+            var ultimoRegistro = _db.Set<Paciente>().OrderByDescending(e => e.PacienteId).FirstOrDefault();
+            ViewBag.ID = ultimoRegistro.PacienteId + 1;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(Paciente paciente)
+        {
+            string Error = "";
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(paciente);
+                }
+                else
+                {
+                    _db.Paciente.Add(paciente);
+                    _db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Error = ex.Message;
+            }
+            return RedirectToAction(nameof(Index));
+        }
+    }
+}
