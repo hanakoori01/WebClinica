@@ -17,6 +17,7 @@ namespace WebClinica.Models
         public virtual DbSet<Especialidad> Especialidad { get; set; }
         public virtual DbSet<Medico> Medico { get; set; }
         public virtual DbSet<Paciente> Paciente { get; set; }
+        public virtual DbSet<Usuario> Usuario { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -58,8 +59,11 @@ namespace WebClinica.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.EspecialidadId)
-                .HasColumnName("EspecialidadID");
+               entity.HasOne(d => d.Especialidad)
+                .WithMany(p => p.Medico)
+                .HasForeignKey(d => d.EspecialidadId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Medico_Especialidad");
 
                 entity.Property(e => e.Nombre)
                     .HasMaxLength(50)

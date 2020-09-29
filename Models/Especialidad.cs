@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebClinica.Models
 {
@@ -13,5 +14,7 @@ namespace WebClinica.Models
         [Display(Name = "Descripcion:")]
         [Required(ErrorMessage = "Debe digitar la descripción de la Especialidad")]
         public string Descripcion { get; set; }
+
+        public virtual ICollection<Medico> Medico { get; set; }
     }
 }

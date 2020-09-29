@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Clinica.Models;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebClinica.Models
 {
@@ -20,5 +22,7 @@ namespace WebClinica.Models
         [Display(Name = "Telefono:")]
         public string TelefonoContacto { get; set; }
         public string Foto { get; set; }
+
+        public virtual ICollection<Citas> Citas { get; set; }
     }
 }
