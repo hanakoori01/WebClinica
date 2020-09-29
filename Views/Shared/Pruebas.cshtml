@@ -1,0 +1,139 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Pruebas</title>
+    <link href="~/css/StyleSheet.css" rel="stylesheet" />
+    <link rel="stylesheet"
+          href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+          crossorigin="anonymous" />
+    <link href="~/css/StyleSheet.css" rel="stylesheet" asp-append-version="true" />
+
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/animate.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/owl.carousel.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css" asp-append-version="true">
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="~/css/tooplate-style.css" asp-append-version="true">
+    <link href="~/css/especializado.css" rel="stylesheet" asp-append-version="true" />
+</head>
+<body>
+    @RenderBody()
+    <header id="header" class="hidden-xs">
+        <div class="header-container">
+            <div class="header-row" style="opacity: 1;">
+                <div class="header-column header-column-logo">
+                    <div class="header-logo">
+                        <a href="#page-top" class="logo_name navbar-brand s123-w-l-s page-scroll logoStyle_1">
+                            <div>
+                                <i class="fa site123-image-icon site123-image-icon fa-cutlery"></i>
+                            </div><span class="website-name">Indian Restaurant</span>
+                        </a>
+                    </div>
+                </div> <div class="header-column header-column-menu">
+                    <div class="header-row" style="opacity: 1;">
+                        <div class="header-nav">
+                            <div id="top-menu" class="header-nav-main">
+                                <nav>
+                                    <ul class="navPages nav" id="mainNav">
+                                        <li class="moduleMenu active">
+                                            <a class="page-scroll homepageMenu" href="#page-top">
+                                                <span class="txt-container">Home</span>
+                                            </a>
+                                        </li>
+                                        <li class="moduleMenu" data-menu-module-id="5b1d02044e82f">
+                                            <a class="page-scroll" href="#section-5b1d02044e82f">
+                                                <span class="txt-container">Restaurant Menu</span>
+                                            </a>
+                                        </li>
+                                        <li class="moduleMenu extra-nav-more dropdown-submenu" data-menusubmenustillopen="false">
+                                            <a href="#" aria-haspopup="true" aria-expanded="true">
+                                                <span class="txt-container">more</span>
+                                                <span class="fa fa-caret-right"></span>
+                                            </a> <ul class="site-dropdown-menu dropdown-side-open-right" style="opacity: 1;">
+                                                <li class="moduleMenu" data-menu-module-id="5b1d30265a4e7">
+                                                    <a class="page-scroll" href="#section-5b1d30265a4e7">
+                                                        <span class="txt-container">Book a Table</span>
+                                                    </a>
+                                                </li>
+                                                <li class="moduleMenu" data-menu-module-id="5b1d020422515">
+                                                    <a class="page-scroll" href="#section-5b1d020422515">
+                                                        <span class="txt-container">About</span>
+                                                    </a>
+                                                </li>
+                                                <li class="moduleMenu" data-menu-module-id="5b1d02043b70c">
+                                                    <a class="page-scroll" href="#section-5b1d02043b70c">
+                                                        <span class="txt-container">Contact</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-column header-column-menu-actions">
+                    <div class="header-row" style="opacity: 1;">
+                        <div class="header-nav">
+                            <ul class="navActions nav">
+                                <!-- Cart -->
+                                <li class="header-cart-wrapper orderOpenCart " style="display: none;">
+                                    <a class="actionButton btn-primary-action-button-4" role="button">
+                                        <i class="fa fa-shopping-cart">
+                                            <span class="count" style="display: none;">
+                                            </span>
+                                        </i>
+                                    </a>
+                                </li> <!-- Menu Action Buttons -->
+                            </ul>
+                            <ul class="headerSocial_2"> <!-- Only Phone --> </ul>
+                            <ul class="headerSocial">
+                                <!-- Only icon -->
+                                <li class="header-phone-wrapper" data-style="1">
+                                    <a data-close-location="left" class="actionButton" role="button" data-container="body" data-toggle="phone_menuCallActionIcons">
+                                        <i class="fa fa-phone"></i>
+                                    </a>
+                                </li> <!-- Show Header Address -->
+                                <li class="header-address-wrapper">
+                                    <a data-close-location="left" class="actionButton" role="button" data-container="body" data-toggle="address_menuCallActionIcons">
+                                        <i class="fa fa-location-arrow"></i>
+                                    </a>
+                                </li> <!-- Show Header Social -->
+                                <li class="header-social-wrapper ">
+                                    <a data-close-location="left" class="actionButton" role="button" data-container="body" data-toggle="social_menuCallActionIcons">
+                                        <i class="fa fa-share-alt"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <script src="~/js/jquery.js" asp-append-version="true"></script>
+    <script src="~/js/bootstrap.min.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.sticky.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.stellar.min.js" asp-append-version="true"></script>
+    <script src="~/js/wow.min.js" asp-append-version="true"></script>
+    <script src="~/js/smoothscroll.js" asp-append-version="true" s></script>
+    <script src="~/js/owl.carousel.min.js" asp-append-version="true"></script>
+    <script src="~/js/custom.js" asp-append-version="true"></script>
+    <script src="~/js/datatables.min.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

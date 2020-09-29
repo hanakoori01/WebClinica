@@ -58,6 +58,14 @@
     display: flex;
 }
 
+.contenedorMedico{
+    display: flex;
+}
+
+.contenedorPaciente{
+    display: flex;
+}
+
 .contenedorCrear {
     margin-top: 25px;
     display: flex;

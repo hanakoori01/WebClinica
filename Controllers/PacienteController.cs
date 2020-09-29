@@ -57,5 +57,60 @@ namespace WebClinica.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+        public IActionResult Details(int id)
+        {
+            Paciente paciente = _db.Paciente
+                         .Where(e => e.PacienteId == id).First();
+            return View(paciente);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            Paciente paciente = _db.Paciente
+                         .Where(e => e.PacienteId == id).First();
+            return View(paciente);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Paciente paciente)
+        {
+            string error = "";
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(paciente);
+                }
+                else
+                {
+                    _db.Paciente.Update(paciente);
+                    _db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int? PacienteId)
+        {
+            var Error = "";
+            try
+            {
+                Paciente paciente = _db.Paciente
+                             .Where(e => e.PacienteId == PacienteId).First();
+                _db.Paciente.Remove(paciente);
+                _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Error = ex.Message;
+            }
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

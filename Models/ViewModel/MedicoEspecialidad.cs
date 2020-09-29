@@ -10,7 +10,7 @@ namespace WebClinica.Models.ViewModel
     {
         [Required(ErrorMessage = "Debe digitar el ID del medico")]
         [Display(Name = "ID:")]
-        public string MedicoId { get; set; }
+        public int MedicoId { get; set; }
         [Required(ErrorMessage = "Debe digitar el nombre del medico")]
         [Display(Name = "Nombre:")]
         public string Nombre { get; set; }
@@ -29,7 +29,7 @@ namespace WebClinica.Models.ViewModel
         [Display(Name = "Foto:")]
         public string Foto { get; set; }
         [Display(Name = "ID de especialidad:")]
-        public string EspecialidadId { get; set; }
+        public int EspecialidadId { get; set; }
         public string Especialidad { get; set; }
         public string msgError { get; set; }
 

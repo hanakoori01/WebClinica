@@ -1,52 +1,53 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using WebClinica.Models;
 
 namespace WebClinica.Controllers
 {
-    public class EspecialidadController : Controller
+    public class CitasController : Controller
     {
         private readonly DBClinicaAcmeContext _db;
-        List<Especialidad> listaEspecialidad = new List<Especialidad>();
-        public EspecialidadController(DBClinicaAcmeContext db)
+        List<Citas> listaCitas = new List<Citas>();
+        public CitasController(DBClinicaAcmeContext db)
         {
             _db = db;
         }
         public IActionResult Index()
         {
-            listaEspecialidad = (from especialidad in _db.Especialidad
-                                 select new Especialidad
+            listaCitas = (from citas in _db.Citas
+                                 select new Citas
                                  {
-                                     EspecialidadId = especialidad.EspecialidadId,
-                                     Nombre = especialidad.Nombre,
-                                     Descripcion = especialidad.Descripcion.Substring(0, 85) + "..."  //Cambio
+                                     CitaId = citas.CitaId,
+                                     PacienteId = citas.PacienteId,
+                                     MedicoId = citas.MedicoId,
+                                     Diagnostico = citas.Diagnostico.Substring(0, 85) + "..."  //Cambio
                                  }).ToList();
-            var model = listaEspecialidad;
+            var model = listaCitas;
             return View("Index", model);
         }
         [HttpGet]
         public IActionResult Create()
         {
-            var ultimoRegistro = _db.Set<Especialidad>().OrderByDescending(e => e.EspecialidadId).FirstOrDefault();
-            ViewBag.ID = ultimoRegistro.EspecialidadId + 1;
+            var ultimoRegistro = _db.Set<Citas>().OrderByDescending(e => e.CitaId).FirstOrDefault();
+            ViewBag.ID = ultimoRegistro.CitaId + 1;
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Especialidad especialidad)
+        public IActionResult Create(Citas citas)
         {
             string Error = "";
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    return View(especialidad);
+                    return View(citas);
                 }
                 else
                 {
-                    _db.Especialidad.Add(especialidad);
+                    _db.Citas.Add(citas);
                     _db.SaveChanges();
                 }
             }
@@ -60,32 +61,32 @@ namespace WebClinica.Controllers
         //Apartir de aca todo nuevo
         public IActionResult Details(int id)
         {
-            Especialidad oEspecialidad = _db.Especialidad
-                         .Where(e => e.EspecialidadId == id).First();
-            return View(oEspecialidad);
+            Citas oCitas = _db.Citas
+                         .Where(e => e.CitaId == id).First();
+            return View(oCitas);
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            Especialidad oEspecialidad = _db.Especialidad
-                         .Where(e => e.EspecialidadId == id).First();
-            return View(oEspecialidad);
+            Citas oCitas = _db.Citas
+                         .Where(e => e.CitaId == id).First();
+            return View(oCitas);
         }
 
         [HttpPost]
-        public IActionResult Edit(Especialidad especialidad)
+        public IActionResult Edit(Citas citas)
         {
             string error = "";
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    return View(especialidad);
+                    return View(citas);
                 }
                 else
                 {
-                    _db.Especialidad.Update(especialidad);
+                    _db.Citas.Update(citas);
                     _db.SaveChanges();
                 }
             }
@@ -97,14 +98,14 @@ namespace WebClinica.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(int? EspecialidadId)
+        public IActionResult Delete(int? CitaId)
         {
             var Error = "";
             try
             {
-                Especialidad oEspecialidad = _db.Especialidad
-                             .Where(e => e.EspecialidadId == EspecialidadId).First();
-                _db.Especialidad.Remove(oEspecialidad);
+                Citas citas = _db.Citas
+                             .Where(e => e.CitaId == CitaId).First();
+                _db.Citas.Remove(citas);
                 _db.SaveChanges();
             }
             catch (Exception ex)

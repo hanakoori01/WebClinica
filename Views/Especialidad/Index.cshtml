@@ -1,50 +1,38 @@
 ﻿@model IEnumerable<Especialidad>
 @{
-    Layout = null;
+    ViewData["Title"] = "Especialidadw";
+    Layout = "~/Views/Shared/_Content.cshtml";
 }
-<!DOCTYPE html>
-<html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-    <link href="~/css/StyleSheet.css" rel="stylesheet" asp-append-version="true"/>
-    <link rel="stylesheet" href="~/css/bootstrap.min.css" asp-append-version="true">
-    <link rel="stylesheet" href="~/css/font-awesome.min.css" asp-append-version="true">
-    <link rel="stylesheet" href="~/css/animate.css" asp-append-version="true">
-    <link rel="stylesheet" href="~/css/owl.carousel.css" asp-append-version="true">
-    <link rel="stylesheet" href="~/css/owl.theme.default.min.css" asp-append-version="true">
-    <!-- MAIN CSS -->
-    <link rel="stylesheet" href="~/css/tooplate-style.css" asp-append-version="true">
-    <link href="~/css/especializado.css" rel="stylesheet" asp-append-version="true"/>
-    
+    <title>Especialidad</title>
 </head>
-<body>
-    <partial name="_Menu" />
-    <div class="container">
-        <!--Cambio aca-->
-        <main class="pb-3" role="main">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-6 col-lg-12">
-                        <h2 class="text-light">Lista Especialidad</h2>
+<partial name="_Menu" />
+<div class="container">
+    <!--Cambio aca-->
+    <main class="pb-3" role="main">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 col-lg-12">
+                    <h2 class="text-light">Lista Especialidad</h2>
+                </div>
+            </div>
+            <form asp-controller="Especialidad" asp-action="Index" method="post" id="frmFilter">
+                <div class="row contenedorEspecialidad">
+                    <div class="col-md-2 col-lg-2 text-right">
+                        <partial name="_CreateButtonPartial" />
+                    </div>
+                    <br />
+                    <div class="col-md-2 col-lg-2 text-right">
+                        <partial name="_BackHome" />
                     </div>
                 </div>
-                <form asp-controller="Especialidad" asp-action="Index" method="post" id="frmFilter">
-                    <div class="row contenedorEspecialidad">
-                        <div class="col-md-2 col-lg-2 text-right">
-                            <partial name="_CreateButtonPartial" />
-                        </div>
-                        <br />
-                        <div class="col-md-2 col-lg-2 text-right">
-                            <partial name="_BackHome" />
-                        </div>
-                    </div>
-                    <div class="col-md-12" style="color:black;"><hr></div>
-                </form>
-                @if (Model.Count() > 0)
-                {
-                    <table class="table table-striped border">
-                        <tr class="table table-dark">
+                <div class="col-md-12" style="color:black;"><hr></div>
+            </form>
+            @if (Model.Count() > 0)
+            {
+                <table class="table table-hover border .table-responsive" id="TbEspecial">
+                    <thead class="thead-dark">
+                        <tr class="table-secondary">
                             <th>
                                 @Html.DisplayNameFor(model => model.EspecialidadId)
                             </th>
@@ -56,6 +44,8 @@
                             </th>
                             <th></th>
                         </tr>
+                    </thead>
+                    <tbody>
                         @foreach (var item in Model)
                         {
                             <tr>
@@ -71,32 +61,21 @@
                                 <partial name="_AddEditAndView" model="item.EspecialidadId" />
                             </tr>
                         }
-                    </table>
-                }
-                else
-                {
-                    <h2 style="color:red">No hay usuarios en la lista.</h2>
-                }
-            </div>
-            <form asp-action="Delete" asp-controller="Especialidad" method="post" id="viewEliminar">
-                <input type="hidden" id="txtEspecialidadId" name="EspecialidadId" />
-            </form>
-            <form asp-action="Edit" asp-controller="Especialidad" method="post" id="viewEditar">
-                <input type="hidden" id="txtEspecialidadId" name="EspecialidadId" />
-            </form>
-        </main>
-    </div>
-    <script src="~/js/jquery.js" asp-append-version="true"></script>
-    <script src="~/js/bootstrap.min.js" asp-append-version="true"></script>
-    <script src="~/js/jquery.sticky.js" asp-append-version="true"></script>
-    <script src="~/js/jquery.stellar.min.js" asp-append-version="true"></script>
-    <script src="~/js/wow.min.js" asp-append-version="true"></script>
-    <script src="~/js/smoothscroll.js" asp-append-version="true"></script>
-    <script src="~/js/owl.carousel.min.js" asp-append-version="true"></script>
-    <script src="~/js/custom.js" asp-append-version="true"></script>
-    <script src="~/js/datatables.min.js" asp-append-version="true"></script>
-    <script src="~/js/especializado.js" asp-append-version="true"></script>
-    <script src="~/js/Utilitarios.js" asp-append-version="true"></script>
-    <script src="~/js/sweetalert2.js" asp-append-version="true"></script>
-</body>
-</html>
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <h2 style="color:red">No hay especialidades en la lista.</h2>
+            }
+        </div>
+        <form asp-action="Delete" asp-controller="Especialidad" method="post" id="viewEliminarEspecialidad">
+            <input type="hidden" id="txtEspecialidadId" name="EspecialidadId" />
+        </form>
+        <form asp-action="Edit" asp-controller="Especialidad" method="post" id="viewEditar">
+            <input type="hidden" id="txtEspecialidadId" name="EspecialidadId" />
+        </form>
+    </main>
+</div>
+<partial name="_EndPag" />
+

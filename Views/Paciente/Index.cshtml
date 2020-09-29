@@ -1,107 +1,98 @@
-﻿@model IEnumerable<WebClinica.Models.Paciente>
+﻿@model IEnumerable<Paciente>
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = null;
+    ViewData["Title"] = "Paciente";
+    Layout = "~/Views/Shared/_Content.cshtml";
 }
-
-<!DOCTYPE html>
-
-<html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-    <link href="~/css/StyleSheet.css" rel="stylesheet" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/bootstrap.min.css" asp-append-version="true">
-    <link rel="stylesheet" href="~/css/font-awesome.min.css" asp-append-version="true">
-    <link rel="stylesheet" href="~/css/animate.css" asp-append-version="true">
-    <link rel="stylesheet" href="~/css/owl.carousel.css" asp-append-version="true">
-    <link rel="stylesheet" href="~/css/owl.theme.default.min.css" asp-append-version="true">
-    <!-- MAIN CSS -->
-    <link rel="stylesheet" href="~/css/tooplate-style.css" asp-append-version="true">
-    <link href="~/css/especializado.css" rel="stylesheet" asp-append-version="true" />
+    <title>Paciente</title>
 </head>
-<body>
-    <partial name="_Menu" />
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h2 class="text-info">Lista Medico</h2>
-            </div>
-            <div class="col-md-6">
-                <h4></h4>
-                <h4></h4>
-                <div class="container" style="width:auto; text-align:right;">
-                    <partial name="_CreateButtonPartial" />
+<partial name="_Menu" />
+<div class="container">
+    <main class="pb-3" role="main">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 col-lg-12">
+                    <h2 class="text-light">Lista Paciente</h2>
                 </div>
             </div>
+            <form asp-controller="Paciente" asp-action="Index" method="post" id="frmFilter">
+                <div class="row contenedorEspecialidad">
+                    <div class="col-md-2 col-lg-2 text-right">
+                        <partial name="_CreateButtonPartial" />
+                    </div>
+                    <br />
+                    <div class="col-md-2 col-lg-2 text-right">
+                        <partial name="_BackHome" />
+                    </div>
+                </div>
+                <div class="col-md-12" style="color:black;"><hr></div>
+            </form>
+            @if (Model.Count() > 0)
+            {
+                <table class="table table-hover border .table-responsive" id="TbEspecial">
+                    <thead class="thead-dark">
+                        <tr class="table-secondary">
+                            <th>
+                                @Html.DisplayNameFor(model => model.PacienteId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Nombre)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Apellidos)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Direccion)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TelefonoContacto)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Foto)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PacienteId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Apellidos)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Direccion)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TelefonoContacto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Foto)
+                                </td>
+                                <partial name="_AddEditAndView" model="item.PacienteId" />
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <h2 style="color:red">No hay pacientes en la lista.</h2>
+            }
         </div>
-        @if (Model.Count() > 0)
-        {
-            <table class="table table-striped border">
-                <tr class="table table-dark">
-                    <th>
-                        @Html.DisplayNameFor(model => model.PacienteId)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Nombre)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Apellidos)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Direccion)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.TelefonoContacto)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Foto)
-                    </th>
-                    <th></th>
-                </tr>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PacienteId)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nombre)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Apellidos)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Direccion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TelefonoContacto)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Foto)
-                        </td>
-                        <partial name="_AddEditAndView" model="item.PacienteId" />
-                    </tr>
-                }
-            </table>
-        }
-        else
-        {
-            <h2 style="color:red">No hay usuarios en la lista.</h2>
-        }
-    </div>
-    <script src="~/js/jquery.js" asp-append-version="true"></script>
-    <script src="~/js/bootstrap.min.js" asp-append-version="true"></script>
-    <script src="~/js/jquery.sticky.js" asp-append-version="true"></script>
-    <script src="~/js/jquery.stellar.min.js" asp-append-version="true"></script>
-    <script src="~/js/wow.min.js" asp-append-version="true"></script>
-    <script src="~/js/smoothscroll.js" asp-append-version="true"></script>
-    <script src="~/js/owl.carousel.min.js" asp-append-version="true"></script>
-    <script src="~/js/custom.js" asp-append-version="true"></script>
-    <script src="~/js/datatables.min.js" asp-append-version="true"></script>
-    <script src="~/js/especializado.js" asp-append-version="true"></script>
-    <script src="~/js/Utilitarios.js" asp-append-version="true"></script>
-    <script src="~/js/sweetalert2.js" asp-append-version="true"></script>
-</body>
-</html>
+        <form asp-action="Delete" asp-controller="Paciente" method="post" id="viewEliminarPaciente">
+            <input type="hidden" id="txtPacienteId" name="PacienteId" />
+        </form>
+        <form asp-action="Edit" asp-controller="Paciente" method="post" id="viewEditar">
+            <input type="hidden" id="txtPacienteId" name="PacienteId" />
+        </form>
+    </main>
+</div>
+<partial name="_EndPag" />

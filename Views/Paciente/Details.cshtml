@@ -1,11 +1,12 @@
-﻿@model Paciente
+﻿@model WebClinica.Models.Paciente
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Content.cshtml";
 }
+
 <head>
-    <title>Agregar paciente</title>
+    <title>Detalles paciente</title>
 </head>
 <partial name="_Menu" />
 <div class="container" style="margin-top:15px;">
@@ -14,7 +15,7 @@
             <form asp-action="Create" method="post" id="viewAgregar">
                 <div class="container-fluid">
                     <fieldset>
-                        <legend class="text-center header">Agregar nuevo paciente</legend>
+                        <legend class="text-center header">Detalles paciente</legend>
                         <br style="margin-top:15px;" />
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group row">
@@ -22,7 +23,7 @@
                                 <label asp-for="PacienteId" class="control-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <input asp-for="PacienteId" value="@ViewBag.ID" readonly="readonly" class="form-control" placeholder="ID Paciente"/>
+                                <input asp-for="PacienteId" readonly="readonly" class="form-control" placeholder="ID Paciente" />
                             </div>
                             <span asp-validation-for="PacienteId" class="text-danger"></span>
                         </div>
@@ -31,7 +32,7 @@
                                 <label asp-for="Nombre" class="control-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <input asp-for="Nombre" class="form-control" placeholder="Nombre"/>
+                                <input asp-for="Nombre" class="form-control" placeholder="Nombre" />
                             </div>
                             <span asp-validation-for="Nombre" class="text-danger"></span>
                         </div>
@@ -40,7 +41,7 @@
                                 <label asp-for="Apellidos" class="control-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <input asp-for="Apellidos" class="form-control" placeholder="Apellidos"/>
+                                <input asp-for="Apellidos" class="form-control" placeholder="Apellidos" />
                             </div>
                             <span asp-validation-for="Apellidos" class="text-danger"></span>
                         </div>
@@ -49,7 +50,7 @@
                                 <label asp-for="Direccion" class="control-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <input asp-for="Direccion" class="form-control" placeholder="Direccion"/>
+                                <input asp-for="Direccion" class="form-control" placeholder="Direccion" />
                             </div>
                             <span asp-validation-for="Direccion" class="text-danger"></span>
                         </div>
@@ -58,7 +59,7 @@
                                 <label asp-for="TelefonoContacto" class="control-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <input asp-for="TelefonoContacto" class="form-control" placeholder="Telefono"/>
+                                <input asp-for="TelefonoContacto" class="form-control" placeholder="Telefono" />
                             </div>
                             <span asp-validation-for="TelefonoContacto" class="text-danger"></span>
                         </div>
@@ -67,17 +68,13 @@
                                 <label asp-for="Foto" class="control-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <input asp-for="Foto" class="form-control" placeholder="Foto"/>
+                                <input asp-for="Foto" class="form-control" placeholder="Foto" />
                             </div>
                             <span asp-validation-for="Foto" class="text-danger"></span>
                         </div>
                     </fieldset>
                     <div class="row" style="display:flex; justify-content:space-between">
-                        <div class="col-md-4 text-align-right">
-                            <input type="submit" class="btn btn-primary btn-lg" value="Agregar" id="agregar" onclick="agregar()" style="border-radius: 50px; padding: 12px 15px; border-width: 1px; border-style: solid; text-transform: uppercase;" />
-                        </div>
-                        <br />
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <a class="btn btn-info btn-lg" id="regresar" asp-action="Index" style="border-radius: 50px; padding: 12px 15px; border-width: 1px; border-style: solid; text-transform: uppercase;">Regresar</a>
                         </div>
                     </div>

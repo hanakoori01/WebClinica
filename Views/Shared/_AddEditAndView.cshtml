@@ -1,13 +1,13 @@
 ﻿@model int
 <td style="width:150px">
     <div class="btn-group tabla" id="tabla" role="group">
-        <a class="btn btn-primary text-white boton-edit" asp-controller="Especialidad" asp-action="Edit" asp-route-Id="@Model">
+        <a class="btn btn-primary text-white boton-edit" asp-action="Edit" asp-route-Id="@Model">
             <img src="~/images/editar.png" style="width:20px; border-color:black;" />
         </a>
-        <a class="btn btn-success text-white boton-list" asp-controller="Especialidad" asp-action="Details" asp-route-Id="@Model">
+        <a class="btn btn-success text-white boton-list" asp-action="Details" asp-route-Id="@Model">
             <img src="~/images/lista.png" style="width:20px; border-color:black;" />
         </a>
-        <a class="btn btn-danger text-white boton-delete" aria-hidden="true" onclick="EliminarEspecialidad(@Model)">
+        <a class="btn btn-danger text-white boton-delete" aria-hidden="true" onclick="eliminar(@Model)">
             <img src="~/images/eliminar (1).png" style="width:20px; border-color:black;" />
         </a>
     </div>
