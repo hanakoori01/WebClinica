@@ -2,24 +2,6 @@
     vertical-align: middle !important;
 }
 
-#agregar {
-    border-color: transparent;
-    background-color: #65c7f2;
-}
-
-    #agregar:hover {
-        border-color: transparent;
-        background-color: #65c7f2;
-    }
-
-#regresar {
-    border-color:transparent;
-}
-
-    #regresar:hover {
-        border-color:transparent;
-        background-color: #65c7f2;
-    }
 
 
 #tituloEspecialidad {
@@ -127,10 +109,12 @@
     border-width: 1px;
     border-style: solid;
     text-transform: uppercase;
-    background-color:#05521c;
+    border-color: transparent;
+    background-color: #74620c;
 }
     .botonAgregar:hover {
-        background-color: #098e30;
+        border-color: transparent;
+        background-color: #b59810;
     }
 .botonRegresar {
     border-radius: 50px;
@@ -138,10 +122,13 @@
     border-width: 1px;
     border-style: solid;
     text-transform: uppercase;
-    background-color: #05521c;
+    border-color: transparent;
+    background-color: black;
 }
     .botonRegresar:hover {
-        background-color: #098e30;
+        background-color: white;
+        border-color:black;
+        color:black;
     }
 .botonEditar {
     border-radius: 50px;
@@ -149,9 +136,11 @@
     border-width: 1px;
     border-style: solid;
     text-transform: uppercase;
-    background-color: #05521c;
+    border-color: transparent;
+    background-color: #85180d;
 }
 
     .botonEditar:hover {
-        background-color: #098e30;
+        border-color:transparent;
+        background-color: #b51818;
     }

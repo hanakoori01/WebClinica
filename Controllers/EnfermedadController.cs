@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Clinica.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace WebClinica.Controllers
                                {
                                    EnfermedadId = enfermedad.EnfermedadId,
                                      Nombre = enfermedad.Nombre,
-                                     Descripcion = enfermedad.Descripcion.Substring(0, 85) + "..."  //Cambio
+                                     Descripcion = enfermedad.Descripcion.Substring(0, 85) + "..." 
                                  }).ToList();
             var model = listaEnfermedad;
             return View("Index", model);
@@ -112,6 +113,25 @@ namespace WebClinica.Controllers
                 Error = ex.Message;
             }
             return RedirectToAction(nameof(Index));
+        }
+        public FileResult exportarExcel()
+        {
+            var lista = _db.Set<Enfermedad>().ToList();
+            Utilitarios util = new Utilitarios();
+            string[] cabeceras = { "Enfermedad Id", "Nombre", "Descripcion" };
+            string[] nombrePropiedades = { "EnfermedadId", "Nombre", "Descripcion" };
+            byte[] buffer = util.generarExcel(cabeceras, nombrePropiedades, lista);
+            //content type mime xlsx google
+            return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        }
+        public FileResult exportarPDF()
+        {
+            var lista = _db.Set<Enfermedad>().ToList();
+            Utilitarios util = new Utilitarios();
+            string[] nombrePropiedades = { "EnfermedadId", "Nombre", "Descripcion" };
+            string titulo = "Reporte de Enfermedades";
+            byte[] buffer = util.ExportarPDFDatos(nombrePropiedades, lista, titulo);
+            return File(buffer, "application/pdf");
         }
     }
 }

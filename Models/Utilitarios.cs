@@ -49,7 +49,7 @@ namespace Clinica.Models
                     p1.SetFontSize(20);
                     p1.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
                     Image img = new Image(ImageDataFactory
-                   .Create(@"D:\Clinica\wwwroot\img\ClinicaAcme.png"))
+                   .Create(@"wwwroot\images\logo.png"))
                    .SetTextAlignment(TextAlignment.LEFT);
 
                     doc.Add(img);

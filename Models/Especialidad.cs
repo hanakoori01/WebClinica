@@ -7,7 +7,7 @@ namespace WebClinica.Models
     {
         [Required(ErrorMessage = "Debe digitar el ID de la Especialidad")]
         [Display(Name = "ID:")]
-        public int EspecialidadId { get; set; }
+        public int? EspecialidadId { get; set; }
         [Required(ErrorMessage = "Debe digitar el Nombre de la Especialidad")]
         [Display(Name = "Nombre:")]
         public string Nombre { get; set; }
@@ -16,6 +16,6 @@ namespace WebClinica.Models
         public string Descripcion { get; set; }
 
         public virtual ICollection<Medico> Medico { get; set; }
-        public int? EnfermedadId { get; internal set; }
+       
     }
 }

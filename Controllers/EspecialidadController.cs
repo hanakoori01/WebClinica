@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Clinica.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace WebClinica.Controllers
                                  {
                                      EspecialidadId = especialidad.EspecialidadId,
                                      Nombre = especialidad.Nombre,
-                                     Descripcion = especialidad.Descripcion.Substring(0, 85) + "..."  //Cambio
+                                     Descripcion = especialidad.Descripcion.Substring(0, 85) + "..."  
                                  }).ToList();
             var model = listaEspecialidad;
             return View("Index", model);
@@ -112,6 +113,24 @@ namespace WebClinica.Controllers
                 Error = ex.Message;
             }
             return RedirectToAction(nameof(Index));
+        }
+        public FileResult exportarExcel()
+        {
+            Utilitarios util = new Utilitarios();
+            string[] cabeceras = { "Especialidad", "Nombre", "Descripcion" };
+            string[] nombrePropiedades = { "EspecialidadId", "Nombre", "Descripcion" };
+            byte[] buffer = util.generarExcel(cabeceras, nombrePropiedades, listaEspecialidad);
+            //content type mime xlsx google
+            return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        }
+        public FileResult exportarPDF()
+        {
+            Utilitarios util = new Utilitarios();
+            string[] cabeceras = { "Especialidad", "Nombre", "Descripcion" };
+            string[] nombrePropiedades = { "EspecialidadId", "Nombre", "Descripcion" };
+            string titulo = "Reporte de Especialidades";
+            byte[] buffer = util.ExportarPDFDatos(nombrePropiedades, listaEspecialidad, titulo);
+            return File(buffer, "application/pdf");
         }
     }
 }
