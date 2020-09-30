@@ -60,6 +60,26 @@ function abrirModalCrearPaciente() {
         }
     })
 }
+function abrirModalCrearEnfermedad() {
+    verModal('Agregar enfermedad', '¿Desea guardar la enfermedad?').then((result) => {
+        if (result.value) {
+            var viewAgregar = document.getElementById("viewAgregar");
+            viewAgregar.submit();
+            Swal.fire(
+                'Agregado!',
+                'La enfermedad fue agregado!.',
+                'success'
+            )
+        }
+        else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire(
+                'Cancelado',
+                'La enfermedad no fue agregada!!!:)',
+                'error'
+            )
+        }
+    })
+}
 /*------------------------------------------------------*/
 /*--------------------MODALES EDITAR--------------------*/
 
@@ -120,6 +140,26 @@ function abrirModalEditarPaciente() {
             Swal.fire(
                 'Cancelado',
                 'El paciente no fue modificado!!!:)',
+                'error'
+            )
+        }
+    })
+}
+function abrirModalEditarEnfermedad() {
+    verModal('Modificar enfermedad', '¿Desea modificar la enfermedad?').then((result) => {
+        if (result.value) {
+            var viewEditar = document.getElementById("viewEditar");
+            viewEditar.submit();
+            Swal.fire(
+                'Modificada!',
+                'La enfermedad fue modificada!.',
+                'success'
+            )
+        }
+        else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire(
+                'Cancelado',
+                'La enfermedad no fue modificada!!!:)',
                 'error'
             )
         }
@@ -198,6 +238,30 @@ function EliminarPaciente(PacienteId) {
             }
         })
 }
+function EliminarEnfermedad(EnfermedadId) {
+    document.getElementById("txtEnfermedadId").value = EnfermedadId;
+    verModal('Eliminar enfermedad',
+        '¿Desea eliminar la enfermedad con el código '
+        + EnfermedadId + '?').then((result) => {
+            if (result.value) {
+                var viewEliminar = document.getElementById("viewEliminarEnfermedad");
+                viewEliminar.submit();
+                Swal.fire(
+                    'Eliminación!',
+                    'La enfermedad' + EnfermedadId + 'fue eliminada!.',
+                    'success'
+                )
+            }
+            else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'Cancelado',
+                    'La enfermedad no fue eliminada!!!:)',
+                    'error'
+                )
+            }
+        })
+}
+
 /*--------------------METODOS ELIMINAR--------------------*/
 /*--------------------METODOS GLOBALES--------------------*/
 
@@ -212,6 +276,10 @@ function agregar() {
         } else {
             if (titulo == "Agregar paciente") {
                 abrirModalCrearPaciente();
+            } else {
+                if (titulo == "Agregar enfermedad") {
+                    abrirModalCrearEnfermedad();
+                }
             }
         }
     }
@@ -227,6 +295,10 @@ function editar() {
         } else {
             if (titulo == "Editar paciente") {
                 abrirModalEditarPaciente();
+            } else {
+                if (titulo == "Editar enfermedad") {
+                    abrirModalEditarEnfermedad();
+                }
             }
         }
     }
@@ -242,6 +314,11 @@ function eliminar(id) {
         } else {
             if (titulo == "Paciente") {
                 EliminarPaciente(id);
+            } else {
+                if (titulo == "Enfermedad") {
+                    EliminarEnfermedad(id);
+                }
+
             }
         }
     }

@@ -107,7 +107,7 @@ http://www.tooplate.com/view/2098-health
   }
 
 .section-btn {
-    background: #007f7e;
+    background: #0a8a57;
     border: 0;
     border-radius: 3px;
     color: #ffffff;
@@ -141,7 +141,7 @@ http://www.tooplate.com/view/2098-health
   }
 
   .btn-blue {
-    background: #4267b2;
+    background: #0fbb76;
   }
 
   .news-thumb {
@@ -319,7 +319,7 @@ http://www.tooplate.com/view/2098-health
   }
 
     .navbar-default .navbar-brand .fa {
-        color: #007f7e;
+        color: #0c8051;
     }
 
   .navbar-default .navbar-nav li.appointment-btn {
@@ -327,7 +327,7 @@ http://www.tooplate.com/view/2098-health
   }
 
     .navbar-default .navbar-nav li.appointment-btn a {
-        background: #007f7e;
+        background: #0c8051;
         border-radius: 3px;
         color: #ffffff;
         font-weight: 600;
@@ -336,7 +336,7 @@ http://www.tooplate.com/view/2098-health
     }
 
   .navbar-default .navbar-nav li.appointment-btn a:hover {
-    background: #4267b2;
+    background: #42b278;
     color: #ffffff !important;
   }
 
@@ -452,15 +452,15 @@ http://www.tooplate.com/view/2098-health
   }
 
   .slider .item-first {
-    background-image: url(../images/slider1.jpg);
+    background-image: url('../images/retratoMedico (3).jpg');
   }
 
   .slider .item-second {
-    background-image: url(../images/slider2.jpg);
+    background-image: url('../images/retratoMedico (5).jpg');
   }
 
   .slider .item-third {
-    background-image: url(../images/slider3.jpg);
+    background-image: url('../images/retratoMedico (2).jpg');
   }
 
 
@@ -469,7 +469,7 @@ http://www.tooplate.com/view/2098-health
   -----------------------------------------*/
 
   #about {
-    background: url('../images/about-bg.jpg') no-repeat top center;
+    background: url('../images/Medico (12).jpg') no-repeat top center;
     background-size: cover;
     padding-top: 150px;
     padding-bottom: 150px;

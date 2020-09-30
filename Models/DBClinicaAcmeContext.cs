@@ -13,6 +13,7 @@ namespace WebClinica.Models
             : base(options)
         {
         }
+        public virtual DbSet<Enfermedad> Enfermedad { get; set; }
         public virtual DbSet<Citas> Citas { get; set; }
         public virtual DbSet<Especialidad> Especialidad { get; set; }
         public virtual DbSet<Medico> Medico { get; set; }
@@ -24,12 +25,28 @@ namespace WebClinica.Models
             if (!optionsBuilder.IsConfigured)
             {
                 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("server= BAKEMONO\\SQLEXPRESS;Database = DBClinicaAcme;Trusted_Connection=True;MultipleActiveResultSets=true;");
+                optionsBuilder.UseSqlServer("server= DESKTOP-L0CT9J8\\SQLEXPRESS;Database = DBClinicaAngel;Trusted_Connection=True;MultipleActiveResultSets=true;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Enfermedad>(entity =>
+            {
+                entity.Property(e => e.EnfermedadId)
+                .HasColumnName("enfermedadId")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.Nombre)
+                   .HasMaxLength(50)
+                   .IsUnicode(false);
+
+                entity.Property(e => e.Descripcion)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+               
+            });
             modelBuilder.Entity<Especialidad>(entity =>
             {
                 entity.Property(e => e.EspecialidadId)
@@ -127,19 +144,6 @@ namespace WebClinica.Models
                 entity.Property(e => e.PacienteId)
                    .HasColumnName("PacienteId")
                    .ValueGeneratedNever();
-
-
-                entity.HasOne(d => d.Medico)
-                    .WithMany(p => p.Citas)
-                    .HasForeignKey(d => d.MedicoId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Citas_Medico");
-
-                entity.HasOne(d => d.Paciente)
-                    .WithMany(p => p.Citas)
-                    .HasForeignKey(d => d.PacienteId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Citas_Paciente");
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -16,5 +16,6 @@ namespace WebClinica.Models
         public string Descripcion { get; set; }
 
         public virtual ICollection<Medico> Medico { get; set; }
+        public int? EnfermedadId { get; internal set; }
     }
 }

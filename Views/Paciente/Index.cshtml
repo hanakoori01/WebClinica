@@ -17,7 +17,7 @@
                 </div>
             </div>
             <form asp-controller="Paciente" asp-action="Index" method="post" id="frmFilter">
-                <div class="row contenedorEspecialidad">
+                <div class="row contenedorBotones">
                     <div class="col-md-2 col-lg-2 text-right">
                         <partial name="_CreateButtonPartial" />
                     </div>
@@ -26,7 +26,7 @@
                         <partial name="_BackHome" />
                     </div>
                 </div>
-                <div class="col-md-12" style="color:black;"><hr></div>
+                <div class="col-md-12 divisor"><hr></div>
             </form>
             @if (Model.Count() > 0)
             {

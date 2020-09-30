@@ -31,7 +31,7 @@
                 <span class="icon icon-bar"></span>
             </button>
             <!-- lOGO TEXT HERE -->
-            <a asp-controller="Home" asp-action="Index" class="navbar-brand"><i class="fa fa-ambulance"></i>Centro de salud</a>
+            <a href="#top" class="navbar-brand"><i class="fa fa-hospital-o"></i>Centro de salud Espinoza</a>
         </div>
         <!-- MENU LINKS -->
         <div class="collapse navbar-collapse">
@@ -49,18 +49,21 @@
                         Mantenimiento
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navabarDropDownMenuLink">
-                        <a class="dropdown-item" asp-action="Index" asp-controller="Especialidad">
-                            <i class="fa fa-stethoscope" aria-hidden="true"></i> Especialidades
+                        <a class="dropdown-item" asp-controller="Especialidad" asp-action="Index">
+                            <i class="fa fa-medkit" aria-hidden="true"></i> Especialidades
                         </a>
                         <br />
                         <a class="dropdown-item" asp-controller="Medico" asp-action="Index">
-                            <i class="fa fa-medkit" aria-hidden="true"></i> Médicos
+                            <i class="fa fa-user-md" aria-hidden="true"></i> Médicos
                         </a>
                         <br />
                         <a class="dropdown-item" asp-controller="Paciente" asp-action="Index">
                             <i class="fa fa-heartbeat" aria-hidden="true"></i> Pacientes
                         </a>
                         <br />
+                        <a class="dropdown-item" asp-controller="Enfermedad" asp-action="Index">
+                            <i class="fa fa-wheelchair" aria-hidden="true"></i> Enfermedad
+                        </a>
                     </div>
                 </li>
                 <li class="appointment-btn"><a href="#appointment">Haga su cita</a></li>

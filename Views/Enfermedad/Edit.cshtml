@@ -1,17 +1,17 @@
-﻿@model Especialidad
+﻿@model Enfermedad
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Content.cshtml";
 }
 <head>
-    <title>Agregar especialidad</title>
+    <title>Editar enfermedad</title>
 </head>
 <partial name="_Menu" />
 <div class="container contenedorPrincipal">
     <main class="pb-3" role="main">
         <div class="row">
-            <form asp-action="Create" method="post" id="viewAgregar">
+            <form asp-action="Edit" method="post" id="viewEditar">
                 <div class="container-fluid">
                     <fieldset>
                         <legend class="text-center header">Agregar nueva especialidad</legend>
@@ -19,12 +19,12 @@
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group row">
                             <div class="col-md-3 text-align-right">
-                                <label asp-for="EspecialidadId" class="col-form-label"></label>
+                                <label asp-for="EnfermedadId" class="col-form-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <input asp-for="EspecialidadId" value="@ViewBag.ID" readonly="readonly" class="form-control" placeholder="ID Especialidad" />
+                                <input asp-for="EnfermedadId" readonly="readonly" class="form-control" placeholder="ID Enfermedad" />
                             </div>
-                            <span asp-validation-for="EspecialidadId" class="text-danger"></span>
+                            <span asp-validation-for="EnfermedadId" class="text-danger"></span>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-3 text-align-right">
@@ -47,11 +47,11 @@
                     </fieldset>
                     <div class="row contenedorBoton">
                         <div class="col-md-4 text-align-right">
-                            <input type="submit" class="btn btn-primary btn-lg botonAgregar" value="Agregar" id="agregar" onclick="agregar()" />
+                            <a class="btn btn-primary btn-lg botonEditar" id="Editar" onclick="editar()">Editar</a>
                         </div>
                         <br />
                         <div class="col-md-4">
-                            <a class="btn btn-info btn-lg" id="regresar botonRegresar" asp-action="Index">Regresar</a>
+                            <a class="btn btn-info btn-lg botonRegresar" id="regresar" asp-action="Index">Regresar</a>
                         </div>
                     </div>
                 </div>
@@ -60,4 +60,3 @@
     </main>
 </div>
 <partial name="_EndPag" />
-

@@ -4,12 +4,12 @@
 
 #agregar {
     border-color: transparent;
-    background-color: #007f7e;
+    background-color: #65c7f2;
 }
 
     #agregar:hover {
-        border-color:transparent;
-        background-color: #4267b2;
+        border-color: transparent;
+        background-color: #65c7f2;
     }
 
 #regresar {
@@ -18,51 +18,58 @@
 
     #regresar:hover {
         border-color:transparent;
-        background-color: #4267b2;
+        background-color: #65c7f2;
     }
+
 
 #tituloEspecialidad {
     text-align: center;
 }
 
+
+
+
+
+
+
+/*INDEX*/
+ 
+ .divisor{
+    color: black;
+ }
+.textoInformativo{
+    color:red;
+}
+
+/*BOTONES*/
 .crear {
     border: none;
     width: 100%;
     height: 100%;
     padding: 6px;
-    background-color: #007f7e;
+    background-color: #85180d;
 }
 
     .crear:hover {
-        background-color: #4267b2;
+        border: none;
+        background-color: #b51818;
     }
 
 .inicio {
     width: 100%;
     height: 100%;
     padding: 6px;
+    background-color: black;
+    border-color: transparent;
+
 }
 
     .inicio:hover {
-        background-color: #4267b2;
+        color: black;
+        background-color: white;
+        border-color: transparent;
     }
-
-.regresarIndexEspecialidad {
-    background-color: #007f7e;
-}
-    .regresarIndexEspecialidad:hover {
-        background-color: #4267b2;
-    }
-
-.contenedorEspecialidad {
-    display: flex;
-}
-
-.contenedorMedico{
-    display: flex;
-}
-
-.contenedorPaciente{
+.contenedorBotones {
     display: flex;
 }
 
@@ -70,6 +77,12 @@
     margin-top: 25px;
     display: flex;
 }
+.contenedorLista {
+    display:flex;
+    background: url('../images/green.jpg') no-repeat top center;
+    align-items:center;
+}
+/*BOTONES DE LA TABLA*/
 
 .boton-delete {
     background-color: white;
@@ -99,4 +112,46 @@
 
     .boton-edit:hover {
         background-color: rgba(199, 199, 199, 1);
+    }
+/*CREATE*/
+.contenedorPrincipal {
+    margin-top: 15px;
+}
+.contenedorBoton {
+    display: flex;
+    justify-content: space-between
+}
+.botonAgregar {
+    border-radius: 50px;
+    padding: 12px 15px;
+    border-width: 1px;
+    border-style: solid;
+    text-transform: uppercase;
+    background-color:#05521c;
+}
+    .botonAgregar:hover {
+        background-color: #098e30;
+    }
+.botonRegresar {
+    border-radius: 50px;
+    padding: 12px 15px;
+    border-width: 1px;
+    border-style: solid;
+    text-transform: uppercase;
+    background-color: #05521c;
+}
+    .botonRegresar:hover {
+        background-color: #098e30;
+    }
+.botonEditar {
+    border-radius: 50px;
+    padding: 12px 15px;
+    border-width: 1px;
+    border-style: solid;
+    text-transform: uppercase;
+    background-color: #05521c;
+}
+
+    .botonEditar:hover {
+        background-color: #098e30;
     }
