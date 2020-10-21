@@ -17,6 +17,8 @@ using iText.Svg.Renderers.Impl;
 using iText.IO.Image;
 using iText.Layout.Properties;
 using OfficeOpenXml;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Clinica.Models
 {
@@ -44,17 +46,14 @@ namespace Clinica.Models
                     //.SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA));
                     //Paragraph p0 = new Paragraph(Texto);
                     //p0.SetFontSize(24);
-                   
+                    
                     Paragraph p1 = new Paragraph(titulo);
                     p1.SetFontSize(20);
-                    p1.SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+                    p1.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
                     Image img = new Image(ImageDataFactory
-                   .Create(@"wwwroot\images\logoEspinoza.png"))
+                   .Create(@"D:\Clinica\wwwroot\img\ClinicaAcme.png"))
                    .SetTextAlignment(TextAlignment.LEFT);
 
-                    img.SetMaxHeight(100);
-                    img.SetMaxWidth(100);
- 
                     doc.Add(img);
                     doc.Add(p1);
                     //crearemos la tabla
@@ -63,8 +62,8 @@ namespace Clinica.Models
                     for (int i = 0; i < nombrePropiedades.Length; i++)
                     {
                         celda = new Cell();
-                       celda.Add(new Paragraph(diccionario[nombrePropiedades[i]]));
-                      //  celda.Add(new Paragraph(nombrePropiedades[i]));
+                        celda.Add(new Paragraph(diccionario[nombrePropiedades[i]]));
+                        //celda.Add(new Paragraph(nombrePropiedades[i]));
                         table.AddHeaderCell(celda);
                     }
                     foreach (object item in lista)
@@ -73,7 +72,7 @@ namespace Clinica.Models
                         {
                             celda = new Cell();
                             celda.Add(new Paragraph(
-                            item.GetType().GetProperty(propiedad).GetValue(item).ToString()));
+                            item.GetType().GetProperty(propiedad).GetValue(item).ToString()));                      
                             table.AddCell(celda);
                         }
                     }
@@ -115,6 +114,54 @@ namespace Clinica.Models
                     ep.SaveAs(ms);
                     byte[] buffer = ms.ToArray();
                     return buffer;
+                }
+            }
+        }
+        //public static string cifrarDatos(string data)
+        //{
+        //    SHA256Managed sha = new SHA256Managed();
+        //    byte[] dataSinCifrar = Encoding.Default.GetBytes(data);
+        //    byte[] dataCifrada = sha.ComputeHash(dataSinCifrar);
+        //    return BitConverter.ToString(dataCifrada).Replace("-", "");
+        //}
+        static string key { get; set; } = "A!9HHhi%XjjYY4YP2@Nob009X";
+        public static string CifrarDatos(string data)
+        {
+            using (var md5 = new MD5CryptoServiceProvider())
+            {
+                using (var tdes = new TripleDESCryptoServiceProvider())
+                {
+                    tdes.Key = md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
+                    tdes.Mode = CipherMode.ECB;
+                    tdes.Padding = PaddingMode.PKCS7;
+
+                    using (var transform = tdes.CreateEncryptor())
+                    {
+                        byte[] textBytes = UTF8Encoding.UTF8.GetBytes(data);
+                        byte[] bytes = transform.TransformFinalBlock(textBytes, 0, textBytes.Length);
+                        return Convert.ToBase64String(bytes, 0, bytes.Length);
+                    }
+                }
+            }
+        }
+
+
+        public static string DescifrarDatos(string data)
+        {
+            using (var md5 = new MD5CryptoServiceProvider())
+            {
+                using (var tdes = new TripleDESCryptoServiceProvider())
+                {
+                    tdes.Key = md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
+                    tdes.Mode = CipherMode.ECB;
+                    tdes.Padding = PaddingMode.PKCS7;
+
+                    using (var transform = tdes.CreateDecryptor())
+                    {
+                        byte[] cipherBytes = Convert.FromBase64String(data);
+                        byte[] bytes = transform.TransformFinalBlock(cipherBytes, 0, cipherBytes.Length);
+                        return UTF8Encoding.UTF8.GetString(bytes);
+                    }
                 }
             }
         }

@@ -21,8 +21,10 @@ namespace WebClinica.Models
         [Required(ErrorMessage = "Debe digitar el telefono")]
         [Display(Name = "Telefono:")]
         public string TelefonoContacto { get; set; }
-        public bool? Foto { get; set; }
+        [Display(Name = "Email:")]
+        public string Email { get; set; }
 
+        public bool? Foto { get; set; }
         public virtual ICollection<Citas> Citas { get; set; }
     }
 }

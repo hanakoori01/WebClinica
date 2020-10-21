@@ -7,7 +7,7 @@ namespace WebClinica.Models
     {
         [Required(ErrorMessage = "Debe digitar el Id de la Especialidad")]
         [Display(Name = "Id:")]
-        public int? EspecialidadId { get; set; }
+        public int EspecialidadId { get; set; }
         [Required(ErrorMessage = "Debe digitar el Nombre de la Especialidad")]
         [Display(Name = "Nombre:")]
         public string Nombre { get; set; }

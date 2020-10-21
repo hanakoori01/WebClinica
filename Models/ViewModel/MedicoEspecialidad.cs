@@ -8,7 +8,7 @@ namespace WebClinica.Models.ViewModel
 {
     public class MedicoEspecialidad
     {
-        [Required(ErrorMessage = "Debe digitar el ID del medico")]
+        [Required(ErrorMessage = "Debe digitar el Id del medico")]
         [Display(Name = "ID:")]
         public int MedicoId { get; set; }
         [Required(ErrorMessage = "Debe digitar el nombre del medico")]

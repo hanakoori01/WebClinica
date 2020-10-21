@@ -9,14 +9,14 @@ namespace Clinica.Models.ViewModel
 {
     public class CitaMedica
     {
-        [Display(Name = "Cita ID")]
+        [Display(Name = "Cita Id")]
 
         public int CitaId { get; set; }
-        [Display(Name = "Paciente ID")]
-        public string PacienteId { get; set; }
+        [Display(Name = "Paciente Id")]
+        public int PacienteId { get; set; }
         [Display(Name = "Paciente")]
         public string NombrePaciente { get; set; }
-        public string MedicoId { get; set; }
+        public int MedicoId { get; set; }
         [Display(Name = "Médico")]
         public string NombreMedico { get; set; }
 

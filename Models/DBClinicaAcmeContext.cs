@@ -65,13 +65,11 @@ namespace WebClinica.Models
                 .HasColumnName("CitaId");
 
                 entity.Property(e => e.PacienteId)
-                 .HasColumnName("PacienteId")
-                 .ValueGeneratedNever();
+                 .HasColumnName("PacienteId");
 
                 entity.Property(e => e.MedicoId)
-                   .HasColumnName("MedicoId")
-                   .ValueGeneratedNever();
-
+                   .HasColumnName("MedicoId");
+                 
                 entity.Property(e => e.FechaCita)
                     .HasColumnName("FechaCita")
                     .HasColumnType("datetime");
@@ -80,7 +78,8 @@ namespace WebClinica.Models
                    .HasMaxLength(300)
                    .IsUnicode(false);
 
-                entity.Property(e => e.EspecialidadId).HasColumnName("EspecialidadId");
+                entity.Property(e => e.EspecialidadId)
+                .HasColumnName("EspecialidadId");
             });
 
             modelBuilder.Entity<Enfermedad>(entity =>
@@ -174,7 +173,7 @@ namespace WebClinica.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Foto)
+                entity.Property(e => e.Email)
                   .HasMaxLength(50)
                   .IsUnicode(false);
             });
