@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Clinica.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -111,6 +112,25 @@ namespace WebClinica.Controllers
                 Error = ex.Message;
             }
             return RedirectToAction(nameof(Index));
+        }
+        public FileResult exportarExcel()
+        {
+            var lista = _db.Set<Paciente>().ToList();
+            Utilitarios util = new Utilitarios();
+            string[] cabeceras = { "Paciente ID", "Nombre", "Apellidos", "Direccion", "Telefono" };
+            string[] nombrePropiedades = { "PacienteId", "Nombre", "Apellidos", "Direccion", "TelefonoContacto" };
+            byte[] buffer = util.generarExcel(cabeceras, nombrePropiedades, lista);
+            //content type mime xlsx google
+            return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        }
+        public FileResult exportarPDF()
+        {
+            var lista = _db.Set<Paciente>().ToList();
+            Utilitarios util = new Utilitarios();
+            string[] nombrePropiedades = { "PacienteId", "Nombre", "Apellidos", "Direccion", "TelefonoContacto" };
+            string titulo = "Reporte de Pacientes";
+            byte[] buffer = util.ExportarPDFDatos(nombrePropiedades, lista, titulo);
+            return File(buffer, "application/pdf");
         }
     }
 }

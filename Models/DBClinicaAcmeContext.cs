@@ -13,12 +13,18 @@ namespace WebClinica.Models
             : base(options)
         {
         }
-        public virtual DbSet<Enfermedad> Enfermedad { get; set; }
+        public virtual DbSet<Boton> Boton { get; set; }
         public virtual DbSet<Citas> Citas { get; set; }
+        public virtual DbSet<Enfermedad> Enfermedad { get; set; }
         public virtual DbSet<Especialidad> Especialidad { get; set; }
         public virtual DbSet<Medico> Medico { get; set; }
         public virtual DbSet<Paciente> Paciente { get; set; }
+        public virtual DbSet<Pagina> Pagina { get; set; }
+        public virtual DbSet<TipoUsuario> TipoUsuario { get; set; }
+        public virtual DbSet<TipoUsuarioPagina> TipoUsuarioPagina { get; set; }
+        public virtual DbSet<TipoUsuarioPaginaBoton> TipoUsuarioPaginaBoton { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -31,10 +37,58 @@ namespace WebClinica.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Boton>(entity =>
+            {
+                entity.HasKey(e => e.BotonId);
+
+                entity.Property(e => e.BotonId).HasColumnName("BotonId");
+
+                entity.Property(e => e.Nombre)
+                   .HasColumnName("Nombre")
+                   .HasMaxLength(100)
+                   .IsUnicode(false);
+
+                entity.Property(e => e.Descripcion)
+                  .HasColumnName("Descripcion")
+                  .HasMaxLength(200)
+                  .IsUnicode(false);
+
+                entity.Property(e => e.BotonHabilitado).HasColumnName("BotonHabilitado");
+
+            });
+
+            modelBuilder.Entity<Citas>(entity =>
+            {
+                entity.HasKey(e => e.CitaId);
+
+                entity.Property(e => e.CitaId)
+                .HasColumnName("CitaId");
+
+                entity.Property(e => e.PacienteId)
+                 .HasColumnName("PacienteId")
+                 .ValueGeneratedNever();
+
+                entity.Property(e => e.MedicoId)
+                   .HasColumnName("MedicoId")
+                   .ValueGeneratedNever();
+
+                entity.Property(e => e.FechaCita)
+                    .HasColumnName("FechaCita")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.Diagnostico)
+                   .HasMaxLength(300)
+                   .IsUnicode(false);
+
+                entity.Property(e => e.EspecialidadId).HasColumnName("EspecialidadId");
+            });
+
             modelBuilder.Entity<Enfermedad>(entity =>
             {
+                entity.HasKey(e => e.EnfermedadId);
+
                 entity.Property(e => e.EnfermedadId)
-                .HasColumnName("enfermedadId")
+                .HasColumnName("EnfermedadId")
                     .ValueGeneratedNever();
 
                 entity.Property(e => e.Nombre)
@@ -42,108 +96,158 @@ namespace WebClinica.Models
                    .IsUnicode(false);
 
                 entity.Property(e => e.Descripcion)
-                    .HasMaxLength(50)
+                    .HasMaxLength(400)
                     .IsUnicode(false);
-
-               
             });
             modelBuilder.Entity<Especialidad>(entity =>
             {
-                entity.Property(e => e.EspecialidadId)
-                .HasColumnName("EspecialidadID")
-                    .ValueGeneratedNever();
+                entity.HasKey(e => e.EspecialidadId);
 
-                entity.Property(e => e.Descripcion)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.EspecialidadId)
+                .HasColumnName("EspecialidadId")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.Nombre)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.Property(e => e.Descripcion)
+                   .HasMaxLength(400)
+                   .IsUnicode(false);
             });
 
             modelBuilder.Entity<Medico>(entity =>
             {
+                entity.HasKey(e => e.MedicoId);
+
                 entity.Property(e => e.MedicoId)
-                    .HasColumnName("MedicoID")
+                    .HasColumnName("MedicoId")
                     .ValueGeneratedNever();
+
+                entity.Property(e => e.Nombre)
+                 .HasMaxLength(50)
+                 .IsUnicode(false);
 
                 entity.Property(e => e.Apellidos)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Direccion)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-               entity.HasOne(d => d.Especialidad)
-                .WithMany(p => p.Medico)
-                .HasForeignKey(d => d.EspecialidadId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Medico_Especialidad");
-
-                entity.Property(e => e.Nombre)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.TelefonoCelular)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.TelefonoFijo)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                 .HasMaxLength(50)
+                 .IsUnicode(false);
+
+                entity.Property(e => e.TelefonoCelular)
+                   .HasMaxLength(50)
+                   .IsUnicode(false);
+
+                entity.Property(e => e.EspecialidadId)
+                .HasColumnName("EspecialidadId");
+
+
             });
 
             modelBuilder.Entity<Paciente>(entity =>
             {
+                entity.HasKey(e => e.PacienteId);
+
                 entity.Property(e => e.PacienteId)
                     .HasColumnName("PacienteId")
                     .ValueGeneratedNever();
+
+                entity.Property(e => e.Nombre)
+                 .HasMaxLength(50)
+                 .IsUnicode(false);
 
                 entity.Property(e => e.Apellidos)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Direccion)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Foto)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Nombre)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.TelefonoContacto)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.Property(e => e.Foto)
+                  .HasMaxLength(50)
+                  .IsUnicode(false);
             });
-            modelBuilder.Entity<Citas>(entity =>
+
+            modelBuilder.Entity<Pagina>(entity =>
             {
-                entity.HasKey(e => e.CitaId);
+                entity.Property(e => e.PaginaId).HasColumnName("PaginaId");
 
-                entity.Property(e => e.CitaId).HasColumnName("CitaID");
+                entity.Property(e => e.Mensaje)
+                  .HasColumnName("Mensaje")
+                  .HasMaxLength(50)
+                  .IsUnicode(false);
 
-                entity.Property(e => e.Diagnostico)
-                    .HasMaxLength(300)
+                entity.Property(e => e.Accion)
+                    .HasColumnName("Accion")
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.EspecialidadId).HasColumnName("EspecialidadID");
+                entity.Property(e => e.Controlador)
+                    .HasColumnName("Controlador")
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.FechaCita)
-                    .HasColumnName("Fecha_Cita")
-                    .HasColumnType("datetime");
+                entity.Property(e => e.BotonHabilitado).HasColumnName("BotonHabilitado");
 
-                entity.Property(e => e.MedicoId)
-                    .HasColumnName("MedicoID")
-                    .ValueGeneratedNever();
+            });
 
-                entity.Property(e => e.PacienteId)
-                   .HasColumnName("PacienteId")
-                   .ValueGeneratedNever();
+            modelBuilder.Entity<TipoUsuario>(entity =>
+            {
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TipoUsuarioPagina>(entity =>
+            {
+                entity.Property(e => e.TipoUsuarioPaginaId).HasColumnName("TipoUsuarioPaginaId");
+
+                entity.Property(e => e.TipoUsuarioId).HasColumnName("TipoUsuarioId");
+
+                entity.Property(e => e.PaginaId).HasColumnName("PaginaId");
+
+                entity.Property(e => e.BotonHabilitado).HasColumnName("BotonHabilitado");
+            });
+
+            modelBuilder.Entity<TipoUsuarioPaginaBoton>(entity =>
+            {
+                entity.Property(e => e.TipoUsuarioPaginaBotonId).HasColumnName("TipoUsuarioPaginaBotonId");
+
+                entity.Property(e => e.TipoUsuarioPaginaId).HasColumnName("TipoUsuarioPaginaId");
+
+                entity.Property(e => e.BotonId).HasColumnName("BotonId");
+
+                entity.Property(e => e.BotonHabilitado).HasColumnName("BotonHabilitado");
+
+            });
+
+            modelBuilder.Entity<Usuario>(entity =>
+            {
+                entity.HasKey(e => e.UsuarioId);
+
+                entity.Property(e => e.TipoUsuarioId)
+             .HasColumnName("TipoUsuarioId");
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Password)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
             });
 
             OnModelCreatingPartial(modelBuilder);

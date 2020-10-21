@@ -44,14 +44,17 @@ namespace Clinica.Models
                     //.SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA));
                     //Paragraph p0 = new Paragraph(Texto);
                     //p0.SetFontSize(24);
-
+                   
                     Paragraph p1 = new Paragraph(titulo);
                     p1.SetFontSize(20);
-                    p1.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
+                    p1.SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
                     Image img = new Image(ImageDataFactory
-                   .Create(@"wwwroot\images\logo.png"))
+                   .Create(@"wwwroot\images\logoEspinoza.png"))
                    .SetTextAlignment(TextAlignment.LEFT);
 
+                    img.SetMaxHeight(100);
+                    img.SetMaxWidth(100);
+ 
                     doc.Add(img);
                     doc.Add(p1);
                     //crearemos la tabla
@@ -60,8 +63,8 @@ namespace Clinica.Models
                     for (int i = 0; i < nombrePropiedades.Length; i++)
                     {
                         celda = new Cell();
-                        celda.Add(new Paragraph(diccionario[nombrePropiedades[i]]));
-                        //celda.Add(new Paragraph(nombrePropiedades[i]));
+                       celda.Add(new Paragraph(diccionario[nombrePropiedades[i]]));
+                      //  celda.Add(new Paragraph(nombrePropiedades[i]));
                         table.AddHeaderCell(celda);
                     }
                     foreach (object item in lista)

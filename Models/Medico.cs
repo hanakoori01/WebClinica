@@ -6,8 +6,8 @@ namespace WebClinica.Models
 {
     public partial class Medico
     {
-        [Required(ErrorMessage = "Debe digitar el ID del medico")]
-        [Display(Name = "ID:")]
+        [Required(ErrorMessage = "Debe digitar el Id del medico")]
+        [Display(Name = "Id:")]
         public int MedicoId { get; set; }
         [Required(ErrorMessage = "Debe digitar el nombre del medico")]
         [Display(Name = "Nombre:")]
@@ -26,7 +26,7 @@ namespace WebClinica.Models
         [Required(ErrorMessage = "Debe ingresar la foto del medico")]
         [Display(Name = "Foto:")]
         public string Foto { get; set; }
-        [Display(Name = "ID de especialidad:")]
+        [Display(Name = "Id de especialidad:")]
         public int EspecialidadId { get; set; }
 
         public virtual Especialidad Especialidad { get; set; }

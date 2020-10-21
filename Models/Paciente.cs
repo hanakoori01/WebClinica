@@ -6,8 +6,8 @@ namespace WebClinica.Models
 {
     public partial class Paciente
     {
-        [Required(ErrorMessage = "Debe digitar el ID del paciente")]
-        [Display(Name = "ID:")]
+        [Required(ErrorMessage = "Debe digitar el Id del paciente")]
+        [Display(Name = "Id:")]
         public int PacienteId { get; set; }
         [Required(ErrorMessage = "Debe digitar el nombre del paciente")]
         [Display(Name = "Nombre:")]
@@ -21,7 +21,7 @@ namespace WebClinica.Models
         [Required(ErrorMessage = "Debe digitar el telefono")]
         [Display(Name = "Telefono:")]
         public string TelefonoContacto { get; set; }
-        public string Foto { get; set; }
+        public bool? Foto { get; set; }
 
         public virtual ICollection<Citas> Citas { get; set; }
     }

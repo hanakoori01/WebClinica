@@ -5,8 +5,8 @@ namespace WebClinica.Models
 {
     public partial class Especialidad
     {
-        [Required(ErrorMessage = "Debe digitar el ID de la Especialidad")]
-        [Display(Name = "ID:")]
+        [Required(ErrorMessage = "Debe digitar el Id de la Especialidad")]
+        [Display(Name = "Id:")]
         public int? EspecialidadId { get; set; }
         [Required(ErrorMessage = "Debe digitar el Nombre de la Especialidad")]
         [Display(Name = "Nombre:")]

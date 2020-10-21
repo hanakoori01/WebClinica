@@ -3,85 +3,109 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Content.cshtml";
-    string nombreEspecialidad = ViewBag.Especialidad;          
+    string nombreEspecialidad = ViewBag.Especialidad;
 }
 
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12 col-lg-12">
-            <h3>Consulta especialidad</h3>
-        </div>
-    </div>
-    <br />
-    <form asp-controller="ConsultaEspecialidad" asp-action="Index" method="post" id="frmFilter">
-        <div class="row">
-            <div class="cold-md-2 col-lg-2">
-                <input type="text" class="form-control" name="nombre" id="nombre" value="@ViewBag.Especialidad" />
+<head>
+    <title>Consulta Especialidad</title>
+</head>
+<partial name="_Menu" />
+<div class="container">
+    <!--Cambio aca-->
+    <main class="pb-3" role="main">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 col-lg-12">
+                    <h2 class="text-light">Consulta Especialidad</h2>
+                </div>
             </div>
-            <br />
-            <div class="col-md-2 col-md-2 text-right">
-                <input type="submit" value="Buscar" class="btn btn-success" />
+            <form asp-controller="ConsultaEspecialidad" asp-action="Index" method="post" id="frmFilter">
+                <div class="row contenedorBotones">
+                    <div class="col-md-2 col-lg-2">
+                        <label>Buscar enfermedad:</label>
+                    </div>
+                    <br />
+                    <div class="col-md-2 col-lg-2 text-align-center">
+                        <input type="text" class="form-control" name="nombre" id="nombre" value="@ViewBag.Especialidad" />
+                    </div>
+                    <br />
+                    <div class="col-md-2 col-lg-1 text-align-center ">
+                        <a class="btn btn-success buscarConsulta" onclick="buscarConsulta()">
+                            Buscar
+                        </a>
+                    </div>
+                    <br />
+                    <div class="col-md-2 col-lg-2 text-right">
+                        <a class="btn btn-success fa fa-file-excel-o resetearBoton" onclick="Resetear()">
+                            Resetear
+                        </a>
+                    </div>
+                    <br />
+                    <div class="col-md-2 col-lg-2 text-right">
+                        <a asp-action="exportarPDF" class="btn btn-success fa fa-file-pdf-o crearPDF">
+                            Exportar PDF
+                        </a>
+                    </div>
+                    <br />
+                    <div class="col-md-2 col-lg-2 text-right">
+                        <a asp-action="exportarExcel" class="btn btn-success fa fa-file-excel-o crearExcel">
+                            Exportar Excel
+                        </a>
+                    </div>
+                    <br />
+                    <div class="col-md-2 colo-lg-2 text-right">
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-info fa fa fa-arrow-circle-left inicio">
+                            Regresar al menú
+                        </a>
+                    </div>
+                    <br />
+                </div>
+                <div class="col-md-12 divisor"><hr></div>
+            </form>
+            <div>
+                @if (Model.Count() > 0)
+                {
+                    <table class="table table-hover border .table-responsive">
+                        <thead class="thead-dark">
+                            <tr class="table-secondary">
+                                <th>
+                                    @Html.DisplayNameFor(model => model.EspecialidadId)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Nombre)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Descripcion)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EspecialidadId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Nombre)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Descripcion)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <h2 style="color:red">No hay especialidades en la lista.</h2>
+                }
             </div>
-            <br />
-            <div class="col-md-2 col-lg-2 text-right">
-                <input type="button" value="Resetear" class="btn btn-danger" onclick="Resetear()" />
-            </div>
-            <br />
-            <div class="col-md-2 col-lg-2 text-right">
-                <input type="button" value="Generar PDF" class="btn btn-primary" onclick="ExportarPDF()" />
-            </div>
-            <br />
-            <div class="col-md-2 col-lg-2 text-right">
-                <input type="button" value="Generar Excel" class="btn btn-primary" onclick="ExportarExcel()" />
-            </div>
-            <br />
-        </div>
-    </form>
-    <div>
-        @if (Model.Count() > 0)
-        {
-            <table class="table table-hover border .table-responsive">
-                <thead class="thead-dark">
-                    <tr class="table-secondary">
-                        <th>
-                            @Html.DisplayNameFor(model => model.EspecialidadId)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Nombre)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Descripcion)
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EspecialidadId)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Nombre)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Descripcion)
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
-        else
-        {
-            <h2 style="color:red">No hay especialidades en la lista.</h2>
-        }
-    </div>
-</div>
-<form asp-action="exportarPDF" asp-controller="ConsultaEspecialidad" method="post" id="viewExportartPDF">
-</form>
-<form asp-action="exportarExcel" asp-controller="ConsultaEspecialidad" method="post" id="viewExportartExcel">
-</form>
+         </div>
 
+    </main>
+</div>
+<partial name="_EndPag" />

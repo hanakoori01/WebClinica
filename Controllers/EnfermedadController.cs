@@ -12,6 +12,8 @@ namespace WebClinica.Controllers
     {
         private readonly DBClinicaAcmeContext _db;
         List<Enfermedad> listaEnfermedad = new List<Enfermedad>();
+        private List<Enfermedad> lista;
+
         public EnfermedadController(DBClinicaAcmeContext db)
         {
             _db = db;
@@ -114,6 +116,7 @@ namespace WebClinica.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+       
         public FileResult exportarExcel()
         {
             var lista = _db.Set<Enfermedad>().ToList();

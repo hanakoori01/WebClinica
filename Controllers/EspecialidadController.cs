@@ -12,6 +12,7 @@ namespace WebClinica.Controllers
     {
         private readonly DBClinicaAcmeContext _db;
         List<Especialidad> listaEspecialidad = new List<Especialidad>();
+        static List<Especialidad> lista = new List<Especialidad>();
         public EspecialidadController(DBClinicaAcmeContext db)
         {
             _db = db;
@@ -114,22 +115,24 @@ namespace WebClinica.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+      
         public FileResult exportarExcel()
         {
+            var lista = _db.Set<Especialidad>().ToList();
             Utilitarios util = new Utilitarios();
             string[] cabeceras = { "Especialidad", "Nombre", "Descripcion" };
             string[] nombrePropiedades = { "EspecialidadId", "Nombre", "Descripcion" };
-            byte[] buffer = util.generarExcel(cabeceras, nombrePropiedades, listaEspecialidad);
+            byte[] buffer = util.generarExcel(cabeceras, nombrePropiedades, lista);
             //content type mime xlsx google
             return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         }
         public FileResult exportarPDF()
         {
+            var lista = _db.Set<Especialidad>().ToList();
             Utilitarios util = new Utilitarios();
-            string[] cabeceras = { "Especialidad", "Nombre", "Descripcion" };
             string[] nombrePropiedades = { "EspecialidadId", "Nombre", "Descripcion" };
             string titulo = "Reporte de Especialidades";
-            byte[] buffer = util.ExportarPDFDatos(nombrePropiedades, listaEspecialidad, titulo);
+            byte[] buffer = util.ExportarPDFDatos(nombrePropiedades, lista, titulo);
             return File(buffer, "application/pdf");
         }
     }

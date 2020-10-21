@@ -324,20 +324,68 @@ function eliminar(id) {
     }
 }
 
+/* BUSCAR POR NOMBRE CONSULTAS*/
+
+function buscarConsulta() {
+    let titulo = document.title;
+    if (titulo == "Consulta Especialidad") {
+        BuscarEspecialidad();
+    } else {
+        if (titulo == "Medico") {
+            BuscarMedico();
+        } else {
+            if (titulo == "Paciente") {
+                BuscarPaciente();
+            } else {
+                if (titulo == "Consulta Enfermedad") {
+                    BuscarEnfermedad();
+                }
+            }
+        }
+    }
+}
+
+/* BUSCAR POR NOMBRE CONSULTA ESPECIALIDAD*/
+function BuscarEspecialidad() {
+    var nombre = document.getElementById("nombre").value;
+    var url = "Especialidad/BuscarEspecialidad/?nombreEspecialidad=" + nombre;
+    var tbody = document.getElementById("tbDatos");
+    var campos = new Array("especialidadId", "nombre", "descripcion");
+    pintarPantallaConsulta(url, campos, tbody);
+}
+/* BUSCAR POR NOMBRE CONSULTA MEDICO*/
+function BuscarMedico() {
+    var nombre = document.getElementById("nombre").value;
+    var url = "Enfermedad/BuscarEnfermedad/?nombreEnfermedad=" + nombre;
+    var tbody = document.getElementById("tbDatos");
+    var campos = new Array("enfermedadId", "nombre", "descripcion");
+    pintarPantallaConsulta(url, campos, tbody);
+}
+/* BUSCAR POR NOMBRE CONSULTA PACIENTE*/
+function BuscarPaciente() {
+    var nombre = document.getElementById("nombre").value;
+    var url = "Enfermedad/BuscarEnfermedad/?nombreEnfermedad=" + nombre;
+    var tbody = document.getElementById("tbDatos");
+    var campos = new Array("enfermedadId", "nombre", "descripcion");
+    pintarPantallaConsulta(url, campos, tbody);
+}
+/* BUSCAR POR NOMBRE CONSULTA ENFERMEDAD*/
+function BuscarEnfermedad() {
+    var nombre = document.getElementById("nombre").value;
+    var url = "ConsultaEnfermedad/BuscarEnfermedad/?nombreEnfermedad=" + nombre;
+    var tbody = document.getElementById("tbDatos");
+    var campos = new Array( "nombre", "descripcion");
+    pintarPantallaConsulta(url, campos, tbody);
+}
+
+/* RESETEAR CONSULTAS*/
+
 function Resetear() {
     document.getElementById("nombre").value = "";
-    document.getElementById("frmFilter").submit();
+    buscarConsulta();
 }
 
-function ExportarPDF() {
-    var aux = document.getElementById("viewExportarPDF");
-    aux.submit();
-}
 
-function ExportarExcel() {
-    var aux = document.getElementById("viewExportarExcel");
-    aux.submit();
-}
 
 $(document).ready(function () {
     $('#TbEspecial').DataTable(
@@ -348,11 +396,7 @@ $(document).ready(function () {
         });
 })
 
-
-
-
-
-
-
-
-
+function verificar() {
+    var value = $('.dataTables_filter input').val();
+    alert(value);
+}

@@ -5,6 +5,7 @@ using System.Linq;
 using WebClinica.Models;
 using WebClinica.Models.ViewModel;
 using System.Threading.Tasks;
+using Clinica.Models;
 
 namespace WebClinica.Controllers
 {
@@ -116,6 +117,25 @@ namespace WebClinica.Controllers
                 Error = ex.Message;
             }
             return RedirectToAction(nameof(Index));
+        }
+        public FileResult exportarExcel()
+        {
+            var lista = _db.Set<MedicoEspecialidad>().ToList();
+            Utilitarios util = new Utilitarios();
+            string[] cabeceras = { "Medico ID", "Nombre", "Apellidos", "Direccion", "Telefono Fijo", "Celular", "Foto", "Especialidad Id" };
+            string[] nombrePropiedades = { "MedicoId", "Nombre", "Apellidos", "Direccion", "TelefonoFijo", "Celular", "Foto", "EspecialidadId" };
+            byte[] buffer = util.generarExcel(cabeceras, nombrePropiedades, lista);
+            //content type mime xlsx google
+            return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        }
+        public FileResult exportarPDF()
+        {
+          
+            Utilitarios util = new Utilitarios();
+            string[] nombrePropiedades = { "MedicoId", "Nombre", "Apellidos", "Direccion", "TelefonoFijo", "Celular", "Foto", "EspecialidadId" };
+            string titulo = "Reporte de Pacientes";
+            byte[] buffer = util.ExportarPDFDatos(nombrePropiedades, listaMedico, titulo);
+            return File(buffer, "application/pdf");
         }
     }
 }

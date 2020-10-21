@@ -9,10 +9,10 @@ namespace WebClinica.Models
     public class Enfermedad
     {
         [Required(ErrorMessage = "Debe digitar el Id del usuario")]
-        [Display(Name = "Enfermedad ID")]
+        [Display(Name = "Enfermedad Id:")]
         public int? EnfermedadId { get; set; }
         [Required(ErrorMessage = "Debe digitar el nombre del usuario")]
-        [Display(Name = "Nombre")]
+        [Display(Name = "Nombre:")]
         public string Nombre { get; set; }
         [Display(Name = "Descripcion:")]
         [Required(ErrorMessage = "Debe digitar la descripción de la Especialidad")]
