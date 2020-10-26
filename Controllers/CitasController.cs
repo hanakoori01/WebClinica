@@ -51,11 +51,17 @@ namespace WebClinica.Controllers
             return View(listaCitas);
         }
 
-        private void determinarUltimoRegistro()
+        private void cargarUltimoRegistro()
         {
-            var ultimoRegistro = _db.Set<Citas>().OrderByDescending(
-                e => e.CitaId).FirstOrDefault();
-            ViewBag.ID = ultimoRegistro.CitaId + 1;
+            var ultimoRegistro = _db.Set<Citas>().OrderByDescending(e => e.CitaId).FirstOrDefault();
+            if (ultimoRegistro == null)
+            {
+                ViewBag.ID = 1;
+            }
+            else
+            {
+                ViewBag.ID = ultimoRegistro.CitaId + 1;
+            }
         }
 
         private void cargarMedicos()
@@ -78,7 +84,7 @@ namespace WebClinica.Controllers
         public IActionResult Create(int PacienteId)
         {
             cargarMedicos();
-            determinarUltimoRegistro();
+            cargarUltimoRegistro();
             if (PacienteId != 0)
             {
                 BuscarPaciente(PacienteId);
@@ -214,7 +220,7 @@ namespace WebClinica.Controllers
             //Si se quiere caer de nuevo en Create
             //para seguir agregando citas
             cargarMedicos();
-            determinarUltimoRegistro();
+            cargarUltimoRegistro();
             return View("Create");
 
         }

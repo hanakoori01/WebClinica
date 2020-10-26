@@ -22,6 +22,7 @@ namespace Clinica.Models
         [Display(Name = "Especialidad Id:")]
         public int EspecialidadId { get; set; }
 
-      
+        public virtual Medico Medico { get; set; }
+        public virtual Paciente Paciente { get; set; }
     }
 }

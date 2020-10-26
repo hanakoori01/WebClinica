@@ -18,7 +18,32 @@
             </div>
             <form asp-controller="Paciente" asp-action="Index" method="post" id="frmFilter">
                 <div class="row contenedorBotones">
-                    <partial name="_ActionButtons" />
+                    <div class="col-md-2 col-lg-2 text-right">
+                        <a asp-action="Create" class="btn btn-success fa fa-plus-circle crear">
+                            Nuevo
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-lg-2 text-right">
+                        <a asp-action="exportarPDF" class="btn btn-success fa fa-file-pdf-o crearPDF">
+                            Exportar PDF
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-lg-2 text-right">
+                        <a asp-action="exportarExcel" class="btn btn-success fa fa-file-excel-o crearExcel">
+                            Exportar Excel
+                        </a>
+                    </div>
+
+                    <div class="col-md-2 colo-lg-2 text-right">
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-info fa fa fa-arrow-circle-left inicio">
+                            Regresar al menú
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-lg-2 text-right">
+                        <a asp-controller="ConsultaPaciente" asp-action="Index" class="btn btn-success fa fa-search-plus consulta">
+                            Consulta
+                        </a>
+                    </div>
                 </div>
                 <div class="col-md-12 divisor"><hr></div>
             </form>

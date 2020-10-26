@@ -12,7 +12,7 @@ namespace WebClinica.Controllers
     {
         private readonly DBClinicaAcmeContext _db;
         List<Enfermedad> listaEnfermedad = new List<Enfermedad>();
-        private List<Enfermedad> lista;
+       
 
         public EnfermedadController(DBClinicaAcmeContext db)
         {
@@ -30,11 +30,24 @@ namespace WebClinica.Controllers
             var model = listaEnfermedad;
             return View("Index", model);
         }
+
+        private void cargarUltimoRegistro()
+        {
+            var ultimoRegistro = _db.Set<Enfermedad>().OrderByDescending(e => e.EnfermedadId).FirstOrDefault();
+            if (ultimoRegistro == null)
+            {
+                ViewBag.ID = 1;
+            }
+            else
+            {
+                ViewBag.ID = ultimoRegistro.EnfermedadId + 1;
+            }
+        }
+
         [HttpGet]
         public IActionResult Create()
         {
-            var ultimoRegistro = _db.Set<Enfermedad>().OrderByDescending(e => e.EnfermedadId).FirstOrDefault();
-            ViewBag.ID = ultimoRegistro.EnfermedadId + 1;
+            cargarUltimoRegistro();
             return View();
         }
         [HttpPost]

@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Content.cshtml";
+    List<SelectListItem> Lista = ViewBag.ListaEspecialidades;
 }
 <head>
     <title>Agregar medico</title>
@@ -73,26 +74,17 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-3 text-align-right">
-                                <label asp-for="Foto" class="control-label"></label>
-                            </div>
-                            <div class="col-md-6">
-                                <input asp-for="Foto" class="form-control" placeholder="True o False"/>
-                            </div>
-                            <span asp-validation-for="Foto" class="text-danger"></span>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-3 text-align-right">
                                 <label asp-for="EspecialidadId" class="control-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <input asp-for="EspecialidadId" class="form-control" placeholder="Especialidad Id"/>
+                                <select asp-for="EspecialidadId" asp-items="@Lista" class="form-control" placeholder="Especialidad Id"></select>
                             </div>
                             <span asp-validation-for="EspecialidadId" class="text-danger"></span>
                         </div>
                     </fieldset>
                     <div class="row contenedorBoton">
                         <div class="col-md-4 text-align-right">
-                            <input type="submit" class="btn btn-primary btn-lg botonAgregar" value="Agregar" id="agregar" onclick="abriModalCrear()"  />
+                            <input type="submit" class="btn btn-primary btn-lg botonAgregar" value="Agregar" id="agregar" onclick="agregar()"/>
                         </div>
                         <br />
                         <div class="col-md-4">

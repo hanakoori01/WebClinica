@@ -194,11 +194,11 @@ function EliminarEspecialidad(EspecialidadId) {
 function EliminarMedico(MedicoId) {
     document.getElementById("txtMedicoId").value = MedicoId;
     verModal('Eliminar medico',
-        '¿Desea eliminar el medico de código '
-        + MedicoId + '?').then((result) => {
+        '¿Desea eliminar el medico de código  '
+        + ' ' + MedicoId + ' ?').then((result) => {
             if (result.value) {
-                var viewEliminar = document.getElementById("viewEliminarMedico");
-                viewEliminar.submit();
+                var viewEliminarMedico = document.getElementById("viewEliminarMedico");
+                viewEliminarMedico.submit();
                 Swal.fire(
                     'Eliminación!',
                     'El medico' + MedicoId + 'fue eliminado!.',
@@ -304,7 +304,7 @@ function editar() {
     }
 }
 
-function eliminar(id) {
+function Eliminar(id) {
     let titulo = document.title;
     if (titulo == "Especialidad") {
         EliminarEspecialidad(id);

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Clinica.Models;
 using Microsoft.AspNetCore.Mvc;
+using WebClinica.Models;
 
 namespace Clinica.Controllers
 {

@@ -30,10 +30,23 @@ namespace WebClinica.Controllers
             var model = listaPaciente;
             return View("Index", model);
         }
-        public IActionResult Create()
+
+        private void cargarUltimoRegistro()
         {
             var ultimoRegistro = _db.Set<Paciente>().OrderByDescending(e => e.PacienteId).FirstOrDefault();
-            ViewBag.ID = ultimoRegistro.PacienteId + 1;
+            if (ultimoRegistro == null)
+            {
+                ViewBag.ID = 1;
+            }
+            else
+            {
+                ViewBag.ID = ultimoRegistro.PacienteId + 1;
+            }
+        }
+
+        public IActionResult Create()
+        {
+            cargarUltimoRegistro();
             return View();
         }
         [HttpPost]

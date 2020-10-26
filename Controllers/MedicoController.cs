@@ -6,6 +6,7 @@ using WebClinica.Models;
 using WebClinica.Models.ViewModel;
 using System.Threading.Tasks;
 using Clinica.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WebClinica.Controllers
 {
@@ -13,69 +14,150 @@ namespace WebClinica.Controllers
     {
         private readonly DBClinicaAcmeContext _db;
         List<MedicoEspecialidad> listaMedico = new List<MedicoEspecialidad>();
+        static List<MedicoEspecialidad> lista = new List<MedicoEspecialidad>();
         public MedicoController(DBClinicaAcmeContext db)
         {
             _db = db;
         }
-        public IActionResult Index()
+
+        public List<MedicoEspecialidad> BuscarMedicoEspecialidad(string nombreEspecialidad)
         {
-            listaMedico = (from medico in _db.Medico
-                           join especialidad in _db.Especialidad
-                           on medico.EspecialidadId equals especialidad.EspecialidadId
-                           select new MedicoEspecialidad
-                           {
-                               MedicoId = medico.MedicoId,
-                               Nombre = medico.Nombre,
-                               Apellidos = medico.Apellidos,
-                               Direccion = medico.Direccion,
-                               TelefonoFijo = medico.TelefonoFijo,
-                               TelefonoCelular = medico.TelefonoCelular,
-                               Especialidad = especialidad.Nombre
-                           }).ToList();
-            var model = listaMedico;
-            return View("Index", model);
+            List<MedicoEspecialidad> listaMedicoEspecialidad = new List<MedicoEspecialidad>();
+            if (nombreEspecialidad == null || nombreEspecialidad.Length == 0)
+            {
+                listaMedico = (from medico in _db.Medico
+                               join especialidad in _db.Especialidad
+                               on medico.EspecialidadId equals especialidad.EspecialidadId
+                               select new MedicoEspecialidad
+                               {
+                                   MedicoId = medico.MedicoId,
+                                   Nombre = medico.Nombre,
+                                   Apellidos = medico.Apellidos,
+                                   Direccion = medico.Direccion.Length > 50 ?
+                                               medico.Direccion.Substring(0, 50)
+                                               + "..." : medico.Direccion,
+                                   TelefonoFijo = medico.TelefonoFijo,
+                                   TelefonoCelular = medico.TelefonoCelular,
+                                   Especialidad = especialidad.Nombre
+                               }).ToList();
+                ViewBag.Especialidad = "";
+            }
+            else
+            {
+                listaMedico = (from medico in _db.Medico
+                               join especialidad in _db.Especialidad
+                               on medico.EspecialidadId equals especialidad.EspecialidadId
+                               where especialidad.Nombre.Contains(nombreEspecialidad)
+                               select new MedicoEspecialidad
+                               {
+                                   MedicoId = medico.MedicoId,
+                                   Nombre = medico.Nombre,
+                                   Apellidos = medico.Apellidos,
+                                   Direccion = medico.Direccion.Length > 50 ?
+                                               medico.Direccion.Substring(0, 50)
+                                               + "..." : medico.Direccion,
+                                   TelefonoFijo = medico.TelefonoFijo,
+                                   TelefonoCelular = medico.TelefonoCelular,
+                                   Especialidad = especialidad.Nombre
+                               }).ToList();
+                ViewBag.Especialidad = nombreEspecialidad;
+            }
+            lista = listaMedico;
+            return listaMedico;
         }
-        public IActionResult Create()
+        private void cargarEspecialidades()
+        {
+            List<SelectListItem> listaEspecialidades = new List<SelectListItem>();
+            listaEspecialidades = (from especialidad in _db.Especialidad
+                                   orderby especialidad.Nombre
+                                   select new SelectListItem
+                                   {
+                                       Text = especialidad.Nombre,
+                                       Value = especialidad.EspecialidadId.ToString()
+                                   }
+                                   ).ToList();
+            ViewBag.ListaEspecialidades = listaEspecialidades;
+        }
+
+        private void cargarUltimoRegistro()
         {
             var ultimoRegistro = _db.Set<Medico>().OrderByDescending(e => e.MedicoId).FirstOrDefault();
-            ViewBag.ID = ultimoRegistro.MedicoId + 1;
+            if (ultimoRegistro == null)
+            {
+                ViewBag.ID = 1;
+            }
+            else
+            {
+                ViewBag.ID = ultimoRegistro.MedicoId + 1;
+            }
+        }
+
+        public IActionResult Index()
+        {
+            listaMedico = BuscarMedicoEspecialidad("");
+            return View(listaMedico);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            cargarUltimoRegistro();
+            cargarEspecialidades();
             return View();
         }
+
         [HttpPost]
         public IActionResult Create(Medico medico)
         {
-            string Error = "";
+            int nVeces = 0;
+
             try
             {
-                if (!ModelState.IsValid)
+                nVeces = _db.Medico.Where(m => m.MedicoId == medico.MedicoId).Count();
+                if (!ModelState.IsValid || nVeces >= 1)
                 {
+                    if (nVeces >= 1) ViewBag.Error = "Este id de médico ya existe!";
+                    cargarEspecialidades();
                     return View(medico);
                 }
                 else
                 {
-                    _db.Medico.Add(medico);
+                    Medico _medico = new Medico();
+                    _medico.MedicoId = medico.MedicoId;
+                    _medico.Nombre = medico.Nombre;
+                    _medico.Apellidos = medico.Apellidos;
+                    _medico.Direccion = medico.Direccion;
+                    _medico.TelefonoFijo = medico.TelefonoFijo;
+                    _medico.TelefonoCelular = medico.TelefonoCelular;
+                    _medico.EspecialidadId = medico.EspecialidadId;
+                    _db.Medico.Add(_medico);
                     _db.SaveChanges();
                 }
             }
             catch (Exception ex)
             {
-                Error = ex.Message;
+                ViewBag.Error = ex.Message;
             }
             return RedirectToAction(nameof(Index));
         }
+
         public IActionResult Details(int id)
         {
-            Medico medico = _db.Medico
-                         .Where(e => e.MedicoId == id).First();
-            return View(medico);
+            cargarEspecialidades();
+            Medico oMedico = _db.Medico
+                 .Where(m => m.MedicoId == id).First();
+            return View(oMedico);
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            Medico medico = _db.Medico
-                         .Where(e => e.MedicoId == id).First();
-            return View(medico);
+            cargarEspecialidades();
+            int recCount = _db.Medico.Count(e => e.MedicoId == id);
+            Medico _medico = (from p in _db.Medico
+                              where p.MedicoId == id
+                              select p).DefaultIfEmpty().Single();
+            return View(_medico);
         }
 
         [HttpPost]
@@ -86,6 +168,7 @@ namespace WebClinica.Controllers
             {
                 if (!ModelState.IsValid)
                 {
+                    cargarEspecialidades();
                     return View(medico);
                 }
                 else
@@ -102,14 +185,14 @@ namespace WebClinica.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(int? MedicoId)
+        public IActionResult Delete(int MedicoId)
         {
             var Error = "";
             try
             {
-                Medico medico = _db.Medico
+                Medico oMedico = _db.Medico
                              .Where(e => e.MedicoId == MedicoId).First();
-                _db.Medico.Remove(medico);
+                _db.Medico.Remove(oMedico);
                 _db.SaveChanges();
             }
             catch (Exception ex)
@@ -118,23 +201,14 @@ namespace WebClinica.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
-        public FileResult exportarExcel()
+
+        public FileResult exportar()
         {
-            var lista = _db.Set<MedicoEspecialidad>().ToList();
             Utilitarios util = new Utilitarios();
-            string[] cabeceras = { "Medico ID", "Nombre", "Apellidos", "Direccion", "Telefono Fijo", "Celular", "Foto", "Especialidad Id" };
-            string[] nombrePropiedades = { "MedicoId", "Nombre", "Apellidos", "Direccion", "TelefonoFijo", "Celular", "Foto", "EspecialidadId" };
-            byte[] buffer = util.generarExcel(cabeceras, nombrePropiedades, lista);
-            //content type mime xlsx google
-            return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        }
-        public FileResult exportarPDF()
-        {
-          
-            Utilitarios util = new Utilitarios();
-            string[] nombrePropiedades = { "MedicoId", "Nombre", "Apellidos", "Direccion", "TelefonoFijo", "Celular", "Foto", "EspecialidadId" };
-            string titulo = "Reporte de Pacientes";
-            byte[] buffer = util.ExportarPDFDatos(nombrePropiedades, listaMedico, titulo);
+            string[] cabeceras = { "Id Médico", "Nombre", "Apellidos", "Dirección", "Especialidad" };
+            string[] nombrePropiedades = { "MedicoId", "Nombre", "Apellidos", "Direccion", "Especialidad" };
+            string titulo = "Reporte de Médicos";
+            byte[] buffer = util.ExportarPDFDatos(nombrePropiedades, lista, titulo);
             return File(buffer, "application/pdf");
         }
     }

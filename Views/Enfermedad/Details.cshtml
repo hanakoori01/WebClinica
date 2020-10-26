@@ -28,7 +28,7 @@
                                 <label asp-for="Nombre" class="control-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <input asp-for="Nombre" class="form-control" placeholder="Nombre" />
+                                <input asp-for="Nombre" readonly="readonly" class="form-control" placeholder="Nombre" />
                             </div>
                             <span asp-validation-for="Nombre" class="text-danger"></span>
                         </div>
@@ -37,7 +37,7 @@
                                 <label asp-for="Descripcion" class="control-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <textarea asp-for="Descripcion" row="4" cols="50" class="form-control" placeholder="Descripcion"></textarea>
+                                <textarea asp-for="Descripcion" readonly="readonly" row="4" cols="50" class="form-control" placeholder="Descripcion"></textarea>
                             </div>
                             <span asp-validation-for="Descripcion" class="text-danger"></span>
                         </div>

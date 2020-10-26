@@ -29,11 +29,23 @@ namespace WebClinica.Controllers
             var model = listaEspecialidad;
             return View("Index", model);
         }
+
+        private void cargarUltimoRegistro()
+        {
+            var ultimoRegistro = _db.Set<Especialidad>().OrderByDescending(e => e.EspecialidadId).FirstOrDefault();
+            if (ultimoRegistro == null)
+            {
+                ViewBag.ID = 1;
+            }
+            else
+            {
+                ViewBag.ID = ultimoRegistro.EspecialidadId + 1;
+            }
+        }
         [HttpGet]
         public IActionResult Create()
         {
-            var ultimoRegistro = _db.Set<Especialidad>().OrderByDescending(e => e.EspecialidadId).FirstOrDefault();
-            ViewBag.ID = ultimoRegistro.EspecialidadId + 1;
+            cargarUltimoRegistro();
             return View();
         }
         [HttpPost]

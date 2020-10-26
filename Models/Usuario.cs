@@ -12,12 +12,12 @@ namespace Clinica.Models
         [Display(Name = "Nombre:")]
         public string Nombre { get; set; }
 
-        [Display(Name = "Tipo de Usuario Id:")]
-        public int TipoUsuarioId { get; set; }
-
         [Required(ErrorMessage = "Debe digitar la contraseña del usuario")]
         [Display(Name = "Contraseña:")]
         public string Password { get; set; }
+
+        [Display(Name = "Tipo de Usuario Id:")]
+        public int TipoUsuarioId { get; set; }
 
         [Display(Name = "Tipo de Usuario:")]
         public virtual TipoUsuario TipoUsuario { get; set; }

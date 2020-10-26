@@ -86,7 +86,7 @@ namespace Clinica.Controllers
             
             return _Usuario;
         }
-        private void determinarUltimoRegistro()
+        private void cargarUltimoRegistro()
         {
             var ultimoRegistro = _db.Set<Usuario>().OrderByDescending(
                 e => e.UsuarioId).FirstOrDefault();
@@ -102,7 +102,7 @@ namespace Clinica.Controllers
      public IActionResult Index()
         {
             List<UsuarioTipoUsuario> listaUsuarios = new List<UsuarioTipoUsuario>();
-            determinarUltimoRegistro();
+            cargarUltimoRegistro();
             llenarTipoUsuario();
             listaUsuarios = listarUsuarios();
             return View(listaUsuarios);

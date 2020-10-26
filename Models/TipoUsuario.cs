@@ -12,6 +12,6 @@ namespace Clinica.Models
 
         [Display(Name = "Nombre:")]
         public string Nombre { get; set; }
-       
+        public virtual ICollection<Usuario> Usuario { get; set; }
     }
 }

@@ -1,9 +1,7 @@
 ﻿@model IEnumerable<MedicoEspecialidad>
 @using WebClinica.Models.ViewModel
-@{
-    ViewData["Title"] = "Medico";
-    Layout = "~/Views/Shared/_Content.cshtml";
-}
+@{ ViewData["Title"] = "Medico";
+    Layout = "~/Views/Shared/_Content.cshtml"; }
 <head>
     <title>Medico</title>
 </head>
@@ -18,79 +16,75 @@
             </div>
             <form asp-controller="Medico" asp-action="Index" method="post" id="frmFilter">
                 <div class="row contenedorBotones">
-                    <partial name="_ActionButtons" />
+                    <div class="col-md-2 col-lg-2 text-right">
+                        <a asp-action="Create" class="btn btn-success fa fa-plus-circle crear">
+                            Nuevo
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-lg-2 text-right">
+                        <a asp-action="exportarPDF" class="btn btn-success fa fa-file-pdf-o crearPDF">
+                            Exportar PDF
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-lg-2 text-right">
+                        <a asp-action="exportarExcel" class="btn btn-success fa fa-file-excel-o crearExcel">
+                            Exportar Excel
+                        </a>
+                    </div>
+
+                    <div class="col-md-2 colo-lg-2 text-right">
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-info fa fa fa-arrow-circle-left inicio">
+                            Regresar al menú
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-lg-2 text-right">
+                        <a asp-controller="ConsultaMedico" asp-action="Index" class="btn btn-success fa fa-search-plus consulta">
+                            Consulta
+                        </a>
+                    </div>
                 </div>
-                <div class="col-md-12 divisor"><hr></div>
+                <div class="col-md-12" style="color:black;"><hr></div>
             </form>
             @if (Model.Count() > 0)
             {
-                <table class="table table-hover border .table-responsive" id="TbEspecial">
-                    <thead class="thead-dark">
-                        <tr class="table-secondary">
-                            <th>
-                                @Html.DisplayNameFor(model => model.MedicoId)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Nombre)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Apellidos)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Direccion)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.TelefonoFijo)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.TelefonoCelular)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Especialidad)
-                            </th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.MedicoId)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Nombre)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Apellidos)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Direccion)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.TelefonoFijo)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.TelefonoCelular)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Especialidad)
-                                </td>
-                                <partial name="_AddEditAndView" model="item.MedicoId" />
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+    <div class="contenedorTablas">
+        <table class="table table-hover border .table-responsive" id="TbEspecial">
+            <thead class="thead-dark">
+                <tr class="table-secondary trs">
+                    <th>@Html.DisplayNameFor(m => m.MedicoId)</th>
+                    <th>@Html.DisplayNameFor(m => m.Nombre)</th>
+                    <th>@Html.DisplayNameFor(m => m.Apellidos)</th>
+                    <th>@Html.DisplayNameFor(m => m.Direccion)</th>
+                    <th>@Html.DisplayNameFor(m => m.TelefonoFijo)</th>
+                    <th>@Html.DisplayNameFor(m => m.TelefonoCelular)</th>
+                    <th>@Html.DisplayNameFor(m => m.Especialidad)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model) {
+            <tr>
+                <td>@Html.DisplayFor(m => item.MedicoId)</td>
+                <td>@Html.DisplayFor(m => item.Nombre)</td>
+                <td>@Html.DisplayFor(m => item.Apellidos)</td>
+                <td>@Html.DisplayFor(m => item.Direccion)</td>
+                <td>@Html.DisplayFor(m => item.TelefonoFijo)</td>
+                <td>@Html.DisplayFor(m => item.TelefonoCelular)</td>
+                <td>@Html.DisplayFor(m => item.Especialidad)</td>
+                <partial name="_AddEditAndView" model="item.MedicoId" />
+            </tr>
             }
-            else
-            {
-                <h2 style="color:red">No hay medicos en la lista.</h2>
-            }
+            </tbody>
+        </table>
+    </div>
+    }else{
+    <h2 style="color:red">No se encontraron médicos.</h2>
+    }
         </div>
         <form asp-action="Delete" asp-controller="Medico" method="post" id="viewEliminarMedico">
             <input type="hidden" id="txtMedicoId" name="MedicoId" />
         </form>
-        <form asp-action="Edit" asp-controller="Medico" method="post" id="viewEditar">
+        <form asp-action="Edit" asp-controller="Medico" method="post" id="viewEditarMedico">
             <input type="hidden" id="txtMedicoId" name="MedicoId" />
         </form>
     </main>
