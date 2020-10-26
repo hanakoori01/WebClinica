@@ -18,6 +18,7 @@ namespace WebClinica.Models
 
         [Display(Name = "Descripcion:")]
         [Required(ErrorMessage = "Debe digitar la descripción de la Especialidad")]
+        [StringLength(400, ErrorMessage = "Ha excedido los 400 caracteres")]
         public string Descripcion { get; set; }
 
         public virtual ICollection<Medico> Medico { get; set; }

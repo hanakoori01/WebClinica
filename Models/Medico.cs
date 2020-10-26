@@ -18,7 +18,9 @@ namespace WebClinica.Models
         [Display(Name = "Apellidos:")]
         public string Apellidos { get; set; }
 
+       
         [Display(Name = "Direccion:")]
+        [StringLength(200, ErrorMessage = "Ha excedido los 200 caracteres")]
         public string Direccion { get; set; }
 
         [Required(ErrorMessage = "Debe digitar el numero de telfono del medico")]

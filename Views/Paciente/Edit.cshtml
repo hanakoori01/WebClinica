@@ -1,4 +1,4 @@
-﻿@model WebClinica.Models.Paciente
+﻿@model Paciente
 
 @{
     ViewData["Title"] = "Edit";
@@ -11,7 +11,7 @@
 <div class="container contenedorPrincipal">
     <main class="pb-3" role="main">
         <div class="row">
-            <form asp-action="Create" method="post" id="viewAgregar">
+            <form asp-action="Edit" method="post" id="viewEditarPaciente">
                 <div class="container-fluid">
                     <fieldset>
                         <legend class="text-center header">Agregar nuevo paciente</legend>
@@ -62,19 +62,11 @@
                             </div>
                             <span asp-validation-for="TelefonoContacto" class="text-danger"></span>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-md-3 text-align-right">
-                                <label asp-for="Foto" class="control-label"></label>
-                            </div>
-                            <div class="col-md-6">
-                                <input asp-for="Foto" class="form-control" placeholder="Foto" />
-                            </div>
-                            <span asp-validation-for="Foto" class="text-danger"></span>
-                        </div>
+                    
                     </fieldset>
                     <div class="row contenedorBoton">
                         <div class="col-md-4 text-align-right">
-                            <a class="btn btn-primary btn-lg botonEditar" value="Editar" id="agregar" onclick="editar()">Editar</a>
+                            <a class="btn btn-primary btn-lg botonEditar" value="Editar" id="Editar" onclick="Editar()">Editar</a>
                         </div>
                         <br />
                         <div class="col-md-4">

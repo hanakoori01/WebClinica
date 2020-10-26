@@ -67,9 +67,7 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.TelefonoContacto)
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Foto)
-                            </th>
+                            
                             <th></th>
                         </tr>
                     </thead>
@@ -92,9 +90,7 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.TelefonoContacto)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Foto)
-                                </td>
+                              
                                 <partial name="_AddEditAndView" model="item.PacienteId" />
                             </tr>
                         }

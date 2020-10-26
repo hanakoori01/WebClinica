@@ -86,7 +86,7 @@ function abrirModalCrearEnfermedad() {
 function abrirModalEditarEspecialidad() {
     verModal('Modificar especialidad', '¿Desea modificar la especialidad?').then((result) => {
         if (result.value) {
-            var viewEditar = document.getElementById("viewEditar");
+            var viewEditar = document.getElementById("viewEditarEspecialidad");
             viewEditar.submit();
             Swal.fire(
                 'Modificado!',
@@ -107,7 +107,7 @@ function abrirModalEditarEspecialidad() {
 function abrirModalEditarMedico() {
     verModal('Modificar medico', '¿Desea modificar el medico?').then((result) => {
         if (result.value) {
-            var viewEditar = document.getElementById("viewEditar");
+            var viewEditar = document.getElementById("viewEditarMedico");
             viewEditar.submit();
             Swal.fire(
                 'Modificado!',
@@ -128,7 +128,7 @@ function abrirModalEditarMedico() {
 function abrirModalEditarPaciente() {
     verModal('Modificar paciente', '¿Desea modificar el paciente?').then((result) => {
         if (result.value) {
-            var viewEditar = document.getElementById("viewEditar");
+            var viewEditar = document.getElementById("viewEditarPaciente");
             viewEditar.submit();
             Swal.fire(
                 'Modificado!',
@@ -148,7 +148,7 @@ function abrirModalEditarPaciente() {
 function abrirModalEditarEnfermedad() {
     verModal('Modificar enfermedad', '¿Desea modificar la enfermedad?').then((result) => {
         if (result.value) {
-            var viewEditar = document.getElementById("viewEditar");
+            var viewEditar = document.getElementById("viewEditarEnfermedad");
             viewEditar.submit();
             Swal.fire(
                 'Modificada!',
@@ -285,7 +285,7 @@ function agregar() {
     }
 }
 
-function editar() {
+function Editar() {
     let titulo = document.title;
     if (titulo == "Editar especialidad") {
         abrirModalEditarEspecialidad();
