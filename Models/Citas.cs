@@ -24,6 +24,6 @@ namespace Clinica.Models
 
         public virtual Medico Medico { get; set; }
         public virtual Paciente Paciente { get; set; }
-        //Hola hola
+        //Vamos a probar el git
     }
 }
