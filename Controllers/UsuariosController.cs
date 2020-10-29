@@ -12,7 +12,7 @@ namespace Clinica.Controllers
 {
     public class UsuariosController : Controller
     {
-        //Hola
+        //Hola de nuevo
         private readonly DBClinicaAcmeContext _db;
         List<UsuarioTipoUsuario> listaUsuario = new List<UsuarioTipoUsuario>();
         List<Usuario> lista = new List<Usuario>();
