@@ -1,48 +1,90 @@
-﻿@model IEnumerable<Clinica.Models.Usuario>
-
+﻿@model IEnumerable<UsuarioTipoUsuario>
+@using Clinica.Models.ViewModel
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Content.cshtml";
 }
 
-<h2>Index</h2>
+<head>
+    <title>Usuario</title>
+</head>
+<partial name="_Menu" />
+<div class="container">
+    <main class="pb-3" role="main">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 col-lg-12">
+                    <h2 class="text-light">Lista Medico</h2>
+                </div>
+            </div>
+            <form asp-controller="Usuario" asp-action="Index" method="post" id="frmFilter">
+                <div class="row contenedorBotones">
+                    <div class="col-md-2 col-lg-2 text-right">
+                        <a asp-action="Create" class="btn btn-success fa fa-plus-circle crear">
+                            Nuevo
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-lg-2 text-right">
+                        <a asp-action="exportarPDF" class="btn btn-success fa fa-file-pdf-o crearPDF">
+                            Exportar PDF
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-lg-2 text-right">
+                        <a asp-action="exportarExcel" class="btn btn-success fa fa-file-excel-o crearExcel">
+                            Exportar Excel
+                        </a>
+                    </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TipoUsuario)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TipoUsuario.Nombre)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.UsuarioId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.UsuarioId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.UsuarioId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                    <div class="col-md-2 colo-lg-2 text-right">
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-info fa fa fa-arrow-circle-left inicio">
+                            Regresar al menú
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-lg-2 text-right">
+                        <a asp-controller="" asp-action="Index" class="btn btn-success fa fa-search-plus consulta">
+                            Consulta
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-12" style="color:black;"><hr></div>
+            </form>
+            @if (Model.Count() > 0)
+            {
+                <div class="contenedorTablas">
+                    <table class="table table-hover border .table-responsive" id="TbEspecial">
+                        <thead class="thead-dark">
+                            <tr class="table-secondary trs">
+                                <th>@Html.DisplayNameFor(model => model.UsuarioId)</th>
+                                <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+                                <th>@Html.DisplayNameFor(model => model.TipoUsuarioNombre)</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.UsuarioId)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                                <td> @Html.DisplayFor(modelItem => item.TipoUsuarioNombre)</td>
+                                <partial name="_AddEditAndView" model="item.UsuarioId" />
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <h2 style="color:red">No se encontraron médicos.</h2>
+            }
+        </div>
+        <form asp-action="Delete" asp-controller="Usuario" method="post" id="viewEliminarUsuario">
+            <input type="hidden" id="txtUsuarioId" name="UsuarioId" />
+        </form>
+        <form asp-action="Edit" asp-controller="Usuario" method="post" id="viewEditarUsuario">
+            <input type="hidden" id="txtUsuarioId" name="MedicoId" />
+        </form>
+    </main>
+</div>
+<partial name="_EndPag" />
