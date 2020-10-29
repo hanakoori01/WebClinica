@@ -12,6 +12,7 @@ namespace Clinica.Controllers
 {
     public class UsuariosController : Controller
     {
+        //Hola
         private readonly DBClinicaAcmeContext _db;
         List<UsuarioTipoUsuario> listaUsuario = new List<UsuarioTipoUsuario>();
         List<Usuario> lista = new List<Usuario>();
@@ -133,17 +134,19 @@ namespace Clinica.Controllers
         }
 
         [HttpGet]
-        public JsonResult Edit(int UsuarioId)
+        public IActionResult Edit(int id)
         {
+            cargarTipoUsuarios();
+            int recCount = _db.Usuario.Count(e => e.UsuarioId == id);
             Usuario _usuario = (from u in _db.Usuario
-                                where u.UsuarioId == UsuarioId
+                                where u.UsuarioId == id
                                 select u).DefaultIfEmpty().Single();
             _usuario.Password = Utilitarios.DescifrarDatos(_usuario.Password);
-            return Json(_usuario);
+            return View(_usuario);
         }
 
         [HttpPost]
-        public string Edited(Usuario _Usuario)
+        public IActionResult Edit(Usuario _Usuario)
         {
             string rpta = "";
             try
@@ -180,7 +183,7 @@ namespace Clinica.Controllers
             {
                 rpta = ex.Message;
             }
-            return rpta;
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
