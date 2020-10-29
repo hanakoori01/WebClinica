@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Clinica.Models;
-using Clinica.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebClinica.Models;
+using WebClinica.Models.ViewModel;
 
-namespace Clinica.Controllers
+namespace WebClinica.Controllers
 {
-    public class UsuariosController : Controller
+    public class UsuarioController : Controller
     {
-        //Hola de nuevo
         private readonly DBClinicaAcmeContext _db;
         List<UsuarioTipoUsuario> listaUsuario = new List<UsuarioTipoUsuario>();
         List<Usuario> lista = new List<Usuario>();
-        public UsuariosController(DBClinicaAcmeContext db)
+        public UsuarioController(DBClinicaAcmeContext db)
         {
             _db = db;
         }
@@ -122,15 +121,15 @@ namespace Clinica.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public JsonResult Details(int UsuarioId)
+        public IActionResult Details(int id)
         {
+            cargarTipoUsuarios();
+            int recCount = _db.Usuario.Count(e => e.UsuarioId == id);
             Usuario _usuario = (from u in _db.Usuario
-                                where u.UsuarioId == UsuarioId
+                                where u.UsuarioId == id
                                 select u).DefaultIfEmpty().Single();
-            string pass = Utilitarios.DescifrarDatos(_usuario.Password)
-                               + " (" + "Cifrado : " + _usuario.Password + ")";
-            _usuario.Password = pass;
-            return Json(_usuario);
+            _usuario.Password = Utilitarios.DescifrarDatos(_usuario.Password);
+            return View(_usuario);
         }
 
         [HttpGet]
@@ -172,6 +171,7 @@ namespace Clinica.Controllers
                     rpta = "OK";
                     string pass = Utilitarios.CifrarDatos(_Usuario.Password);
                     Usuario user = new Usuario();
+                    user.UsuarioId = _Usuario.UsuarioId;
                     user.Nombre = _Usuario.Nombre;
                     user.TipoUsuarioId = _Usuario.TipoUsuarioId;
                     user.Password = pass;
@@ -205,4 +205,3 @@ namespace Clinica.Controllers
         }
     }
 }
-
