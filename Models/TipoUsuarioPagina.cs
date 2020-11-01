@@ -8,10 +8,13 @@ namespace Clinica.Models
     {
         [Display(Name = "Tipo Usuario Página Id:")]
         public int TipoUsuarioPaginaId { get; set; }
+
         [Display(Name = "Tipo Usuario:")]
         public int? TipoUsuarioId { get; set; }
+
         [Display(Name = "Página Id")]
         public int? PaginaId { get; set; }
+
         [Display(Name = "Boton Habilitado")]
         public int? BotonHabilitado { get; set; }
     }
