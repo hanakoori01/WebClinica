@@ -1,0 +1,45 @@
+﻿@{
+    Layout = null;
+}
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<div class="col-md-6 m-auto" style="position:relative;top:50%;transform:translateY(-50%)">
+    <div class="backgroundWhiteBorder10Padding">
+        <div class="form-group row" style="padding: 5px;">
+            <img style="width:30%; height:20%;" src="~/img/Medicos1.png" />
+            <img style="width:50%; height:30%;" src="~/img/ClinicaAcme.png" />
+            <img style="width:20%; height:10%;" src="~/img/login.png" />
+        </div>
+        <div>
+            <h2 style="text-align:center;color:darkmagenta;">Acceso al sistema</h2>
+            <div class="form-group">
+                <label>Usuario</label>
+                <input type="text" id="txtUser" value="" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" id="txtPassword" value="" class="form-control" />
+            </div>
+            <input type="button" class="btn btn-block btn btn-primary"
+                   onclick="Enviar()"
+                   value="Ingresar" />
+        </div>
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/sweetalert2.js"></script>
+<script src="~/js/Utilitarios.js"></script>
+<script>
+    function Enviar() {
+        var user   = document.getElementById("txtUser").value;
+        var pass = document.getElementById("txtPassword").value;  
+        $.get("Login/_Login/?user=" + user + "&pass=" + pass, function (data) {
+            if (data == "") {
+                error("Usuario o contaseña incorrecto!");
+            } else {
+                correcto("Bienvenido!");
+                document.location.href = "Home";
+            }
+        });
+    }  
+</script>
+

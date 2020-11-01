@@ -6,23 +6,21 @@
 <link href='https://fonts.googleapis.com/css?family=Raleway:400,500,300' rel='stylesheet' type='text/css'>
 <div class="bodylogin">
     <div id="mainButton">
-        <div class="btn-text" onclick="openForm()">Sign In</div>
+        <div class="btn-text" onclick="Ingresar()">Ingresar</div>
         <div class="modal">
             <div class="close-button" onclick="closeForm()">x</div>
-            <div class="form-title">Sign In</div>
+            <div class="form-title">Ingresar</div>
             <div class="input-group">
-                <input type="text" id="name" onblur="checkInput(this)" />
-                <label for="name">Username</label>
+                <label for="name">Nombre de Usuario</label>
+                <input type="text" id="txtUser" onblur="checkInput(this)" />
             </div>
             <div class="input-group">
-                <input type="password" id="password" onblur="checkInput(this)" />
-                <label for="password">Password</label>
+                <label for="password">Contraseña</label>
+                <input type="password" id="txtPassword" onblur="checkInput(this)" />
             </div>
             <div class="form-button" onclick="closeForm()">Go</div>
-            <div class="codepen-by">CodePen by Cole Waldrip</div>
         </div>
     </div>
-    <div class="codepen-by">CodePen by Cole Waldrip</div>
 </div>
 
 

@@ -1,4 +1,43 @@
-﻿
+﻿/*--------------------LOGIN--------------------*/
+function Ingresar() {
+    var user = document.getElementById("txtUser").value;
+    var pass = document.getElementById("txtPassword").value;
+    $.get("Login/_Login/?user=" + user + "&pass=" + pass, function (data) {
+        if (data == "") {
+            error("Usuario o contaseña incorrecto!");
+        } else {
+            correcto("Bienvenido!");
+            document.location.href = "Home";
+        }
+    });
+}  
+
+
+var button = document.getElementById('mainButton');
+
+var openForm = function () {
+    button.className = 'active';
+};
+
+var checkInput = function (input) {
+    if (input.value.length > 0) {
+        input.className = 'active';
+    } else {
+        input.className = '';
+    }
+};
+
+var closeForm = function () {
+    button.className = '';
+};
+
+document.addEventListener("keyup", function (e) {
+    if (e.keyCode == 27 || e.keyCode == 13) {
+        closeForm();
+    }
+});
+
+
 /*--------------------MODALES CREAR--------------------*/
 function abrirModalCrearEspecialidad() {
     verModal('Agregar especialidad', '¿Desea guardar la especialidad?').then((result) => {
@@ -442,15 +481,18 @@ function BuscarConsulta() {
     if (titulo == "Consulta Especialidad") {
         BuscarEspecialidad();
     } else {
-        if (titulo == "Medico") {
+        if (titulo == "Consulta Medico") {
             BuscarMedico();
         } else {
-            if (titulo == "Paciente") {
+            if (titulo == "Consulta Paciente") {
                 BuscarPaciente();
             } else {
                 if (titulo == "Consulta Enfermedad") {
                     BuscarEnfermedad();
-                }
+                } else {
+                    if (titulo == "Consulta Citas") {
+                        BuscarCitas();
+                    }
             }
         }
     }
@@ -467,17 +509,17 @@ function BuscarEspecialidad() {
 /* BUSCAR POR NOMBRE CONSULTA MEDICO*/
 function BuscarMedico() {
     var nombre = document.getElementById("nombre").value;
-    var url = "Enfermedad/BuscarEnfermedad/?nombreEnfermedad=" + nombre;
+    var url = "Medico/BuscarMedico/?nombreMedico=" + nombre;
     var tbody = document.getElementById("tbDatos");
-    var campos = new Array("enfermedadId", "nombre", "descripcion");
+    var campos = new Array("medicoId", "apellido", "nombre", "direccion", "telefonoFijo", "telefonoCelular", "especialidad");
     pintarPantallaConsulta(url, campos, tbody);
 }
 /* BUSCAR POR NOMBRE CONSULTA PACIENTE*/
 function BuscarPaciente() {
     var nombre = document.getElementById("nombre").value;
-    var url = "Enfermedad/BuscarEnfermedad/?nombreEnfermedad=" + nombre;
+    var url = "Paciente/BuscarPaciente/?nombrePaciente=" + nombre;
     var tbody = document.getElementById("tbDatos");
-    var campos = new Array("enfermedadId", "nombre", "descripcion");
+    var campos = new Array("nombre", "apellidos", "direccion", "telefonoContacto");
     pintarPantallaConsulta(url, campos, tbody);
 }
 /* BUSCAR POR NOMBRE CONSULTA ENFERMEDAD*/
@@ -487,16 +529,23 @@ function BuscarEnfermedad() {
     var tbody = document.getElementById("tbDatos");
     var campos = new Array( "nombre", "descripcion");
     pintarPantallaConsulta(url, campos, tbody);
-}
+    }
+
+/* BUSCAR POR NOMBRE CONSULTA CITAS*/
+    function BuscarEnfermedad() {
+        var nombre = document.getElementById("nombre").value;
+        var url = "ConsultaCitas/BuscarCitas/?nombreCitas=" + nombre;
+        var tbody = document.getElementById("tbDatos");
+        var campos = new Array("fechaCita", "diagnostico", "medico", "paciente", "especialidad");
+        pintarPantallaConsulta(url, campos, tbody);
+    }
 
 /* RESETEAR CONSULTAS*/
 
 function Resetear() {
     document.getElementById("nombre").value = "";
-    buscarConsulta();
+    BuscarConsulta();
 }
-
-
 
 $(document).ready(function () {
     $('#TbEspecial').DataTable(
@@ -511,29 +560,3 @@ function verificar() {
     var value = $('.dataTables_filter input').val();
     alert(value);
 }
-
-/* Js Login*/
-var button = document.getElementById('mainButton');
-
-var openForm = function () {
-    button.className = 'active';
-};
-
-var checkInput = function (input) {
-    if (input.value.length > 0) {
-        input.className = 'active';
-    } else {
-        input.className = '';
-    }
-};
-
-var closeForm = function () {
-    button.className = '';
-};
-
-document.addEventListener("keyup", function (e) {
-    if (e.keyCode == 27 || e.keyCode == 13) {
-        closeForm();
-    }
-});
-/* Js Login*/

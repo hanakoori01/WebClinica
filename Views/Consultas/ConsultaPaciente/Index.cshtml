@@ -1,12 +1,13 @@
-﻿@model IEnumerable<Enfermedad>
+﻿@model IEnumerable<Paciente>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Content.cshtml";
-    String nombreEnfermedad = ViewBag.Enfermedad;
+    String nombrePaciente = ViewBag.Paciente;
 }
+
 <head>
-    <title>Consulta Enfermedad</title>
+    <title>Consulta Paciente</title>
 </head>
 <partial name="_Menu" />
 <div class="container">
@@ -15,39 +16,39 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6 col-lg-12">
-                    <h2 class="text-light">Consulta Enfermedades</h2>
+                    <h2 class="text-light">Consulta Paciente</h2>
                 </div>
             </div>
-            <form asp-controller="Enfermedad" asp-action="Index" method="post" id="frmFilter">
+            <form asp-controller="Paciente" asp-action="Index" method="post" id="frmFilter">
                 <div class="row contenedorBotones">
                     <div class="col-md-2 col-lg-2 text-right">
-                        <label>Buscar Enfermedad:</label>
+                        <label>Buscar Paciente:</label>
                     </div>
                     <br />
                     <div class="col-md-2 col-lg-2 text-align-center">
-                        <input type="text" class="form-control" name="nombre" id="nombre" value="@ViewBag.Enfermedad" />
+                        <input type="text" class="form-control" name="nombre" id="nombre" value="@ViewBag.Paciente" />
                     </div>
                     <br />
                     <div class="col-md-2 col-lg-2 text-align-center ">
-                        <a  class="btn btn-success fa fa-search botonesTexto buscarConsulta" onclick="buscarConsulta()">
+                        <a class="btn btn-success fa fa-search botonesTexto buscarConsulta" onclick="buscarConsulta()">
                             Buscar
                         </a>
                     </div>
                     <br />
                     <div class="col-md-2 col-lg-2 text-right">
-                        <a  class="btn btn-success fa fa-file-excel-o resetearBoton botonesTexto" onclick="Resetear()">
+                        <a class="btn btn-success fa fa-file-excel-o resetearBoton botonesTexto" onclick="Resetear()">
                             Resetear
                         </a>
                     </div>
                     <br />
                     <div class="col-md-2 col-lg-2 text-right">
-                        <a asp-controller="ConsultaEnfermedad"  asp-action="exportarPDF" class="btn btn-success fa fa-file-pdf-o crearPDF botonesTexto" target="_blank">
+                        <a asp-controller="ConsultaPaciente" asp-action="exportarPDF" class="btn btn-success fa fa-file-pdf-o crearPDF botonesTexto" target="_blank">
                             Exportar PDF
                         </a>
                     </div>
                     <br />
                     <div class="col-md-2 col-lg-2 text-right">
-                        <a asp-controller="ConsultaEnfermedad"  asp-action="exportarExcel" class="btn btn-success fa fa-file-excel-o crearExcel botonesTexto" target="_blank">
+                        <a asp-controller="ConsultaPaciente" asp-action="exportarExcel" class="btn btn-success fa fa-file-excel-o crearExcel botonesTexto" target="_blank">
                             Exportar Excel
                         </a>
                     </div>
@@ -64,16 +65,22 @@
             @if (Model.Count() > 0)
             {
                 <table class="table table-hover border .table-responsive" id="tbDatos">
-                    <thead class="thead-dark trs">
+                    <thead class="thead-dark trs ">
                         <tr class="table-secondary">
-                            <th>
-                                @Html.DisplayNameFor(model => model.EnfermedadId)
-                            </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Nombre)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Descripcion)
+                                @Html.DisplayNameFor(model => model.Apellidos)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Direccion)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TelefonoContacto)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Email)
                             </th>
                             <th></th>
                         </tr>
@@ -83,14 +90,21 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.EnfermedadId)
-                                </td>
-                                <td>
                                     @Html.DisplayFor(modelItem => item.Nombre)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Descripcion)
+                                    @Html.DisplayFor(modelItem => item.Apellidos)
                                 </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Direccion)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TelefonoContacto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+
                             </tr>
                         }
                     </tbody>
@@ -98,10 +112,10 @@
             }
             else
             {
-                <h2 class="textoInformativo">No hay especialidades en la lista.</h2>
+                <h2 class="textoInformativo">No hay pacientes en la lista.</h2>
             }
         </div>
-    
     </main>
 </div>
 <partial name="_EndPag" />
+
