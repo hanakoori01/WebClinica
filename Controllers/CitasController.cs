@@ -14,6 +14,7 @@ namespace WebClinica.Controllers
     {
         private readonly DBClinicaAcmeContext _db;
         List<CitaMedica> listaCitas = new List<CitaMedica>();
+        List<Citas> lista = new List<Citas>();
 
         static private string _Fecha;
 
@@ -21,7 +22,8 @@ namespace WebClinica.Controllers
         {
             _db = db;
         }
-        public IActionResult Index()
+
+        public List<CitaMedica> listarCitas()
         {
             listaCitas = (from citas in _db.Citas
 
@@ -44,14 +46,13 @@ namespace WebClinica.Controllers
                               MedicoId = medico.MedicoId,
                               NombreMedico = medico.Nombre + " " + medico.Apellidos,
                               NombreEspecialidad = especialidad.Nombre,
+                              Diagnostico = citas.Diagnostico,
                               FechaCita = citas.FechaCita
                           }).ToList();
-            ViewBag.Controlador = "Citas";
-            ViewBag.Accion = "Index";
-            return View(listaCitas);
+            return listaCitas;
         }
 
-        private void cargarUltimoRegistro()
+        private void CargarUltimoRegistro()
         {
             var ultimoRegistro = _db.Set<Citas>().OrderByDescending(e => e.CitaId).FirstOrDefault();
             if (ultimoRegistro == null)
@@ -64,7 +65,7 @@ namespace WebClinica.Controllers
             }
         }
 
-        private void cargarMedicos()
+        private void CargarMedicos()
         {
             List<SelectListItem> listaMedicos = new List<SelectListItem>();
             listaMedicos = (from medico in _db.Medico
@@ -73,26 +74,44 @@ namespace WebClinica.Controllers
                             on medico.EspecialidadId equals especialidad.EspecialidadId
                             select new SelectListItem
                             {
-                                Text = medico.Apellidos + ", " + medico.Nombre
-                                            + " - " + especialidad.Nombre + ", " +
-                                            medico.MedicoId
+                                Text = medico.Apellidos + ", "
+                                     + medico.Nombre + " - "
+                                     + especialidad.Nombre,
+                                Value = medico.MedicoId.ToString()
                             }
                                    ).ToList();
             ViewBag.ListaMedicos = listaMedicos;
         }
 
-        public IActionResult Create(int PacienteId)
+        private void ListarPacientes()
         {
-            cargarMedicos();
-            cargarUltimoRegistro();
-            if (PacienteId != 0)
-            {
-                BuscarPaciente(PacienteId);
-            }
-            ViewBag.Controlador = "Citas";
-            ViewBag.Accion = "Create";
-            return View();
+            List<SelectListItem> listaPacientes = new List<SelectListItem>();
+
+            listaPacientes = (from pacientes in _db.Paciente
+                              orderby pacientes.Apellidos
+                              select new SelectListItem
+                              {
+                                  Text = pacientes.Nombre + ", "
+                                       + pacientes.Apellidos,
+                                  Value = pacientes.PacienteId.ToString()
+                              }).ToList();
+            ViewBag.ListaPacientes = listaPacientes;
         }
+
+        private void ListarEspecialidades()
+        {
+            List<SelectListItem> listaEspecialidades = new List<SelectListItem>();
+            listaEspecialidades = (from especialidad in _db.Especialidad
+                                   orderby especialidad.Nombre
+                                   select new SelectListItem
+                                   {
+                                       Text = especialidad.Nombre,
+                                       Value = especialidad.EspecialidadId.ToString()
+                                   }
+                                   ).ToList();
+            ViewBag.ListaEspecialidades = listaEspecialidades;
+        }
+
         private void BuscarPaciente(int PacienteId)
         {
             Paciente oPaciente = _db.Paciente
@@ -109,21 +128,6 @@ namespace WebClinica.Controllers
             }
         }
 
-        public IActionResult ListarPacientes()
-        {
-            List<Paciente> listaPacientes = new List<Paciente>();
-
-            listaPacientes = (from pacientes in _db.Paciente
-                              select new Paciente
-                              {
-                                  PacienteId = pacientes.PacienteId,
-                                  Nombre = pacientes.Nombre,
-                                  Apellidos = pacientes.Apellidos,
-                                  Direccion = pacientes.Direccion
-                              }).ToList();
-            return View(listaPacientes);
-        }
-
         private int buscarEspecialidad(int medicoId)
         {
             int especialidadID = 0;
@@ -134,6 +138,12 @@ namespace WebClinica.Controllers
                 especialidadID = oMedico.EspecialidadId;
             }
             return especialidadID;
+        }
+
+        public IActionResult Index()
+        {
+            listaCitas = listarCitas();
+            return View(listaCitas);
         }
 
         private void buscarCita(int Id)
@@ -157,30 +167,41 @@ namespace WebClinica.Controllers
                           }).ToList();
         }
 
-        //Apartir de aca todo nuevo
-        public IActionResult Details(int id)
+        [HttpGet]
+        public IActionResult Create(int PacienteId)
         {
-            Citas oCitas = _db.Citas
-                         .Where(e => e.CitaId == id).First();
-            return View(oCitas);
+            CargarMedicos();
+            CargarUltimoRegistro();
+            ListarPacientes();
+            ListarEspecialidades();
+            if (PacienteId != 0)
+            {
+                BuscarPaciente(PacienteId);
+            }
+            return View();
         }
 
-        public IActionResult Delete(int Id)
-        {
-            buscarCita(Id);
-            return View(listaCitas);
-        }
-        [HttpPost, ActionName("Delete")]
-        public IActionResult Deleted(int Id)
+        [HttpPost]
+        public IActionResult Create(Citas citas)
         {
             string Error = "";
             try
             {
-                Citas oCita = _db.Citas
-                    .Where(c => c.CitaId == Id).First();
-                if (oCita != null)
+                if (!ModelState.IsValid)
                 {
-                    _db.Citas.Remove(oCita);
+                    return View(citas);
+                }
+                else
+                {
+                    CargarUltimoRegistro();
+                    Citas _citas = new Citas();
+                    _citas.CitaId = ViewBag.ID;
+                    _citas.EspecialidadId = citas.EspecialidadId;
+                    _citas.MedicoId = citas.MedicoId;
+                    _citas.PacienteId = citas.PacienteId;
+                    _citas.FechaCita = citas.FechaCita;
+                    _citas.Diagnostico = citas.Diagnostico;
+                    _db.Citas.Add(_citas);
                     _db.SaveChanges();
                 }
             }
@@ -191,64 +212,31 @@ namespace WebClinica.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Created(CitaMedica cita)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    cargarMedicos();
-                }
-                else
-                {
-                    var citaId = buscarEspecialidad(cita.MedicoId);
-                    Citas _cita = new Citas();
-                    //_cita.CitaId = cita.CitaId;
-                    _cita.PacienteId = cita.PacienteId;
-                    _cita.MedicoId = cita.MedicoId;
-                    _cita.FechaCita = cita.FechaCita;
-                    _cita.Diagnostico = cita.Diagnostico;
-                    _cita.EspecialidadId = citaId;
-                    _db.Citas.Add(_cita);
-                    await _db.SaveChangesAsync();
-                }
-            }
-            catch (Exception ex)
-            {
-                ViewBag.Error = ex.Message;
-            }
-            //Si se quiere caer de nuevo en Create
-            //para seguir agregando citas
-            cargarMedicos();
-            cargarUltimoRegistro();
-            return View("Create");
-
-        }
-
-        public IActionResult Edit(int Id)
+        public IActionResult Details(int Id)
         {
             buscarCita(Id);
-            CitaMedica _citaMedica = new CitaMedica();
-            foreach (CitaMedica item in listaCitas)
-            {
-                _citaMedica.CitaId = item.CitaId;
-                _citaMedica.FechaCita = item.FechaCita.Date;
-                _citaMedica.PacienteId = item.PacienteId;
-                _citaMedica.NombrePaciente = item.NombrePaciente;
-                _citaMedica.MedicoId = item.MedicoId;
-                _citaMedica.NombreMedico = item.NombrePaciente;
-                _citaMedica.EspecialidadId = item.EspecialidadId;
-                _citaMedica.NombreEspecialidad = item.NombreEspecialidad;
-                _citaMedica.Diagnostico = item.Diagnostico;
-            }
-            ViewBag.Medico = _citaMedica.MedicoId;
-            ViewBag.FechaCita = _citaMedica.FechaCita.ToString("yyyy-MM-dd");
-            _Fecha = ViewBag.FechaCita;
-            cargarMedicos();
-            return View(_citaMedica);
+            return View(listaCitas);
         }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            CargarUltimoRegistro();
+            CargarMedicos();
+            ListarPacientes();
+            ListarEspecialidades();
+            buscarCita(id);
+            int recCount = _db.Citas.Count(e => e.CitaId == id);
+            Citas _citas = (from c in _db.Citas
+                            where c.CitaId == id
+                            select c).DefaultIfEmpty().Single();
+            ViewBag.FechaCita = _citas.FechaCita.ToString("yyyy-MM-dd");
+            _Fecha = ViewBag.FechaCita;
+            return View(_citas);
+        }
+
         [HttpPost]
-        public IActionResult Edit(CitaMedica cita)
+        public IActionResult Edit(Citas cita)
         {
             string error;
             try
@@ -273,6 +261,27 @@ namespace WebClinica.Controllers
             catch (Exception ex)
             {
                 error = ex.Message;
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int CitaId)
+        {
+            string Error = "";
+            try
+            {
+                Citas oCita = _db.Citas
+                    .Where(c => c.CitaId == CitaId).First();
+                if (oCita != null)
+                {
+                    _db.Citas.Remove(oCita);
+                    _db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Error = ex.Message;
             }
             return RedirectToAction(nameof(Index));
         }

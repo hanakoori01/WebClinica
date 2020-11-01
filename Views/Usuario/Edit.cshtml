@@ -1,0 +1,72 @@
+﻿@model Clinica.Models.Usuario
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Content.cshtml";
+    List<SelectListItem> Lista = ViewBag.ListaTipoUsuario;
+}
+
+<head>
+    <title>Editar usuario</title>
+</head>
+<partial name="_Menu" />
+<div class="container" style="margin-top:15px;">
+    <main class="pb-3" role="main">
+        <div class="row">
+            <form asp-action="Edit" method="post" id="viewEditarUsuario">
+                <div class="container-fluid">
+                    <fieldset>
+                        <legend class="text-center header">Editar usuario</legend>
+                        <br style="margin-top:15px;" />
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group row">
+                            <div class="col-md-3 text-align-right">
+                                <label asp-for="UsuarioId" class="control-label"></label>
+                            </div>
+                            <div class="col-md-6">
+                                <input asp-for="UsuarioId" readonly="readonly" class="form-control" />
+                            </div>
+                            <span asp-validation-for="UsuarioId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3 text-align-right">
+                                <label asp-for="Nombre" class="control-label"></label>
+                            </div>
+                            <div class="col-md-6">
+                                <input asp-for="Nombre" class="form-control" />
+                            </div>
+                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3 text-align-right">
+                                <label asp-for="Password" class="control-label"></label>
+                            </div>
+                            <div class="col-md-6">
+                                <input asp-for="Password" class="form-control" />
+                            </div>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3 text-align-right">
+                                <label asp-for="TipoUsuarioId" class="control-label"></label>
+                            </div>
+                            <div class="col-md-6">
+                                <select asp-for="TipoUsuarioId" class="form-control" asp-items="@Lista"></select>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="row" style="display:flex; justify-content:space-between">
+                        <div class="col-md-4 text-align-right">
+                            <input type="submit" class="btn btn-primary btn-lg" value="Editar" id="editar" onclick="Editar()" style="border-radius: 50px; padding: 12px 15px; border-width: 1px; border-style: solid; text-transform: uppercase;" />
+                        </div>
+                        <br />
+                        <div class="col-md-4">
+                            <a class="btn btn-info btn-lg" id="regresar" asp-action="Index" style="border-radius: 50px; padding: 12px 15px; border-width: 1px; border-style: solid; text-transform: uppercase;">Regresar</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+<partial name="_EndPag" />

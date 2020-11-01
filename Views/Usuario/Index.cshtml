@@ -4,7 +4,6 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Content.cshtml";
 }
-
 <head>
     <title>Usuario</title>
 </head>
@@ -14,7 +13,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6 col-lg-12">
-                    <h2 class="text-light">Lista Medico</h2>
+                    <h2 class="text-light">Lista Usuarios</h2>
                 </div>
             </div>
             <form asp-controller="Usuario" asp-action="Index" method="post" id="frmFilter">
@@ -63,12 +62,12 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                            <tr>
-                                <td>@Html.DisplayFor(modelItem => item.UsuarioId)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-                                <td> @Html.DisplayFor(modelItem => item.TipoUsuarioNombre)</td>
-                                <partial name="_AddEditAndView" model="item.UsuarioId" />
-                            </tr>
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.UsuarioId)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                                    <td> @Html.DisplayFor(modelItem => item.TipoUsuarioNombre)</td>
+                                    <partial name="_AddEditAndView" model="item.UsuarioId" />
+                                </tr>
                             }
                         </tbody>
                     </table>

@@ -261,6 +261,53 @@ function EliminarEnfermedad(EnfermedadId) {
             }
         })
 }
+function EliminarUsuario(UsuarioId) {
+    document.getElementById("txtUsuarioId").value = UsuarioId;
+    verModal('Eliminar paciente',
+        '¿Desea eliminar el usuario código '
+        + UsuarioId + '?').then((result) => {
+            if (result.value) {
+                var viewEliminarUsuario = document.getElementById("viewEliminarUsuario");
+                viewEliminarUsuario.submit();
+                Swal.fire(
+                    'Eliminación!',
+                    'El usuario' + UsuarioId + 'fue eliminado!.',
+                    'success'
+                )
+            }
+            else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'Cancelado',
+                    'El usuario no fue eliminada!!!:)',
+                    'error'
+                )
+            }
+        })
+}
+function EliminarCita(CitaId) {
+    document.getElementById("txtCitaId").value = CitaId;
+    verModal('Eliminar cita',
+        '¿Desea eliminar la cita con el código '
+        + CitaId + '?').then((result) => {
+            if (result.value) {
+                var viewEliminarCita = document.getElementById("viewEliminarCita");
+                viewEliminarCita.submit();
+                Swal.fire(
+                    'Eliminación!',
+                    'La cita' + CitaId + 'fue eliminada!.',
+                    'success'
+                )
+            }
+            else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'Cancelado',
+                    'La cita no fue eliminada!!!:)',
+                    'error'
+                )
+            }
+        })
+}
+
 
 /*--------------------METODOS ELIMINAR--------------------*/
 /*--------------------METODOS GLOBALES--------------------*/
@@ -317,8 +364,15 @@ function Eliminar(id) {
             } else {
                 if (titulo == "Enfermedad") {
                     EliminarEnfermedad(id);
+                } else {
+                    if (titulo == "Citas") {
+                        EliminarCita(id);
+                    } else {
+                        if (titulo == "Usuario") {
+                            EliminarUsuario(id);
+                        }
+                    }
                 }
-
             }
         }
     }
