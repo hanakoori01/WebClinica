@@ -11,7 +11,6 @@ namespace WebClinica.Controllers
 {
     public class AsignaRolController : Controller
     {
-        // GET: AsignaRolController
         public static List<TipoUsuario> lista;
         private List<Pagina> LstPagina = new List<Pagina>();
         public static int UserType;

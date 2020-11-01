@@ -23,6 +23,8 @@ namespace Clinica.Models
         [MaxLength(50, ErrorMessage = "El nombre debe tener una longitud máxima de 50")]
         public string Controlador { get; set; }
 
+        public int BotonId { get; set; }
+
         public int? BotonHabilitado { get; set; }
     }
 }

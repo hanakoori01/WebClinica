@@ -165,5 +165,22 @@ namespace Clinica.Models
                 }
             }
         }
+        public static List<Pagina> ListarBotonesDatos(string nomcontroller)
+        {
+            List<Pagina> listapag = new List<Pagina>();
+            listapag = Utilitarios.listaBotonesPagina
+                .Where(p => p.Controlador.ToUpper() == nomcontroller.ToUpper()).ToList();
+            return listapag;
+        }
+
+        public static List<Pagina> listaPagina;
+        public static List<Pagina> listaBotonesPagina;
+
+        public static List<string> ListaController { get; set; } = new List<string>();
+        public static List<string> ListaMenu { get; set; } = new List<string>();
+        public static List<string> ListaAccion { get; set; } = new List<string>();
+        public static string MenuMant;
+        public static string MenuCons;
+        public static string MenuAcce;
     }
 }
