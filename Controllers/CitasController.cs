@@ -214,8 +214,18 @@ namespace WebClinica.Controllers
 
         public IActionResult Details(int Id)
         {
+            CargarUltimoRegistro();
+            CargarMedicos();
+            ListarPacientes();
+            ListarEspecialidades();
             buscarCita(Id);
-            return View(listaCitas);
+            int recCount = _db.Citas.Count(e => e.CitaId == Id);
+            Citas _citas = (from c in _db.Citas
+                            where c.CitaId == Id
+                            select c).DefaultIfEmpty().Single();
+            ViewBag.FechaCita = _citas.FechaCita.ToString("yyyy-MM-dd");
+            _Fecha = ViewBag.FechaCita;
+            return View(_citas);
         }
 
         [HttpGet]

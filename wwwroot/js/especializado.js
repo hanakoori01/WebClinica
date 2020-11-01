@@ -185,6 +185,26 @@ function abrirModalEditarEnfermedad() {
         }
     })
 }
+function abrirModalEditarCita() {
+    verModal('Modificar cita', '¿Desea modificar la cita?').then((result) => {
+        if (result.value) {
+            var viewEditarCita = document.getElementById("viewEditarCita");
+            viewEditarCita.submit();
+            Swal.fire(
+                'Modificado!',
+                'La cita fue modificado!.',
+                'success'
+            )
+        }
+        else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire(
+                'Cancelado',
+                'La cita no fue modificado!!!:)',
+                'error'
+            )
+        }
+    })
+}
 /*--------------------MODALES EDITAR-----------------------*/
 /*--------------------METODOS ELIMINAR--------------------*/
 function EliminarEspecialidad(EspecialidadId) {
@@ -360,6 +380,7 @@ function Agregar() {
     }
 }
 
+
 function Editar() {
     let titulo = document.title;
     if (titulo == "Editar especialidad") {
@@ -373,6 +394,14 @@ function Editar() {
             } else {
                 if (titulo == "Editar enfermedad") {
                     abrirModalEditarEnfermedad();
+                } else {
+                    if (titulo == "Editar usuario") {
+                        abrirModalEditarUsuario();
+                    } else {
+                        if (titulo == "Editar cita") {
+                            abrirModalEditarCita();
+                        }
+                    }
                 }
             }
         }
@@ -408,7 +437,7 @@ function Eliminar(id) {
 
 /* BUSCAR POR NOMBRE CONSULTAS*/
 
-function buscarConsulta() {
+function BuscarConsulta() {
     let titulo = document.title;
     if (titulo == "Consulta Especialidad") {
         BuscarEspecialidad();

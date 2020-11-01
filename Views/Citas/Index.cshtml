@@ -6,7 +6,7 @@
 }
 
 <head>
-    <title>Enfermedad</title>
+    <title>Citas</title>
 </head>
 <partial name="_Menu" />
 <div class="container">
@@ -15,34 +15,23 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6 col-lg-12">
-                    <h2 class="text-light">Lista Citas<</h2>
+                    <h2 class="text-light">Lista Citas</h2>
                 </div>
             </div>
-            <form asp-controller="Enfermedades" asp-action="Index" method="post" id="frmFilter">
+            <form asp-controller="Citas" asp-action="Index" method="post" id="frmFilter">
                 <div class="row contenedorBotones">
                     <div class="col-md-2 col-lg-2 text-right">
                         <a asp-action="Create" class="btn btn-success fa fa-plus-circle crear">
                             Nuevo
                         </a>
                     </div>
-                    <div class="col-md-2 col-lg-2 text-right">
-                        <a asp-action="exportarPDF" class="btn btn-success fa fa-file-pdf-o crearPDF" target="_blank">
-                            Exportar PDF
-                        </a>
-                    </div>
-                    <div class="col-md-2 col-lg-2 text-right">
-                        <a asp-action="exportarExcel" class="btn btn-success fa fa-file-excel-o crearExcel" target="_blank">
-                            Exportar Excel
-                        </a>
-                    </div>
-
                     <div class="col-md-2 colo-lg-2 text-right">
                         <a asp-controller="Home" asp-action="Index" class="btn btn-info fa fa fa-arrow-circle-left inicio">
                             Regresar al menú
                         </a>
                     </div>
                     <div class="col-md-2 col-lg-2 text-right">
-                        <a asp-controller="ConsultaEnfermedad" asp-action="Index" class="btn btn-success fa fa-search-plus consulta">
+                        <a asp-controller="ConsultaCitas" asp-action="Index" class="btn btn-success fa fa-search-plus consulta">
                             Consulta
                         </a>
                     </div>
@@ -51,70 +40,70 @@
             </form>
             @if (Model.Count() > 0)
             {
-                <table class="table table-hover border .table-responsive" id="TbEspecial">
-                    <thead class="thead-dark">
-                        <tr class="table-secondary">
-                            <th>
-                                @Html.DisplayNameFor(model => model.CitaId)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.NombrePaciente)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.NombreMedico)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.NombreEspecialidad)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.FechaCita)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Diagnostico)
-                            </th>
+              
+        <div class="contenedorTablas">
+            <table class="table table-hover border .table-responsive" id="TbEspecial">
+                <thead class="thead-dark">
+                    <tr class="table-secondary trs">
 
-                            <th></th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NombrePaciente)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NombreMedico)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NombreEspecialidad)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FechaCita)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Diagnostico)
+                        </th>
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NombrePaciente)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NombreMedico)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NombreEspecialidad)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FechaCita, "{0:dd/MM/yyyy}")
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Diagnostico)
+                            </td>
+                            <partial name="_AddEditAndView" model="item.CitaId" />
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CitaId)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.NombrePaciente)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.NombreMedico)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.NombreEspecialidad)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.FechaCita, "{0:dd/MM/yyyy}")
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Diagnostico)
-                                </td>
-                                <partial name="_AddEditAndView" model="item.CitaId" />
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            }
-            else
-            {
-                <h2 class="textoInformativo">No hay enfermedades en la lista.</h2>
-            }
+                    }
+                </tbody>
+            </table>
         </div>
-        <form asp-action="Delete" asp-controller="Citas" method="post" id="viewEliminarCita">
-            <input type="hidden" id="txtCitaId" name="CitaId" />
-        </form>
-        <form asp-action="Edit" asp-controller="Medico" method="post" id="viewEditarCita">
-            <input type="hidden" id="txtCitaId" name="CitaId" />
-        </form>
-    </main>
+                  
+                    }
+                    else
+                    {
+                    <h2 class="textoInformativo">No hay enfermedades en la lista.</h2>
+                    }
+                </div>
+                <form asp-action="Delete" asp-controller="Citas" method="post" id="viewEliminarCita">
+                    <input type="hidden" id="txtCitaId" name="CitaId" />
+                </form>
+                <form asp-action="Edit" asp-controller="Medico" method="post" id="viewEditarCita">
+                    <input type="hidden" id="txtCitaId" name="CitaId" />
+                </form>
+</main>
 </div>
 <partial name="_EndPag" />
