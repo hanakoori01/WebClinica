@@ -66,28 +66,22 @@
             <div>
                 @if (Model.Count() > 0)
                 {
-                    <table class="table table-hover border .table-responsive">
+                <div class="contenedorTablas">
+                    <table class="table table-hover border .table-responsive" id="TbEspecial">
                         <thead class="thead-dark">
-                            <tr class="table-secondary">
-                                <th>
-                                    @Html.DisplayNameFor(model => model.EspecialidadId)
-                                </th>
+                            <tr class="table-secondary trs">
                                 <th>
                                     @Html.DisplayNameFor(model => model.Nombre)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Descripcion)
                                 </th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.EspecialidadId)
-                                    </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Nombre)
                                     </td>
@@ -98,6 +92,7 @@
                             }
                         </tbody>
                     </table>
+                </div>
                 }
                 else
                 {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Clinica.Models;
 using Microsoft.AspNetCore.Mvc;
 using WebClinica.Models;
 
@@ -54,6 +55,24 @@ namespace WebClinica.Controllers
             List<Especialidad> listaEspecialidad = new List<Especialidad>();
             listaEspecialidad = BuscarEspecialidad("");
             return View(listaEspecialidad);
+        }
+
+        public FileResult exportarExcel()
+        {
+            Utilitarios util = new Utilitarios();
+            string[] cabeceras = { "Nombre", "Descripcion"};
+            string[] nombrePropiedades = { "Nombre", "Descripcion" };
+            byte[] buffer = util.generarExcel(cabeceras, nombrePropiedades, lista);
+            return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        }
+        public FileResult exportarPDF()
+        {
+            Utilitarios util = new Utilitarios();
+            string[] cabeceras = { "Nombre", "Descripcion" };
+            string[] nombrePropiedades = { "Nombre", "Descripcion" };
+            string titulo = "Reporte de especialidad";
+            byte[] buffer = util.ExportarPDFDatos(nombrePropiedades, lista, titulo);
+            return File(buffer, "application/pdf");
         }
     }
 }

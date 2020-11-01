@@ -1,40 +1,66 @@
 ﻿@model IEnumerable<Paciente>
 
 @{
-    ViewData["Title"] = "Paciente";
+    ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Content.cshtml";
+    String nombrePaciente = ViewBag.Paciente;
 }
+
 <head>
-    <title>Paciente</title>
+    <title>Consulta Paciente</title>
 </head>
 <partial name="_Menu" />
 <div class="container">
+    <!--Cambio aca-->
     <main class="pb-3" role="main">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6 col-lg-12">
-                    <h2 class="text-light">Lista Paciente</h2>
+                    <h2 class="text-light">Consulta Paciente</h2>
                 </div>
             </div>
             <form asp-controller="Paciente" asp-action="Index" method="post" id="frmFilter">
                 <div class="row contenedorBotones">
                     <div class="col-md-2 col-lg-2 text-right">
-                        <a asp-action="Create" class="btn btn-success fa fa-plus-circle crear">
-                            Nuevo
+                        <label>Buscar Paciente:</label>
+                    </div>
+                    <br />
+                    <div class="col-md-2 col-lg-2 text-align-center">
+                        <input type="text" class="form-control" name="nombre" id="nombre" value="@ViewBag.Paciente" />
+                    </div>
+                    <br />
+                    <div class="col-md-2 col-lg-2 text-align-center ">
+                        <a class="btn btn-success fa fa-search botonesTexto buscarConsulta" onclick="buscarConsulta()">
+                            Buscar
                         </a>
                     </div>
+                    <br />
+                    <div class="col-md-2 col-lg-2 text-right">
+                        <a class="btn btn-success fa fa-file-excel-o resetearBoton botonesTexto" onclick="Resetear()">
+                            Resetear
+                        </a>
+                    </div>
+                    <br />
+                    <div class="col-md-2 col-lg-2 text-right">
+                        <a asp-controller="ConsultaPacientes" asp-action="exportarPDF" class="btn btn-success fa fa-file-pdf-o crearPDF botonesTexto" target="_blank">
+                            Exportar PDF
+                        </a>
+                    </div>
+                    <br />
+                    <div class="col-md-2 col-lg-2 text-right">
+                        <a asp-controller="ConsultaPacientes" asp-action="exportarExcel" class="btn btn-success fa fa-file-excel-o crearExcel botonesTexto" target="_blank">
+                            Exportar Excel
+                        </a>
+                    </div>
+                    <br />
                     <div class="col-md-2 colo-lg-2 text-right">
                         <a asp-controller="Home" asp-action="Index" class="btn btn-info fa fa fa-arrow-circle-left inicio">
                             Regresar al menú
                         </a>
                     </div>
-                    <div class="col-md-2 col-lg-2 text-right">
-                        <a asp-controller="ConsultaPacientes" asp-action="Index" class="btn btn-success fa fa-search-plus consulta">
-                            Consulta
-                        </a>
-                    </div>
+                    <br />
                 </div>
-                <div class="col-md-12 divisor"><hr></div>
+                <div class="col-md-12" style="color:black;"><hr></div>
             </form>
             @if (Model.Count() > 0)
             {
@@ -84,15 +110,10 @@
             }
             else
             {
-                <h2 style="color:red">No hay pacientes en la lista.</h2>
+        <h2 style="color:red">No se encontraron médicos.</h2>
             }
         </div>
-        <form asp-action="Delete" asp-controller="Paciente" method="post" id="viewEliminarPaciente">
-            <input type="hidden" id="txtPacienteId" name="PacienteId" />
-        </form>
-        <form asp-action="Edit" asp-controller="Paciente" method="post" id="viewEditar">
-            <input type="hidden" id="txtPacienteId" name="PacienteId" />
-        </form>
     </main>
 </div>
 <partial name="_EndPag" />
+

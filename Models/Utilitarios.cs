@@ -51,7 +51,7 @@ namespace Clinica.Models
                     p1.SetFontSize(20);
                     p1.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
                     Image img = new Image(ImageDataFactory
-                   .Create(@"D:\Clinica\wwwroot\img\ClinicaAcme.png"))
+                   .Create(@"C:\Users\Joshua\Source\Repos\hanakoori01\WebClinica\wwwroot\images\logoEspinoza.png"))
                    .SetTextAlignment(TextAlignment.LEFT);
 
                     doc.Add(img);

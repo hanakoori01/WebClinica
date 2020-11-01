@@ -1,5 +1,5 @@
-﻿@model IEnumerable<Medico>
-
+﻿@model IEnumerable<MedicoEspecialidad>
+@using WebClinica.Models.ViewModel
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Content.cshtml";
@@ -19,7 +19,7 @@
                     <h2 class="text-light">Consulta Medico</h2>
                 </div>
             </div>
-            <form asp-controller="Medico" asp-action="Index" method="post" id="frmFilter">
+            <form asp-controller="ConsultaMedico" asp-action="Index" method="post" id="frmFilter">
                 <div class="row contenedorBotones">
                     <div class="col-md-2 col-lg-2 text-right">
                         <label>Buscar Medico:</label>
@@ -64,62 +64,38 @@
             </form>
             @if (Model.Count() > 0)
             {
-                <table class="table table-hover border .table-responsive" id="tbDatos">
-                    <thead class="thead-dark trs">
-                        <tr class="table-secondary">
-                            <th>
-                                @Html.DisplayNameFor(model => model.Nombre)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Apellidos)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Direccion)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.TelefonoFijo)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.TelefonoCelular)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Especialidad)
-                            </th>
-                            <th></th>
+        <div class="contenedorTablas">
+            <table class="table table-hover border .table-responsive" id="TbEspecial">
+                <thead class="thead-dark">
+                    <tr class="table-secondary trs">
+                        <th>@Html.DisplayNameFor(m => m.Nombre)</th>
+                        <th>@Html.DisplayNameFor(m => m.Apellidos)</th>
+                        <th>@Html.DisplayNameFor(m => m.Direccion)</th>
+                        <th>@Html.DisplayNameFor(m => m.TelefonoFijo)</th>
+                        <th>@Html.DisplayNameFor(m => m.TelefonoCelular)</th>
+                        <th>@Html.DisplayNameFor(m => m.Especialidad)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(m => item.Nombre)</td>
+                            <td>@Html.DisplayFor(m => item.Apellidos)</td>
+                            <td>@Html.DisplayFor(m => item.Direccion)</td>
+                            <td>@Html.DisplayFor(m => item.TelefonoFijo)</td>
+                            <td>@Html.DisplayFor(m => item.TelefonoCelular)</td>
+                            <td>@Html.DisplayFor(m => item.Especialidad)</td>
                         </tr>
-                    </thead>
-                    <tbody id="tbDatos">
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Nombre)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Apellidos)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Direccion)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.TelefonoFijo)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.TelefonoCelular)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Especialidad.Descripcion)
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                    }
+                </tbody>
+            </table>
+        </div>
             }
             else
             {
-                <h2 class="textoInformativo">No hay medicos en la lista.</h2>
+        <h2 style="color:red">No se encontraron médicos.</h2>
             }
         </div>
     </main>

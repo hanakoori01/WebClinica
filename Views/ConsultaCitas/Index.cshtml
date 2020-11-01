@@ -1,5 +1,5 @@
-﻿@model IEnumerable<Clinica.Models.Citas>
-
+﻿@model IEnumerable<CitaMedica>
+@using Clinica.Models.ViewModel
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Content.cshtml";
@@ -64,51 +64,56 @@
             </form>
             @if (Model.Count() > 0)
             {
-                <table class="table table-hover border .table-responsive" id="tbDatos">
-                    <thead class="thead-dark trs">
-                        <tr class="table-secondary">
+        <div class="contenedorTablas">
+            <table class="table table-hover border .table-responsive" id="TbEspecial">
+                <thead class="thead-dark">
+                    <tr class="table-secondary trs">
 
-                            <th>
-                                @Html.DisplayNameFor(model => model.FechaCita)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Diagnostico)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Medico)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Paciente)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Especialidad)
-                            </th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbDatos">
-                        @foreach (var item in Model)
-                        {
+                        <th>
+                            @Html.DisplayNameFor(model => model.NombrePaciente)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NombreMedico)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NombreEspecialidad)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FechaCita)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Diagnostico)
+                        </th>
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
                         <tr>
+
                             <td>
-                                @Html.DisplayFor(modelItem => item.FechaCita)
+                                @Html.DisplayFor(modelItem => item.NombrePaciente)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NombreMedico)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NombreEspecialidad)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FechaCita, "{0:dd/MM/yyyy}")
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Diagnostico)
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Medico.Apellidos)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Paciente.Apellidos)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Especialidad.Descripcion)
-                            </td>
+                            <partial name="_AddEditAndView" model="item.CitaId" />
                         </tr>
-                        }
-                    </tbody>
-                </table>
+                    }
+                </tbody>
+            </table>
+        </div>
             }
             else
             {

@@ -60,8 +60,8 @@ namespace WebClinica.Controllers
         public FileResult exportarExcel()
         {
             Utilitarios util = new Utilitarios();
-            string[] cabeceras = { "Enfermedad", "Nombre", "Descripcion" };
-            string[] nombrePropiedades = { "EnfermedadId", "Nombre", "Descripcion" };
+            string[] cabeceras = { "Nombre", "Descripcion" };
+            string[] nombrePropiedades = { "Nombre", "Descripcion" };
             byte[] buffer = util.generarExcel(cabeceras, nombrePropiedades, lista);
             //content type mime xlsx google
             return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
@@ -69,8 +69,8 @@ namespace WebClinica.Controllers
         public FileResult exportarPDF()
         {
             Utilitarios util = new Utilitarios();
-            string[] cabeceras = { "Enfermedad", "Nombre", "Descripcion" };
-            string[] nombrePropiedades = { "EnfermedadId", "Nombre", "Descripcion" };
+            string[] cabeceras = { "Nombre", "Descripcion" };
+            string[] nombrePropiedades = {  "Nombre", "Descripcion" };
             string titulo = "Reporte de Enfermedades";
             byte[] buffer = util.ExportarPDFDatos(nombrePropiedades, lista, titulo);
             return File(buffer, "application/pdf");
