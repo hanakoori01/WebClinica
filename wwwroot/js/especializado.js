@@ -80,6 +80,26 @@ function abrirModalCrearEnfermedad() {
         }
     })
 }
+function abrirModalCrearCita() {
+    verModal('Agregar cita', '¿Desea guardar la cita?').then((result) => {
+        if (result.value) {
+            var viewAgregarCita = document.getElementById("viewAgregarCita");
+            viewAgregarCita.submit();
+            Swal.fire(
+                'Agregado!',
+                'La cita fue agregado!.',
+                'success'
+            )
+        }
+        else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire(
+                'Cancelado',
+                'La cita no fue agregada!!!:)',
+                'error'
+            )
+        }
+    })
+}
 /*------------------------------------------------------*/
 /*--------------------MODALES EDITAR--------------------*/
 
@@ -313,7 +333,7 @@ function EliminarCita(CitaId) {
 /*--------------------METODOS GLOBALES--------------------*/
 
 
-function agregar() {
+function Agregar() {
     let titulo = document.title;
     if (titulo == "Agregar especialidad") {
         abrirModalCrearEspecialidad();
@@ -326,6 +346,14 @@ function agregar() {
             } else {
                 if (titulo == "Agregar enfermedad") {
                     abrirModalCrearEnfermedad();
+                } else {
+                    if (titulo == "Agregar usuario") {
+                        abrirModalCrearUsuario();
+                    } else {
+                        if (titulo == "Agregar citas") {
+                            abrirModalCrearCita();
+                        }
+                    }
                 }
             }
         }
