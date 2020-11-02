@@ -153,14 +153,14 @@ namespace WebClinica.Controllers
             {
                 ListaTipoUsuario = (from paginatipousu in _db.TipoUsuarioPagina
                                     join pagina in _db.Pagina
-                                    on paginatipousu.Paginaid equals pagina.Paginaid
+                                    on paginatipousu.PaginaId equals pagina.PaginaId
                                     join tipousu in _db.TipoUsuario
-                                    on paginatipousu.Tipousuarioid equals tipousu.TipoUsuarioId
-                                    where paginatipousu.Bhabilitado == 1
-                                    && paginatipousu.Tipousuarioid == tipousuid
+                                    on paginatipousu.TipoUsuarioId equals tipousu.TipoUsuarioId
+                                    where paginatipousu.BotonHabilitado == 1
+                                    && paginatipousu.TipoUsuarioId == tipousuid
                                     select new TipoUsuarioPagina
                                     {
-                                        Tipousuariopaginaid = paginatipousu.Tipousuariopaginaid,
+                                        TipoUsuarioPaginaId = paginatipousu.TipoUsuarioPaginaId,
                                         NombrePagina = pagina.Menu,
                                         NombreTipoUsuario = tipousu.Nombre
                                     }).ToList();
