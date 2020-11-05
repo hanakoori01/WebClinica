@@ -1,4 +1,6 @@
-﻿/*--------------------LOGIN--------------------*/
+﻿import { queue } from "jquery";
+
+/*--------------------LOGIN--------------------*/
 function Ingresar() {
     var user = document.getElementById("txtUser").value;
     var pass = document.getElementById("txtPassword").value;
@@ -581,3 +583,5 @@ function BuscarConsulta() {
         alert(value);
     }
 }
+
+//Ahh dij
