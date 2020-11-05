@@ -18,7 +18,7 @@
                     <h2 class="text-light">Lista Enfermedades</h2>
                 </div>
             </div>
-            <form asp-controller="Enfermedades" asp-action="Index" method="post" id="frmFilter">
+            <form asp-controller="Enfermedad" asp-action="Index" method="post" id="frmFilter">
                 <div class="row contenedorBotones">
                     <div class="col-md-2 col-lg-2 text-right">
                         <a asp-action="Create" class="btn btn-success fa fa-plus-circle crear">
@@ -77,7 +77,7 @@
         <form asp-action="Delete" asp-controller="Enfermedad" method="post" id="viewEliminarEnfermedad">
             <input type="hidden" id="txtEnfermedadId" name="EnfermedadId" />
         </form>
-        <form asp-action="Edit" asp-controller="Enfermedad" method="post" id="viewEnfermedad">
+        <form asp-action="Edit" asp-controller="Enfermedad" method="post" id="viewEditarEnfermedad">
             <input type="hidden" id="txtEnfermedadId" name="EnfermedadId" />
         </form>
     </main>

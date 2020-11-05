@@ -44,7 +44,7 @@ document.addEventListener("keyup", function (e) {
 function abrirModalCrearEspecialidad() {
     verModal('Agregar especialidad', '¿Desea guardar la especialidad?').then((result) => {
         if (result.value) {
-            var viewAgregar = document.getElementById("viewAgregar");
+            var viewAgregar = document.getElementById("viewAgregarEspecialidad");
             viewAgregar.submit();
             Swal.fire(
                 'Agregado!',
@@ -64,7 +64,7 @@ function abrirModalCrearEspecialidad() {
 function abrirModalCrearMedico() {
     verModal('Agregar medico', '¿Desea guardar al medico?').then((result) => {
         if (result.value) {
-            var viewAgregar = document.getElementById("viewAgregar");
+            var viewAgregar = document.getElementById("viewAgregarMedico");
             viewAgregar.submit();
             Swal.fire(
                 'Agregado!',
@@ -84,7 +84,7 @@ function abrirModalCrearMedico() {
 function abrirModalCrearPaciente() {
     verModal('Agregar paciente', '¿Desea guardar al paciente?').then((result) => {
         if (result.value) {
-            var viewAgregar = document.getElementById("viewAgregar");
+            var viewAgregar = document.getElementById("viewAgregarPaciente");
             viewAgregar.submit();
             Swal.fire(
                 'Agregado!',
@@ -104,7 +104,7 @@ function abrirModalCrearPaciente() {
 function abrirModalCrearEnfermedad() {
     verModal('Agregar enfermedad', '¿Desea guardar la enfermedad?').then((result) => {
         if (result.value) {
-            var viewAgregar = document.getElementById("viewAgregar");
+            var viewAgregar = document.getElementById("viewAgregarEnfermedad");
             viewAgregar.submit();
             Swal.fire(
                 'Agregado!',
@@ -136,6 +136,26 @@ function abrirModalCrearCita() {
             Swal.fire(
                 'Cancelado',
                 'La cita no fue agregada!!!:)',
+                'error'
+            )
+        }
+    })
+}
+function abrirModalCrearUsuario() {
+    verModal('Agregar usuario', '¿Desea guardar al usuario?').then((result) => {
+        if (result.value) {
+            var viewAgregarUsuario = document.getElementById("viewAgregarUsuario");
+            viewAgregarUsuario.submit();
+            Swal.fire(
+                'Agregado!',
+                'El usuario fue agregado!.',
+                'success'
+            )
+        }
+        else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire(
+                'Cancelado',
+                'El usuario no fue agregado!!!:)',
                 'error'
             )
         }

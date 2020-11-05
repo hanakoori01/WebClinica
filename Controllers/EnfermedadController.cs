@@ -129,25 +129,5 @@ namespace WebClinica.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
-       
-        public FileResult exportarExcel()
-        {
-            var lista = _db.Set<Enfermedad>().ToList();
-            Utilitarios util = new Utilitarios();
-            string[] cabeceras = { "Enfermedad Id", "Nombre", "Descripcion" };
-            string[] nombrePropiedades = { "EnfermedadId", "Nombre", "Descripcion" };
-            byte[] buffer = util.generarExcel(cabeceras, nombrePropiedades, lista);
-            //content type mime xlsx google
-            return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        }
-        public FileResult exportarPDF()
-        {
-            var lista = _db.Set<Enfermedad>().ToList();
-            Utilitarios util = new Utilitarios();
-            string[] nombrePropiedades = { "EnfermedadId", "Nombre", "Descripcion" };
-            string titulo = "Reporte de Enfermedades";
-            byte[] buffer = util.ExportarPDFDatos(nombrePropiedades, lista, titulo);
-            return File(buffer, "application/pdf");
-        }
     }
 }

@@ -97,12 +97,12 @@ namespace WebClinica.Controllers
             return ListaBoton;
         }
 
-        public List<Boton> RecuperarBotones(int paginatipousuarioid)
+        public List<Boton> RecuperarBotones(int paginaTipoUsuarioId)
         {
             List<Boton> Lista = new List<Boton>();
             Lista = (from tipo in _db.TipoUsuarioPaginaBoton
                      where tipo.BotonHabilitado == 1
-                     && tipo.TipoUsuarioPaginaId == paginatipousuarioid
+                     && tipo.TipoUsuarioPaginaId == paginaTipoUsuarioId
                      select new Boton
                      {
                          BotonId = (int)tipo.BotonId

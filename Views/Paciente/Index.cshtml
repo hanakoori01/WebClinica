@@ -43,6 +43,9 @@
                 <thead class="thead-dark">
                     <tr class="table-secondary trs">
                         <th>
+                            @Html.DisplayNameFor(model => model.PacienteId)
+                        </th>
+                        <th>
                             @Html.DisplayNameFor(model => model.Nombre)
                         </th>
                         <th>
@@ -61,22 +64,25 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Nombre)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Apellidos)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Direccion)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TelefonoContacto)
-                            </td>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PacienteId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Apellidos)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Direccion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TelefonoContacto)
+                        </td>
 
-                            <partial name="_AddEditAndView" model="item.PacienteId" />
-                        </tr>
+                        <partial name="_AddEditAndView" model="item.PacienteId" />
+                    </tr>
                     }
                 </tbody>
             </table>
@@ -90,7 +96,7 @@
         <form asp-action="Delete" asp-controller="Paciente" method="post" id="viewEliminarPaciente">
             <input type="hidden" id="txtPacienteId" name="PacienteId" />
         </form>
-        <form asp-action="Edit" asp-controller="Paciente" method="post" id="viewEditar">
+        <form asp-action="Edit" asp-controller="Paciente" method="post" id="viewEditarPaciente">
             <input type="hidden" id="txtPacienteId" name="PacienteId" />
         </form>
     </main>

@@ -19,6 +19,7 @@ namespace Clinica.Models
         public int? BotonHabilitado { get; set; }
 
         public string NombreTipoUsuario { get; set; }
+
         public string NombrePagina { get; set; }
     }
 }

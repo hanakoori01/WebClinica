@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Clinica.Models.TipoUsuario>
+@using Clinica.Models.ViewModel
+
+@{
+    ViewData["Title"] = "Index";
+ Layout = "~/Views/Shared/_Content.cshtml";
+}
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <h3 class="text-light" style="text-align:center;
+              background-color:darkslategray;">
+            Lista de roles de usuario
+        </h3>
+    </div>
+</div>
+<br />
+<form asp-controller="AsignaRol" asp-action="Index" method="post">
+    <div class="row">
+        <div class="col-md-2 col-lg-2 text-right">
+            <a asp-controller="Home" asp-action="Index"
+               class="btn btn-info fa fa-arrow-circle-left"
+               style="width:100%; height:90%;padding:6px;">
+                Regresar al menú
+            </a>
+        </div>
+    </div>
+    <div class="col-md-12" style="color:black;"><hr /></div>
+</form>
+
+@if (Model.Count() > 0)
+{
+    <table class="table table-hover .table-responsive" id="TbRoles">
+        <thead class="thead-dark">
+            <tr class="table-secondary" style="text-align:left;">
+                <th>@Html.DisplayNameFor(m => m.TipoUsuarioId)</th>
+                <th>@Html.DisplayNameFor(m => m.Nombre)</th>
+                <th>Operaciones</th>
+            </tr>
+        </thead>
+        <tbody style="text-align:left;">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(m => item.TipoUsuarioId)</td>
+                    <td>@Html.DisplayFor(m => item.Nombre)</td>
+                    <td>
+                        <a class="btn btn-success fa fa-plus-circle" aria-hidden="true"
+                           asp-controller="AsignaRol" asp-action="Listar"
+                           asp-route-id="@item.TipoUsuarioId"></a>
+
+                        <a class="fa fa-info-circle btn btn-primary" aria-hidden="true"
+                           asp-controller="AsignarRol" asp-action="Details"
+                           asp-route-id="@item.TipoUsuarioId"></a>
+
+                        <a class="fa fa-info-circle btn btn-primary" aria-hidden="true"
+                           asp-controller="AsignarRol" asp-action="Delete"
+                           asp-route-id="@item.TipoUsuarioId"></a>
+
+                        <a class="fa fa-pencil btn btn-info" aria-hidden="true"
+                           asp-controller="AsignarRol" asp-action="Edit"
+                           asp-route-id="@item.TipoUsuarioId"></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h5 style="color:red;">No se encontraron roles!...</h5>
+}
+<script src="~/js/sweetalert2.js"></script>
+<script src="~/js/Utilitarios.js"></script>
+
+
