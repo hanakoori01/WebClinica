@@ -78,20 +78,7 @@ namespace WebClinica.Controllers
                                    ).ToList();
             ViewBag.ListaEspecialidades = listaEspecialidades;
         }
-
-        private void cargarUltimoRegistro()
-        {
-            var ultimoRegistro = _db.Set<Medico>().OrderByDescending(e => e.MedicoId).FirstOrDefault();
-            if (ultimoRegistro == null)
-            {
-                ViewBag.ID = 1;
-            }
-            else
-            {
-                ViewBag.ID = ultimoRegistro.MedicoId + 1;
-            }
-        }
-
+        
         public IActionResult Index()
         {
             listaMedico = BuscarMedicoEspecialidad("");
@@ -101,7 +88,6 @@ namespace WebClinica.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            cargarUltimoRegistro();
             cargarEspecialidades();
             return View();
         }
