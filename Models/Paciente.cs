@@ -31,7 +31,6 @@ namespace WebClinica.Models
         [EmailAddress(ErrorMessage = "Debe ingresar un email válido")]
         public string Email { get; set; }
 
-      
         public virtual ICollection<Citas> Citas { get; set; }
     }
 }

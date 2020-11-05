@@ -9,8 +9,6 @@ namespace Clinica.Models
         [Display(Name ="Id Página")]
         public int PaginaId { get; set; }
 
-        [Display(Name = "Mensaje")]
-        [Required(ErrorMessage ="Debe escribir un mensaje")]
         public string Menu { get; set; }
 
         [Display(Name = "Nombre de la acción")]

@@ -7,10 +7,10 @@ namespace WebClinica.Models.ViewModel
 {
     public class TipoUsuarioPagina
     {
-        public int Tipousuariopaginaid { get; set; }
-        public int? Tipousuarioid { get; set; }
-        public int? Paginaid { get; set; }
-        public int? Bhabilitado { get; set; }
+        public int TipoUsuarioPaginaId { get; set; }
+        public int? TipousuarioId { get; set; }
+        public int? PaginaId { get; set; }
+        public int? BotonHabilitado { get; set; }
         public string NombreTipoUsuario { get; set; }
         public string NombrePagina { get; set; }
     }
