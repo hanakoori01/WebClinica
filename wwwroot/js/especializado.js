@@ -42,7 +42,7 @@ document.addEventListener("keyup", function (e) {
 function abrirModalCrearEspecialidad() {
     verModal('Agregar especialidad', '¿Desea guardar la especialidad?').then((result) => {
         if (result.value) {
-            var viewAgregar = document.getElementById("viewAgregar");
+            var viewAgregar = document.getElementById("viewAgregarEspecialidad");
             viewAgregar.submit();
             Swal.fire(
                 'Agregado!',
@@ -62,7 +62,7 @@ function abrirModalCrearEspecialidad() {
 function abrirModalCrearMedico() {
     verModal('Agregar medico', '¿Desea guardar al medico?').then((result) => {
         if (result.value) {
-            var viewAgregar = document.getElementById("viewAgregar");
+            var viewAgregar = document.getElementById("viewAgregarMedico");
             viewAgregar.submit();
             Swal.fire(
                 'Agregado!',
@@ -82,7 +82,7 @@ function abrirModalCrearMedico() {
 function abrirModalCrearPaciente() {
     verModal('Agregar paciente', '¿Desea guardar al paciente?').then((result) => {
         if (result.value) {
-            var viewAgregar = document.getElementById("viewAgregar");
+            var viewAgregar = document.getElementById("viewAgregarPaciente");
             viewAgregar.submit();
             Swal.fire(
                 'Agregado!',
@@ -102,7 +102,7 @@ function abrirModalCrearPaciente() {
 function abrirModalCrearEnfermedad() {
     verModal('Agregar enfermedad', '¿Desea guardar la enfermedad?').then((result) => {
         if (result.value) {
-            var viewAgregar = document.getElementById("viewAgregar");
+            var viewAgregar = document.getElementById("viewAgregarEnfermedad");
             viewAgregar.submit();
             Swal.fire(
                 'Agregado!',
@@ -134,6 +134,26 @@ function abrirModalCrearCita() {
             Swal.fire(
                 'Cancelado',
                 'La cita no fue agregada!!!:)',
+                'error'
+            )
+        }
+    })
+}
+function abrirModalCrearUsuario() {
+    verModal('Agregar usuario', '¿Desea guardar al usuario?').then((result) => {
+        if (result.value) {
+            var viewAgregarUsuario = document.getElementById("viewAgregarUsuario");
+            viewAgregarUsuario.submit();
+            Swal.fire(
+                'Agregado!',
+                'El usuario fue agregado!.',
+                'success'
+            )
+        }
+        else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire(
+                'Cancelado',
+                'El usuario no fue agregado!!!:)',
                 'error'
             )
         }
@@ -493,45 +513,45 @@ function BuscarConsulta() {
                     if (titulo == "Consulta Citas") {
                         BuscarCitas();
                     }
+                }
             }
         }
     }
-}
 
-/* BUSCAR POR NOMBRE CONSULTA ESPECIALIDAD*/
-function BuscarEspecialidad() {
-    var nombre = document.getElementById("nombre").value;
-    var url = "Especialidad/BuscarEspecialidad/?nombreEspecialidad=" + nombre;
-    var tbody = document.getElementById("tbDatos");
-    var campos = new Array("especialidadId", "nombre", "descripcion");
-    pintarPantallaConsulta(url, campos, tbody);
-}
-/* BUSCAR POR NOMBRE CONSULTA MEDICO*/
-function BuscarMedico() {
-    var nombre = document.getElementById("nombre").value;
-    var url = "Medico/BuscarMedico/?nombreMedico=" + nombre;
-    var tbody = document.getElementById("tbDatos");
-    var campos = new Array("medicoId", "apellido", "nombre", "direccion", "telefonoFijo", "telefonoCelular", "especialidad");
-    pintarPantallaConsulta(url, campos, tbody);
-}
-/* BUSCAR POR NOMBRE CONSULTA PACIENTE*/
-function BuscarPaciente() {
-    var nombre = document.getElementById("nombre").value;
-    var url = "Paciente/BuscarPaciente/?nombrePaciente=" + nombre;
-    var tbody = document.getElementById("tbDatos");
-    var campos = new Array("nombre", "apellidos", "direccion", "telefonoContacto");
-    pintarPantallaConsulta(url, campos, tbody);
-}
-/* BUSCAR POR NOMBRE CONSULTA ENFERMEDAD*/
-function BuscarEnfermedad() {
-    var nombre = document.getElementById("nombre").value;
-    var url = "ConsultaEnfermedad/BuscarEnfermedad/?nombreEnfermedad=" + nombre;
-    var tbody = document.getElementById("tbDatos");
-    var campos = new Array( "nombre", "descripcion");
-    pintarPantallaConsulta(url, campos, tbody);
+    /* BUSCAR POR NOMBRE CONSULTA ESPECIALIDAD*/
+    function BuscarEspecialidad() {
+        var nombre = document.getElementById("nombre").value;
+        var url = "Especialidad/BuscarEspecialidad/?nombreEspecialidad=" + nombre;
+        var tbody = document.getElementById("tbDatos");
+        var campos = new Array("especialidadId", "nombre", "descripcion");
+        pintarPantallaConsulta(url, campos, tbody);
+    }
+    /* BUSCAR POR NOMBRE CONSULTA MEDICO*/
+    function BuscarMedico() {
+        var nombre = document.getElementById("nombre").value;
+        var url = "Medico/BuscarMedico/?nombreMedico=" + nombre;
+        var tbody = document.getElementById("tbDatos");
+        var campos = new Array("medicoId", "apellido", "nombre", "direccion", "telefonoFijo", "telefonoCelular", "especialidad");
+        pintarPantallaConsulta(url, campos, tbody);
+    }
+    /* BUSCAR POR NOMBRE CONSULTA PACIENTE*/
+    function BuscarPaciente() {
+        var nombre = document.getElementById("nombre").value;
+        var url = "Paciente/BuscarPaciente/?nombrePaciente=" + nombre;
+        var tbody = document.getElementById("tbDatos");
+        var campos = new Array("nombre", "apellidos", "direccion", "telefonoContacto");
+        pintarPantallaConsulta(url, campos, tbody);
+    }
+    /* BUSCAR POR NOMBRE CONSULTA ENFERMEDAD*/
+    function BuscarEnfermedad() {
+        var nombre = document.getElementById("nombre").value;
+        var url = "ConsultaEnfermedad/BuscarEnfermedad/?nombreEnfermedad=" + nombre;
+        var tbody = document.getElementById("tbDatos");
+        var campos = new Array("nombre", "descripcion");
+        pintarPantallaConsulta(url, campos, tbody);
     }
 
-/* BUSCAR POR NOMBRE CONSULTA CITAS*/
+    /* BUSCAR POR NOMBRE CONSULTA CITAS*/
     function BuscarEnfermedad() {
         var nombre = document.getElementById("nombre").value;
         var url = "ConsultaCitas/BuscarCitas/?nombreCitas=" + nombre;
@@ -540,23 +560,24 @@ function BuscarEnfermedad() {
         pintarPantallaConsulta(url, campos, tbody);
     }
 
-/* RESETEAR CONSULTAS*/
+    /* RESETEAR CONSULTAS*/
 
-function Resetear() {
-    document.getElementById("nombre").value = "";
-    BuscarConsulta();
-}
+    function Resetear() {
+        document.getElementById("nombre").value = "";
+        BuscarConsulta();
+    }
 
-$(document).ready(function () {
-    $('#TbEspecial').DataTable(
-        {
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-            }
-        });
-})
+    $(document).ready(function () {
+        $('#TbEspecial').DataTable(
+            {
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                }
+            });
+    })
 
-function verificar() {
-    var value = $('.dataTables_filter input').val();
-    alert(value);
+    function verificar() {
+        var value = $('.dataTables_filter input').val();
+        alert(value);
+    }
 }

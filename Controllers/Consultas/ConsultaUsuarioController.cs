@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebClinica.Models;
 using WebClinica.Models.ViewModel;
 
-namespace WebClinica.Controllers.Consultas
+namespace Clinica.Controllers.Consultas
 {
     public class ConsultaUsuarioController : Controller
     {

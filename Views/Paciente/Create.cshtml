@@ -11,7 +11,7 @@
 <div class="container contenedorPrincipal">
     <main class="pb-3" role="main">
         <div class="row">
-            <form asp-action="Create" method="post" id="viewAgregar">
+            <form asp-action="Create" method="post" id="viewAgregarPaciente">
                 <div class="container-fluid">
                     <fieldset>
                         <legend class="text-center header">Agregar nuevo paciente</legend>
@@ -22,7 +22,7 @@
                                 <label asp-for="PacienteId" class="control-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <input asp-for="PacienteId" value="@ViewBag.ID" readonly="readonly" class="form-control" placeholder="ID Paciente"/>
+                                <input asp-for="PacienteId" class="form-control" placeholder="ID Paciente"/>
                             </div>
                             <span asp-validation-for="PacienteId" class="text-danger"></span>
                         </div>
@@ -66,7 +66,7 @@
                     </fieldset>
                     <div class="row contenedorBoton">
                         <div class="col-md-4 text-align-right">
-                            <input type="submit" class="btn btn-primary btn-lg botonAgregar" value="Agregar" id="agregar" onclick="agregar()" />
+                            <input type="submit" class="btn btn-primary btn-lg botonAgregar" value="Agregar" id="agregar" onclick="Agregar()" />
                         </div>
                         <br />
                         <div class="col-md-4">

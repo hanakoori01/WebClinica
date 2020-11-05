@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 using Clinica.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -67,12 +68,22 @@ namespace WebClinica.Controllers
             ViewBag.Usuario = _TipoUsuario.Nombre;
             return View(LstPagina);
         }
-        public string Registrar(int[] _Paginas)
+        //[HttpPost]
+        public string Registrar(int[] _Paginas, int tipousuarioid)
         {
             string rpta = "OK";
-            foreach (var item in _Paginas)
+            using (var trans = new TransactionScope())
             {
-
+                foreach (var item in _Paginas)
+                {
+                    TipoUsuarioPagina _TipoUsuarioPagina = new TipoUsuarioPagina();
+                    _TipoUsuarioPagina.TipoUsuarioId = tipousuarioid;
+                    _TipoUsuarioPagina.PaginaId= item;
+                    _TipoUsuarioPagina.BotonHabilitado = 1;
+                    _db.TipoUsuarioPagina.Add(_TipoUsuarioPagina);
+                }
+                _db.SaveChanges();
+                trans.Complete();
             }
             return rpta;
         }
