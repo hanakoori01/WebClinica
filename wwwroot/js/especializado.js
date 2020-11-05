@@ -1,4 +1,4 @@
-﻿import { queue } from "jquery";
+﻿
 
 /*--------------------LOGIN--------------------*/
 function Ingresar() {
@@ -12,7 +12,7 @@ function Ingresar() {
             document.location.href = "Home";
         }
     });
-}  
+}
 
 
 var button = document.getElementById('mainButton');
@@ -583,5 +583,3 @@ function BuscarConsulta() {
         alert(value);
     }
 }
-
-//Ahh dij
