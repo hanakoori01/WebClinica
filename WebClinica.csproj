@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Login\Index.cshtml" />
+    <Content Remove="Views\Shared\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Models\basura(3).png" />
   </ItemGroup>
 

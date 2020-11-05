@@ -1,9 +1,9 @@
 ﻿
 
 /*--------------------LOGIN--------------------*/
-function Ingresar() {
-    var user = document.getElementById("txtUser").value;
-    var pass = document.getElementById("txtPassword").value;
+function Enviar() {
+    var user = document.getElementById("name").value;
+    var pass = document.getElementById("password").value;
     $.get("Login/_Login/?user=" + user + "&pass=" + pass, function (data) {
         if (data == "") {
             error("Usuario o contaseña incorrecto!");
