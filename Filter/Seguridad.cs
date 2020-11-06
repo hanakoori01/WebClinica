@@ -19,7 +19,7 @@ namespace WebClinica.Filter
         {
             //En LoginController
             //HttpContext.Session.SetString("usuarioId", User.UsuarioId.ToString());
-            var user = context.HttpContext.Session.GetString("usuarioId");
+            var user = context.HttpContext.Session.GetString("UsuarioId");
             if (user == null)
             {
                 context.Result = new RedirectResult("Login");

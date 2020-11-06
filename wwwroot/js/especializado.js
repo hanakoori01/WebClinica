@@ -14,6 +14,24 @@ function Enviar() {
     });
 }
 
+function Enviar2() {
+    var user = document.getElementById("name").value;
+    var pass = document.getElementById("password").value;
+    $.ajax({
+        type: "GET",
+        url: "/Login/_Login",
+        data: { "user": user, "pass": pass },
+        success: function (data) {
+            if (data == "") {
+                error("Usuario o contaseña incorrecto!");
+            } else {
+                document.location.href = "/Home/Index"
+            }
+        },
+        error: "Esta mierda no sirve"
+    })
+};
+
 var button = document.getElementById('mainButton');
 
 var openForm = function () {
