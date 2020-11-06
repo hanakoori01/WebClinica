@@ -14,7 +14,6 @@ function Enviar() {
     });
 }
 
-
 var button = document.getElementById('mainButton');
 
 var openForm = function () {

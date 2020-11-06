@@ -1,25 +1,27 @@
 ﻿@{
-    ViewData["Title"] = "Especialidad";
+    ViewData["Title"] = "Login";
     Layout = "~/Views/Shared/_Content.cshtml";
 }
 <link href='https://fonts.googleapis.com/css?family=Raleway:400,500,300' rel='stylesheet' type='text/css'>
-<body class="bodylogin">
+<form class="bodylogin" asp-controller="Login" method="post" id="viewLogin">
     <div id="mainButton">
         <div class="btn-text" onclick="openForm()">Inicia sesion</div>
         <div class="modal">
             <div class="close-button" onclick="closeForm()">x</div>
             <div class="form-title">Inicia sesion</div>
             <div class="input-group">
-                <input type="text" id="name" class="txtUser" value="" onblur="checkInput(this)" />
+                <input type="text" id="name" name="txtUser"value="" onblur="checkInput(this)" />
                 <label for="name">Nombre de usuario</label>
             </div>
             <div class="input-group">
-                <input type="password" id="password" class="txtPassword" value="" onblur="checkInput(this)" />
+                <input type="password" id="password" value="" onblur="checkInput(this)" />
                 <label for="password">Contraseña</label>
             </div>
-            <div class="form-button" onclick="Enviar()">Iniciar sesion</div>
+            <a class="form-button" onclick="Enviar()" >Iniciar sesion</a>
         </div>
     </div>
-</body>
+</form>
+
+
 
 
