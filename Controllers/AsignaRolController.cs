@@ -80,7 +80,7 @@ namespace WebClinica.Controllers
                     TipoUsuarioPagina _TipoUsuarioPagina = new TipoUsuarioPagina();
                     _TipoUsuarioPagina.TipoUsuarioId = tipousuarioid;
                     _TipoUsuarioPagina.PaginaId= item;
-                    _TipoUsuarioPagina.BotonHabilitado = 1;
+                    _TipoUsuarioPagina.BotonHabilitado = 0;
                     _db.TipoUsuarioPagina.Add(_TipoUsuarioPagina);
                 }
                 _db.SaveChanges();
