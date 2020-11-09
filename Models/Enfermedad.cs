@@ -8,8 +8,7 @@ namespace WebClinica.Models
 {
     public class Enfermedad
     {
-        [Required(ErrorMessage = "Debe digitar el Id del usuario")]
-        [Display(Name = "Enfermedad Id:")]
+        [Display(Name = "Identificador:")]
         public int EnfermedadId { get; set; }
 
         [Required(ErrorMessage = "Debe digitar el nombre del usuario")]

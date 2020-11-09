@@ -28,11 +28,6 @@
                             Regresar al menú
                         </a>
                     </div>
-                    <div class="col-md-2 col-lg-2 text-right">
-                        <a asp-controller="ConsultaPacientes" asp-action="Index" class="btn btn-success fa fa-search-plus consulta">
-                            Consulta
-                        </a>
-                    </div>
                 </div>
                 <div class="col-md-12 divisor"><hr></div>
             </form>
@@ -64,25 +59,25 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PacienteId)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nombre)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Apellidos)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Direccion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TelefonoContacto)
-                        </td>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PacienteId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Apellidos)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Direccion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TelefonoContacto)
+                            </td>
 
-                        <partial name="_AddEditAndView" model="item.PacienteId" />
-                    </tr>
+                            <partial name="_AddEditAndView" model="item.PacienteId" />
+                        </tr>
                     }
                 </tbody>
             </table>

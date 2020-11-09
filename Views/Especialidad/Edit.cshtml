@@ -14,18 +14,10 @@
             <form asp-action="Edit" method="post" id="viewEditarEspecialidad">
                 <div class="container-fluid">
                     <fieldset>
-                        <legend class="text-center header">Agregar nueva especialidad</legend>
+                        <legend class="text-center header">Editar especialidad</legend>
                         <br/>
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="form-group row">
-                            <div class="col-md-3 text-align-right">
-                                <label asp-for="EspecialidadId" class="col-form-label"></label>
-                            </div>
-                            <div class="col-md-6">
-                                <input asp-for="EspecialidadId" readonly="readonly" class="form-control" placeholder="ID Especialidad" />
-                            </div>
-                            <span asp-validation-for="EspecialidadId" class="text-danger"></span>
-                        </div>
+                     
                         <div class="form-group row">
                             <div class="col-md-3 text-align-right">
                                 <label asp-for="Nombre" class="control-label"></label>

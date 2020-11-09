@@ -23,6 +23,6 @@ namespace Clinica.Models
 
         public int BotonId { get; set; }
 
-        public int? BotonHabilitado { get; set; }
+        public int BotonHabilitado { get; set; }
     }
 }

@@ -60,7 +60,15 @@ namespace WebClinica.Controllers
                 }
                 else
                 {
-                    _db.Especialidad.Add(especialidad);
+                    cargarUltimoRegistro();
+                    Especialidad _especialidad = new Especialidad
+                    {
+                        EspecialidadId = ViewBag.ID,
+                        Nombre = especialidad.Nombre,
+                        Descripcion = especialidad.Descripcion
+                    };
+
+                    _db.Especialidad.Add(_especialidad);
                     _db.SaveChanges();
                 }
             }
@@ -128,24 +136,6 @@ namespace WebClinica.Controllers
             return RedirectToAction(nameof(Index));
         }
       
-        public FileResult exportarExcel()
-        {
-            var lista = _db.Set<Especialidad>().ToList();
-            Utilitarios util = new Utilitarios();
-            string[] cabeceras = { "Especialidad", "Nombre", "Descripcion" };
-            string[] nombrePropiedades = { "EspecialidadId", "Nombre", "Descripcion" };
-            byte[] buffer = util.generarExcel(cabeceras, nombrePropiedades, lista);
-            //content type mime xlsx google
-            return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        }
-        public FileResult exportarPDF()
-        {
-            var lista = _db.Set<Especialidad>().ToList();
-            Utilitarios util = new Utilitarios();
-            string[] nombrePropiedades = { "EspecialidadId", "Nombre", "Descripcion" };
-            string titulo = "Reporte de Especialidades";
-            byte[] buffer = util.ExportarPDFDatos(nombrePropiedades, lista, titulo);
-            return File(buffer, "application/pdf");
-        }
+      
     }
 }

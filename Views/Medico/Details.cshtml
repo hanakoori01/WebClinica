@@ -3,26 +3,27 @@
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Content.cshtml";
+    List<SelectListItem> Lista = ViewBag.ListaEspecialidades;
 }
 <head>
-    <title>Detalles medicos</title>
+    <title>Detalles médicos</title>
 </head>
 <partial name="_Menu" />
 <div class="container contenedorPrincipal">
     <main class="pb-3" role="main">
         <div class="row">
-            <form asp-action="Create" method="post" id="viewAgregar">
+            <form asp-action="Details" method="post" id="viewDetailsMedico">
                 <div class="container-fluid">
                     <fieldset>
-                        <legend class="text-center header">Agregar nuevo medico</legend>
-                        <br/>
+                        <legend class="text-center header">Detalles del médico</legend>
+                        <br />
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group row">
                             <div class="col-md-3 text-align-right">
                                 <label asp-for="MedicoId" class="control-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <input asp-for="MedicoId" readonly="readonly" class="form-control" placeholder="ID Medico" />
+                                <input asp-for="MedicoId" readonly="readonly"  class="form-control"  />
                             </div>
                             <span asp-validation-for="MedicoId" class="text-danger"></span>
                         </div>
@@ -31,7 +32,7 @@
                                 <label asp-for="Nombre" class="control-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <input asp-for="Nombre" readonly="readonly" class="form-control" placeholder="Nombre" />
+                                <input asp-for="Nombre" readonly="readonly" class="form-control"  />
                             </div>
                             <span asp-validation-for="Nombre" class="text-danger"></span>
                         </div>
@@ -40,7 +41,7 @@
                                 <label asp-for="Apellidos" class="control-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <input asp-for="Apellidos" readonly="readonly" class="form-control" placeholder="Apellidos" />
+                                <input asp-for="Apellidos" readonly="readonly" class="form-control"  />
                             </div>
                             <span asp-validation-for="Apellidos" class="text-danger"></span>
                         </div>
@@ -49,7 +50,7 @@
                                 <label asp-for="Direccion" class="control-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <input asp-for="Direccion" readonly="readonly" class="form-control" placeholder="Direccion" />
+                                <input asp-for="Direccion" readonly="readonly" class="form-control"  />
                             </div>
                             <span asp-validation-for="Direccion" class="text-danger"></span>
                         </div>
@@ -58,7 +59,7 @@
                                 <label asp-for="TelefonoFijo" class="control-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <input asp-for="TelefonoFijo" readonly="readonly" class="form-control" placeholder="Telefono de habitacion" />
+                                <input asp-for="TelefonoFijo" readonly="readonly" class="form-control"  />
                             </div>
                             <span asp-validation-for="TelefonoFijo" class="text-danger"></span>
                         </div>
@@ -67,7 +68,7 @@
                                 <label asp-for="TelefonoCelular" class="control-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <input asp-for="TelefonoCelular" readonly="readonly" class="form-control" placeholder="Telefono celular" />
+                                <input asp-for="TelefonoCelular" readonly="readonly" class="form-control"  />
                             </div>
                             <span asp-validation-for="TelefonoCelular" class="text-danger"></span>
                         </div>
@@ -76,7 +77,7 @@
                                 <label asp-for="EspecialidadId" class="control-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <input asp-for="EspecialidadId" readonly="readonly" class="form-control" placeholder="Especialidad Id" />
+                                <select asp-for="EspecialidadId" asp-items="@Lista" disabled class="form-control" ></select>
                             </div>
                             <span asp-validation-for="EspecialidadId" class="text-danger"></span>
                         </div>

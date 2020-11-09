@@ -16,14 +16,14 @@
                 <div class="container-fluid">
                     <fieldset>
                         <legend class="text-center header">Agregar nuevo medico</legend>
-                        <br/>
+                        <br />
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group row">
                             <div class="col-md-3 text-align-right">
                                 <label asp-for="MedicoId" class="control-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <input asp-for="MedicoId"  class="form-control" placeholder="ID Medico"/>
+                                <input asp-for="MedicoId" class="form-control" placeholder="ID Medico" />
                             </div>
                             <span asp-validation-for="MedicoId" class="text-danger"></span>
                         </div>
@@ -32,7 +32,7 @@
                                 <label asp-for="Nombre" class="control-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <input asp-for="Nombre" class="form-control" placeholder="Nombre"/>
+                                <input asp-for="Nombre" class="form-control" placeholder="Nombre" />
                             </div>
                             <span asp-validation-for="Nombre" class="text-danger"></span>
                         </div>
@@ -41,7 +41,7 @@
                                 <label asp-for="Apellidos" class="control-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <input asp-for="Apellidos" class="form-control" placeholder="Apellidos"/>
+                                <input asp-for="Apellidos" class="form-control" placeholder="Apellidos" />
                             </div>
                             <span asp-validation-for="Apellidos" class="text-danger"></span>
                         </div>
@@ -50,7 +50,7 @@
                                 <label asp-for="Direccion" class="control-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <input asp-for="Direccion" class="form-control" placeholder="Direccion"/>
+                                <input asp-for="Direccion" class="form-control" placeholder="Direccion" />
                             </div>
                             <span asp-validation-for="Direccion" class="text-danger"></span>
                         </div>
@@ -59,7 +59,7 @@
                                 <label asp-for="TelefonoFijo" class="control-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <input asp-for="TelefonoFijo" class="form-control" placeholder="Telefono de habitacion"/>
+                                <input asp-for="TelefonoFijo" class="form-control" placeholder="Telefono de habitacion" />
                             </div>
                             <span asp-validation-for="TelefonoFijo" class="text-danger"></span>
                         </div>
@@ -68,7 +68,7 @@
                                 <label asp-for="TelefonoCelular" class="control-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <input asp-for="TelefonoCelular" class="form-control" placeholder="Telefono celular"/>
+                                <input asp-for="TelefonoCelular" class="form-control" placeholder="Telefono celular" />
                             </div>
                             <span asp-validation-for="TelefonoCelular" class="text-danger"></span>
                         </div>
@@ -77,14 +77,14 @@
                                 <label asp-for="EspecialidadId" class="control-label"></label>
                             </div>
                             <div class="col-md-6">
-                                <select asp-for="EspecialidadId" asp-items="@Lista" class="form-control" placeholder="Especialidad Id"></select>
+                                <select asp-for="EspecialidadId" asp-items="@Lista" class="form-control" placeholder="Especialidad"></select>
                             </div>
                             <span asp-validation-for="EspecialidadId" class="text-danger"></span>
                         </div>
                     </fieldset>
                     <div class="row contenedorBoton">
                         <div class="col-md-4 text-align-right">
-                            <input type="submit" class="btn btn-primary btn-lg botonAgregar" value="Agregar" id="agregar" onclick="Agregar()"/>
+                            <input type="submit" class="btn btn-primary btn-lg botonAgregar" value="Agregar" id="agregar" onclick="Agregar()" />
                         </div>
                         <br />
                         <div class="col-md-4">

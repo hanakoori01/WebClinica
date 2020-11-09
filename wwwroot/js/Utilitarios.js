@@ -92,3 +92,121 @@ function pintarPantallaCRUD(url, campos, propiedadId, nombreController,
         $('#tbDatos').DataTable();
     })
 }
+
+function correcto(title = "Listo!") {
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: title,
+        showConfirmButton: false,
+        timer: 3500
+    })
+}
+function error(title = "Error!") {
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: title,
+        timer: 3500
+    })
+}
+function pintar(url, campos, propiedadId, nombreController,
+    popup = false, opciones = true, id = "tbDatos", idTabla = "table", propiedadMostrar = "") {
+    var contenido = "";
+    if (id == null || id == undefined || id == "") {
+        var tbody = document.getElementById("tbDatos");
+    } else {
+        var tbody = document.getElementById(id);
+    }
+    var nombreCampo;
+    var objetoActual;
+    $.get(url, function (data) {
+
+        for (var i = 0; i < data.length; i++) {
+            contenido += "<tr>";
+            for (var j = 0; j < campos.length; j++) {
+                nombreCampo = campos[j];
+                objetoActual = data[i];
+                contenido += "<td>" + objetoActual[nombreCampo] + "</td>"
+            }
+            //contenido += "<td>" + data[i].iidespecialidad + "</td>";
+            // data[i][iidespecialidad]
+            //contenido += "<td>" + data[i].nombre + "</td>";
+            //contenido += "<td>" + data[i].descripcion + "</td>";
+            //[a,b,c]
+            var propiedadIdNueva = propiedadId.split('/');
+
+            var idpropiedad = propiedadIdNueva[0];
+            var exiEditar = propiedadIdNueva[1] * 1;
+            var exiEliminar = propiedadIdNueva[2] * 1;
+            if (opciones == true) {
+                contenido += `
+					<td>
+							${exiEliminar == -1 ? '' :
+                        ` <i class="fa fa-trash btn btn-danger" aria-hidden="true"
+						   onclick="Eliminar(${objetoActual[idpropiedad]})">
+
+						</i>  `
+                    }
+						`;
+                if (popup == false) {
+                    contenido += `
+						${exiEditar == -1 ? ''
+                            :
+                            ` 
+                         <a
+						   href="${nombreController}/Editar/${objetoActual[idpropiedad]}"
+						  >
+								<i class="fa fa-edit btn btn-primary"
+										aria-hidden="true"
+                                  ></i>	
+						</a>
+                          `
+                        }
+						
+
+					
+                 `
+                } else {
+
+                    contenido += `
+
+						${exiEditar == -1 ? '' :
+                            ` 
+                         <i class="fa fa-edit btn btn-primary" aria-hidden="true"
+						   data-toggle="modal"  data-target="#exampleModal"
+						   onclick="Abrir(${objetoActual[idpropiedad]})">
+
+						</i>
+                            `
+                        }
+	                  
+                        `;
+                }
+                contenido += `</td>`;
+            } else {
+                contenido += `
+					<td>
+
+						<i class="fa fa-check btn btn-success" aria-hidden="true"
+						   onclick="AsignarNombre(${objetoActual[idpropiedad]},
+                              '${objetoActual[propiedadMostrar]}')">
+
+						</i>
+					</td>`;
+            }
+            contenido += "</tr>";
+        }
+        if (idTabla == null || idTabla == undefined || idTabla == "") {
+            $('#table').DataTable().clear();
+            $('#table').DataTable().destroy();
+            tbody.innerHTML = contenido;
+            $('#table').DataTable();
+        } else {
+            $('#' + idTabla).DataTable().clear();
+            $('#' + idTabla).DataTable().destroy();
+            tbody.innerHTML = contenido;
+            $('#' + idTabla).DataTable();
+        }
+    })
+}

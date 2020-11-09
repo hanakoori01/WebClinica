@@ -12,7 +12,7 @@ namespace Clinica.Models.ViewModel
         [Display(Name = "Cita Id")]
         public int CitaId { get; set; }
 
-        [Display(Name = "Paciente Id")]
+        [Display(Name = "Identificador del Paciente")]
         public int PacienteId { get; set; }
 
         [Display(Name = "Paciente")]

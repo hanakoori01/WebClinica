@@ -11,12 +11,12 @@ namespace Clinica.Models
             Usuario = new HashSet<Usuario>();
         }
         [Display(Name = "Tipo Usuario Id:")]
-        public int? TipoUsuarioId { get; set; }
+        public int TipoUsuarioId { get; set; }
 
         [Display(Name = "Nombre:")]
         public string Nombre { get; set; }
 
-        public int? BotonHabilitado { get; set; }
+        public int BotonHabilitado { get; set; }
         public virtual ICollection<TipoUsuarioPagina> TipoUsuarioPagina { get; set; }
         public virtual ICollection<Usuario> Usuario { get; set; }
     }

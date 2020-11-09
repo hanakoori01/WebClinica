@@ -1,4 +1,50 @@
 ﻿
+/*--------------------Tablas--------------------*/
+$(document).ready(function () {
+    $('#TbEspecial').DataTable(
+        {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+            }
+        });
+})
+/*--------------------Tablas--------------------*/
+
+/*--------------------Asigna Roles--------------------*/
+function Guardar(url) {
+    var tipousuarioid = document.getElementById("UserType").value;
+    var bHabilitado = 1;
+    var frm = new FormData;
+    frm.append("tipousuarioid", tipousuarioid);
+    frm.append("Bhabilitado", bHabilitado);
+    var checks = document.getElementsByClassName("checkbox");
+    var nchecks = checks.length
+    for (var i = 0; i < nchecks; i++) {
+        if (checks[i].checked == true) {
+            frm.append("_Paginas[]", checks[i].id.replace("/", ""));
+        }
+    }
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: frm,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            if (data == "OK") {
+                correcto("Se actualizó correctamente el rol segun tipo de usuario!");
+                document.getElementById("frmEnviar").submit();
+                document.getElementById("frmRegresar").submit();
+            }
+            else {
+                error("Ocurrió un error, por favor verifique!");
+            }
+        }
+        //},
+        //error: alert("No se pudo procesar el registro")
+    })
+}
+/*--------------------Asigna Roles--------------------*/
 
 /*--------------------LOGIN--------------------*/
 function Enviar() {
@@ -178,6 +224,27 @@ function abrirModalCrearUsuario() {
         }
     })
 }
+function abrirModalCrearTipoUsuario() {
+    verModal('Agregar tipo usuario', '¿Desea guardar el tipo de Usuario?').then((result) => {
+        if (result.value) {
+            var viewAgregarTipoUsuario = document.getElementById("viewAgregarTipoUsuario");
+            viewAgregarTipoUsuario.submit();
+            Swal.fire(
+                'Agregado!',
+                'El tipo de usuario fue agregado!.',
+                'success'
+            )
+        }
+        else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire(
+                'Cancelado',
+                'El tipo usuario no fue agregado!!!:)',
+                'error'
+            )
+        }
+    })
+}
+
 /*------------------------------------------------------*/
 /*--------------------MODALES EDITAR--------------------*/
 
@@ -283,6 +350,27 @@ function abrirModalEditarCita() {
         }
     })
 }
+function abrirModalEditarTipoUusuario() {
+    verModal('Modificar tipo Usuario', '¿Desea modificar el tipo Usuario?').then((result) => {
+        if (result.value) {
+            var viewEditarTipoUsuario = document.getElementById("viewEditarTipoUsuario");
+            viewEditarTipoUsuario.submit();
+            Swal.fire(
+                'Modificado!',
+                'El tipo usuario fue modificado!.',
+                'success'
+            )
+        }
+        else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire(
+                'Cancelado',
+                'El tipo usuario no fue modificado!!!:)',
+                'error'
+            )
+        }
+    })
+}
+
 /*--------------------MODALES EDITAR-----------------------*/
 /*--------------------METODOS ELIMINAR--------------------*/
 function EliminarEspecialidad(EspecialidadId) {
@@ -295,7 +383,7 @@ function EliminarEspecialidad(EspecialidadId) {
                 viewEliminar.submit();
                 Swal.fire(
                     'Eliminación!',
-                    'La especialidad' + EspecialidadId + 'fue eliminada!.',
+                    'La especialidad ' + EspecialidadId + ' fue eliminada!.',
                     'success'
                 )
             }
@@ -319,7 +407,7 @@ function EliminarMedico(MedicoId) {
                 viewEliminarMedico.submit();
                 Swal.fire(
                     'Eliminación!',
-                    'El medico' + MedicoId + 'fue eliminado!.',
+                    'El medico ' + MedicoId + ' fue eliminado!.',
                     'success'
                 )
             }
@@ -343,7 +431,7 @@ function EliminarPaciente(PacienteId) {
                 viewEliminar.submit();
                 Swal.fire(
                     'Eliminación!',
-                    'El paciente' + PacienteId + 'fue eliminado!.',
+                    'El paciente ' + PacienteId + ' fue eliminado!.',
                     'success'
                 )
             }
@@ -366,7 +454,7 @@ function EliminarEnfermedad(EnfermedadId) {
                 viewEliminar.submit();
                 Swal.fire(
                     'Eliminación!',
-                    'La enfermedad' + EnfermedadId + 'fue eliminada!.',
+                    'La enfermedad ' + EnfermedadId + ' fue eliminada!.',
                     'success'
                 )
             }
@@ -389,7 +477,7 @@ function EliminarUsuario(UsuarioId) {
                 viewEliminarUsuario.submit();
                 Swal.fire(
                     'Eliminación!',
-                    'El usuario' + UsuarioId + 'fue eliminado!.',
+                    'El usuario ' + UsuarioId + ' fue eliminado!.',
                     'success'
                 )
             }
@@ -412,7 +500,7 @@ function EliminarCita(CitaId) {
                 viewEliminarCita.submit();
                 Swal.fire(
                     'Eliminación!',
-                    'La cita' + CitaId + 'fue eliminada!.',
+                    'La cita ' + CitaId + ' fue eliminada!.',
                     'success'
                 )
             }
@@ -420,6 +508,29 @@ function EliminarCita(CitaId) {
                 Swal.fire(
                     'Cancelado',
                     'La cita no fue eliminada!!!:)',
+                    'error'
+                )
+            }
+        })
+}
+function EliminarTipoUsuario(TipoUsuarioId) {
+    document.getElementById("txtTipoUsuarioId").value = TipoUsuarioId;
+    verModal('Eliminar tipo de usuario',
+        '¿Desea eliminar el tipo de usuario con el código '
+        + TipoUsuarioId + '?').then((result) => {
+            if (result.value) {
+                var viewEliminarTipoUsuario = document.getElementById("viewEliminarTipoUsuario");
+                viewEliminarTipoUsuario.submit();
+                Swal.fire(
+                    'Eliminación!',
+                    'La el tipo de usuario ' + TipoUsuarioId + ' fue eliminado!.',
+                    'success'
+                )
+            }
+            else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'Cancelado',
+                    'El tipo de usuario no fue eliminado!!!:)',
                     'error'
                 )
             }
@@ -450,6 +561,10 @@ function Agregar() {
                     } else {
                         if (titulo == "Agregar citas") {
                             abrirModalCrearCita();
+                        } else {
+                            if (titulo == "Agregar tipo Usuario") {
+                                abrirModalCrearTipoUsuario();
+                            }
                         }
                     }
                 }
@@ -478,6 +593,10 @@ function Editar() {
                     } else {
                         if (titulo == "Editar cita") {
                             abrirModalEditarCita();
+                        } else {
+                            if (titulo == "Editar Tipo de Usuario"){
+                                abrirModalEditarTipoUusuario();
+                            }
                         }
                     }
                 }
@@ -505,6 +624,10 @@ function Eliminar(id) {
                     } else {
                         if (titulo == "Usuario") {
                             EliminarUsuario(id);
+                        } else {
+                            if (titulo == "Tipo Usuario") {
+                                EliminarTipoUsuario(id);
+                            }
                         }
                     }
                 }
@@ -586,14 +709,7 @@ function BuscarConsulta() {
         BuscarConsulta();
     }
 
-    $(document).ready(function () {
-        $('#TbEspecial').DataTable(
-            {
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                }
-            });
-    })
+    
 
     function verificar() {
         var value = $('.dataTables_filter input').val();

@@ -6,8 +6,8 @@ namespace WebClinica.Models
 {
     public partial class Paciente
     {
-        [Required(ErrorMessage = "Debe digitar el Id del paciente")]
-        [Display(Name = "Id:")]
+        [Required(ErrorMessage = "Debe digitar la identificación del paciente")]
+        [Display(Name = "Identificador:")]
         public int PacienteId { get; set; }
 
         [Required(ErrorMessage = "Debe digitar el nombre del paciente")]
@@ -18,13 +18,13 @@ namespace WebClinica.Models
         [Display(Name = "Apellido:")]
         public string Apellidos { get; set; }
 
-        [Required(ErrorMessage = "Debe digitar la direccion del paciente")]
-        [Display(Name = "Direccion:")]
+        [Required(ErrorMessage = "Debe digitar la dirección del paciente")]
+        [Display(Name = "Dirección:")]
         [StringLength(200, ErrorMessage = "Ha excedido los 200 caracteres")]
         public string Direccion { get; set; }
 
-        [Required(ErrorMessage = "Debe digitar el telefono")]
-        [Display(Name = "Telefono:")]
+        [Required(ErrorMessage = "Debe digitar el télefono")]
+        [Display(Name = "Télefono:")]
         public string TelefonoContacto { get; set; }
 
         [Display(Name = "Email:")]

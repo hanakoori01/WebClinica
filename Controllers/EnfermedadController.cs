@@ -62,7 +62,14 @@ namespace WebClinica.Controllers
                 }
                 else
                 {
-                    _db.Enfermedad.Add(enfermedad);
+                    cargarUltimoRegistro();
+                    Enfermedad _enfermedad = new Enfermedad
+                    {
+                        EnfermedadId = ViewBag.Id,
+                        Nombre = enfermedad.Nombre,
+                        Descripcion = enfermedad.Descripcion
+                    };
+                    _db.Enfermedad.Add(_enfermedad);
                     _db.SaveChanges();
                 }
             }

@@ -13,7 +13,7 @@ namespace WebClinica.Controllers
     public class AsignaRolController : Controller
     {
         public static List<TipoUsuario> lista;
-        private List<Pagina> LstPagina = new List<Pagina>();
+        private List<Pagina> listaPagina = new List<Pagina>();
         public static int UserType;
         private readonly DBClinicaAcmeContext _db;
         public AsignaRolController(DBClinicaAcmeContext db)
@@ -22,8 +22,8 @@ namespace WebClinica.Controllers
         }
         public IActionResult Index(TipoUsuario oTipoUsuario)
         {
-            List<TipoUsuario> listaTipoUsu = new List<TipoUsuario>();
-            listaTipoUsu = (from tipousu in _db.TipoUsuario
+            List<TipoUsuario> listaTipoUsuario = new List<TipoUsuario>();
+            listaTipoUsuario = (from tipousu in _db.TipoUsuario
                             where tipousu.BotonHabilitado == 1
                             select new TipoUsuario
                             {
@@ -37,25 +37,25 @@ namespace WebClinica.Controllers
                 ViewBag.TipoUsuarioId = oTipoUsuario.TipoUsuarioId;
             }
 
-            lista = listaTipoUsu;
-            return View(listaTipoUsu);
+            lista = listaTipoUsuario;
+            return View(listaTipoUsuario);
         }
-        private List<Pagina> CargarPaginas()
+
+        public List<Pagina> CargarPaginas()
         {
             //asegurarse que la consulta solo devuelva los perfiles
             //que no estan determinados para este tipo de usuario
             //o sea si ya tiene acceso a especialidades y médico
             //no tendrian que salir estas paginas.
-            LstPagina = (from pagina in _db.Pagina
-                         where pagina.BotonHabilitado == 1
-                         select new Pagina
-                         {
-                             PaginaId = pagina.PaginaId,
-                             Menu = pagina.Menu,
-                             Accion = pagina.Accion,
-                             Controlador = pagina.Controlador
-                         }).ToList();
-            return LstPagina;
+            listaPagina = (from pagina in _db.Pagina
+                           where pagina.BotonHabilitado == 1 select new Pagina
+                           {
+                           PaginaId = pagina.PaginaId,
+                           Menu = pagina.Menu,
+                           Accion = pagina.Accion,
+                           Controlador = pagina.Controlador
+                           }).ToList();
+            return listaPagina;
         }
 
         public IActionResult Listar(int? id)
@@ -66,8 +66,9 @@ namespace WebClinica.Controllers
 
             ViewBag.TipoUsu = (int)_TipoUsuario.TipoUsuarioId;
             ViewBag.Usuario = _TipoUsuario.Nombre;
-            return View(LstPagina);
+            return View(listaPagina);
         }
+
         //[HttpPost]
         public string Registrar(int[] _Paginas, int tipousuarioid)
         {
@@ -86,6 +87,13 @@ namespace WebClinica.Controllers
                 trans.Complete();
             }
             return rpta;
+        }
+
+        public IActionResult Details(int id)
+        {
+            TipoUsuario oTipoUsuario = _db.TipoUsuario
+                         .Where(p => p.TipoUsuarioId == id).First();
+            return View(oTipoUsuario);
         }
     }
 }

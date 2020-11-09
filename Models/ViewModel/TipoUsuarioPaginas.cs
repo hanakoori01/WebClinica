@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebClinica.Models.ViewModel
 {
-    public class TipoUsuarioPagina
+    public class TipoUsuarioPaginas
     {
         public int TipoUsuarioPaginaId { get; set; }
         public int? TipousuarioId { get; set; }

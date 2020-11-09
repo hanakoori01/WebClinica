@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Clinica.Models.TipoUsuario>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Content.cshtml";
+}
+
+<head>
+    <title>Tipo Usuario</title>
+</head>
+<partial name="_Menu" />
+<div class="container">
+    <!--Cambio aca-->
+    <main class="pb-3" role="main">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 col-lg-12">
+                    <h2 class="text-light">Lista de tipos de usuario</h2>
+                </div>
+            </div>
+            <br />
+            <form asp-controller="TipoUsuarios" asp-action="Index" method="post" id="frmFilter">
+                <div class="row contenedorBotones">
+                    <div class="col-md-2 col-lg-2 text-right">
+                        <a asp-action="Create" class="btn btn-success fa fa-plus-circle crear">
+                            Nuevo
+                        </a>
+                    </div>
+
+                    <div class="col-md-2 colo-lg-2 text-right">
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-info fa fa fa-arrow-circle-left inicio">
+                            Regresar al menú
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-12 divisor"><hr></div>
+            </form>
+            @if (Model.Count() > 0)
+            {
+                <div class="contenedorTablas">
+                    <table class="table table-hover border .table-responsive" id="TbEspecial">
+                        <thead class="thead-dark">
+                            <tr class="table-secondary trs">
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Nombre)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.BotonHabilitado)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Nombre)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BotonHabilitado)
+                                    </td>
+                                    <partial name="_AddEditAndView" model="item.TipoUsuarioId" />
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            }
+            else
+            {
+                <h2 class="textoInformativo">No hay tipos de usuarios en la lista.</h2>
+            }
+        </div>
+        <form asp-action="Delete" asp-controller="TipoUsuarios" method="post" id="viewEliminarTipoUsuario">
+            <input type="hidden" id="txtTipoUsuarioId" name="TipoUsuarioId" />
+        </form>
+        <form asp-action="Edit" asp-controller="TipoUsuarios" method="post" id="viewEditarTipoUsuarios">
+            <input type="hidden" id="txtTipoUsuarioId" name="TipoUsuarioId" />
+        </form>
+    </main>
+</div>
+<partial name="_EndPag" />
+
+

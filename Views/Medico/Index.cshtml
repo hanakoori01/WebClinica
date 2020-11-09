@@ -26,11 +26,6 @@
                             Regresar al menú
                         </a>
                     </div>
-                    <div class="col-md-2 col-lg-2 text-right">
-                        <a asp-controller="ConsultaMedico" asp-action="Index" class="btn btn-success fa fa-search-plus consulta">
-                            Consulta
-                        </a>
-                    </div>
                 </div>
                 <div class="col-md-12" style="color:black;"><hr></div>
             </form>
@@ -51,18 +46,19 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model) {
-            <tr>
-                <td>@Html.DisplayFor(m => item.MedicoId)</td>
-                <td>@Html.DisplayFor(m => item.Nombre)</td>
-                <td>@Html.DisplayFor(m => item.Apellidos)</td>
-                <td>@Html.DisplayFor(m => item.Direccion)</td>
-                <td>@Html.DisplayFor(m => item.TelefonoFijo)</td>
-                <td>@Html.DisplayFor(m => item.TelefonoCelular)</td>
-                <td>@Html.DisplayFor(m => item.Especialidad)</td>
-                <partial name="_AddEditAndView" model="item.MedicoId" />
-            </tr>
-            }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(m => item.MedicoId)</td>
+                        <td>@Html.DisplayFor(m => item.Nombre)</td>
+                        <td>@Html.DisplayFor(m => item.Apellidos)</td>
+                        <td>@Html.DisplayFor(m => item.Direccion)</td>
+                        <td>@Html.DisplayFor(m => item.TelefonoFijo)</td>
+                        <td>@Html.DisplayFor(m => item.TelefonoCelular)</td>
+                        <td>@Html.DisplayFor(m => item.Especialidad)</td>
+                        <partial name="_AddEditAndView" model="item.MedicoId" />
+                    </tr>
+                }
             </tbody>
         </table>
     </div>

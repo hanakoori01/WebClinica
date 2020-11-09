@@ -6,15 +6,15 @@ namespace WebClinica.Models
 {
     public partial class Medico
     {
-        [Required(ErrorMessage = "Debe digitar el ID del medico")]
-        [Display(Name = "ID:")]
+        [Required(ErrorMessage = "Debe digitar la identificación del médico")]
+        [Display(Name = "Identificación:")]
         public int MedicoId { get; set; }
 
-        [Required(ErrorMessage = "Debe digitar el nombre del medico")]
+        [Required(ErrorMessage = "Debe digitar el nombre del médico")]
         [Display(Name = "Nombre:")]
         public string Nombre { get; set; }
 
-        [Required(ErrorMessage = "Debe digitar el apellido del medico")]
+        [Required(ErrorMessage = "Debe digitar el apellido del médico")]
         [Display(Name = "Apellidos:")]
         public string Apellidos { get; set; }
 
@@ -23,16 +23,16 @@ namespace WebClinica.Models
         [StringLength(200, ErrorMessage = "Ha excedido los 200 caracteres")]
         public string Direccion { get; set; }
 
-        [Required(ErrorMessage = "Debe digitar el numero de telfono del medico")]
-        [Display(Name = "Telefono fijo:")]
+        [Required(ErrorMessage = "Debe digitar el número de télefono del médico")]
+        [Display(Name = "Télefono fijo:")]
         public string TelefonoFijo { get; set; }
 
-        [Required(ErrorMessage = "Debe digitar el celular del medico")]
+        [Required(ErrorMessage = "Debe digitar el número del celular del médico")]
         [Display(Name = "Celular:")]
         public string TelefonoCelular { get; set; }
 
 
-        [Display(Name = "ID de especialidad:")]
+        [Display(Name = "Especialidad:")]
         public int EspecialidadId { get; set; }
 
         public virtual Especialidad Especialidad { get; set; }

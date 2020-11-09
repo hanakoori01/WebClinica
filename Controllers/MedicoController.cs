@@ -78,7 +78,7 @@ namespace WebClinica.Controllers
                                    ).ToList();
             ViewBag.ListaEspecialidades = listaEspecialidades;
         }
-        
+
         public IActionResult Index()
         {
             listaMedico = BuscarMedicoEspecialidad("");
@@ -108,14 +108,17 @@ namespace WebClinica.Controllers
                 }
                 else
                 {
-                    Medico _medico = new Medico();
-                    _medico.MedicoId = medico.MedicoId;
-                    _medico.Nombre = medico.Nombre;
-                    _medico.Apellidos = medico.Apellidos;
-                    _medico.Direccion = medico.Direccion;
-                    _medico.TelefonoFijo = medico.TelefonoFijo;
-                    _medico.TelefonoCelular = medico.TelefonoCelular;
-                    _medico.EspecialidadId = medico.EspecialidadId;
+                    Medico _medico = new Medico
+                    {
+                        MedicoId = medico.MedicoId,
+                        Nombre = medico.Nombre,
+                        Apellidos = medico.Apellidos,
+                        Direccion = medico.Direccion,
+                        TelefonoFijo = medico.TelefonoFijo,
+                        TelefonoCelular = medico.TelefonoCelular,
+                        EspecialidadId = medico.EspecialidadId
+                    };
+
                     _db.Medico.Add(_medico);
                     _db.SaveChanges();
                 }
@@ -188,14 +191,6 @@ namespace WebClinica.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public FileResult exportar()
-        {
-            Utilitarios util = new Utilitarios();
-            string[] cabeceras = { "Id Médico", "Nombre", "Apellidos", "Dirección", "Especialidad" };
-            string[] nombrePropiedades = { "MedicoId", "Nombre", "Apellidos", "Direccion", "Especialidad" };
-            string titulo = "Reporte de Médicos";
-            byte[] buffer = util.ExportarPDFDatos(nombrePropiedades, lista, titulo);
-            return File(buffer, "application/pdf");
-        }
+      
     }
 }

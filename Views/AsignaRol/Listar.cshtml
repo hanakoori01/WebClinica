@@ -1,0 +1,91 @@
+﻿@model IEnumerable<Clinica.Models.Pagina>
+
+@{
+    ViewData["Title"] = "Listar";
+    Layout = "~/Views/Shared/_Content.cshtml";
+}
+
+<head>
+    <title>Lista de paginas</title>
+</head>
+<partial name="_Menu" />
+<div class="container">
+    <!--Cambio aca-->
+    <main class="pb-3" role="main">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 col-lg-12">
+                    <h2 class="text-light">Lista de paginas</h2>
+                </div>
+            </div>
+            <br />
+            <form asp-action="Registrar" asp-controller="AsignaRol" method="post" id="frmEnviar">
+            </form>
+            <form asp-controller="AsignaRol" asp-action="Index" method="post" id="frmFilter">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12">
+                        <h6 class="text-dark" style="text-align:center;">
+                            Procesando: @ViewBag.Usuario
+                        </h6>
+                    </div>
+                    <input type="hidden" id="UserType" value="@ViewBag.TipoUsu" />
+                </div>
+                <div class="row contenedorBotones">
+                    <div class="col-md-2 col-lg-2 text-right">
+                        <a asp-action="Create" class="btn btn-success fa fa-plus-circle crear">
+                            Nuevo
+                        </a>
+                    </div>
+                    <div class="col-md-2 colo-lg-2 text-right">
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-info fa fa fa-arrow-circle-left inicio">
+                            Regresar al menú
+                        </a>
+                    </div>
+                    <div class="col-md-2 colo-lg-2 text-right">
+                        <a class="btn btn-info fa fa fa-arrow-circle-left inicio" onclick="Guardar('/AsignaRol/Registrar/')">
+                            Guardar Roles
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-12 divisor"><hr></div>
+            </form>
+            @if (Model.Count() > 0)
+            {
+                <div class="contenedorTablas">
+                    <table class="table table-hover border .table-responsive" id="TbEspecial">
+                        <thead class="thead-dark">
+                            <tr class="table-secondary trs">
+                                <th>@Html.DisplayNameFor(model => model.PaginaId)</th>
+                                <th>@Html.DisplayNameFor(model => model.Controlador)</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(m => item.PaginaId)</td>
+                                    <td>@Html.DisplayFor(m => item.Controlador)</td>
+                                    <td>
+                                        <input type="checkbox" class="checkbox"
+                                               id=@item.PaginaId />
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            }
+            else
+            {
+                <h2 class="textoInformativo">No hay tipos usuarios en la lista.</h2>
+            }
+        </div>
+        <form asp-action="Index" asp-controller="AsignaRol"
+              method="post" id="frmRegresar">
+        </form>
+    </main>
+</div>
+<partial name="_EndPag" />
+
