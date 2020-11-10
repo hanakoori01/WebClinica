@@ -18,8 +18,5 @@ namespace Clinica.Models
         [Display(Name = "Boton Habilitado")]
         public int? BotonHabilitado { get; set; }
 
-        
-
-        public string NombrePagina { get; set; }
     }
 }

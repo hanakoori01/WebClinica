@@ -41,6 +41,19 @@ namespace WebClinica.Controllers
             return View(listaTipoUsuario);
         }
 
+        private void cargarUltimoRegistro()
+        {
+            var ultimoRegistro = _db.Set<TipoUsuarioPagina>().OrderByDescending(e => e.TipoUsuarioPaginaId).FirstOrDefault();
+            if (ultimoRegistro == null)
+            {
+                ViewBag.ID = 1;
+            }
+            else
+            {
+                ViewBag.ID = ultimoRegistro.TipoUsuarioPaginaId + 1;
+            }
+        }
+
         public List<Pagina> CargarPaginas()
         {
             //asegurarse que la consulta solo devuelva los perfiles
@@ -53,7 +66,8 @@ namespace WebClinica.Controllers
                            PaginaId = pagina.PaginaId,
                            Menu = pagina.Menu,
                            Accion = pagina.Accion,
-                           Controlador = pagina.Controlador
+                           Controlador = pagina.Controlador,
+                           BotonHabilitado = pagina.BotonHabilitado
                            }).ToList();
             return listaPagina;
         }
@@ -73,11 +87,14 @@ namespace WebClinica.Controllers
         public string Registrar(int[] _Paginas, int tipousuarioid)
         {
             string rpta = "OK";
+            cargarUltimoRegistro();
             using (var trans = new TransactionScope())
+
             {
                 foreach (var item in _Paginas)
                 {
                     TipoUsuarioPagina _TipoUsuarioPagina = new TipoUsuarioPagina();
+                    _TipoUsuarioPagina.TipoUsuarioPaginaId = ViewBag.ID;
                     _TipoUsuarioPagina.TipoUsuarioId = tipousuarioid;
                     _TipoUsuarioPagina.PaginaId= item;
                     _TipoUsuarioPagina.BotonHabilitado = 1;

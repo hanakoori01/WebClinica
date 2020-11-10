@@ -6,6 +6,10 @@ namespace WebClinica.Models
 {
     public partial class Paciente
     {
+        public Paciente()
+        {
+            Citas = new HashSet<Citas>();
+        }
         [Required(ErrorMessage = "Debe digitar la identificación del paciente")]
         [Display(Name = "Identificador:")]
         public int PacienteId { get; set; }

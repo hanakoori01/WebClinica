@@ -44,6 +44,30 @@ function Guardar(url) {
         //error: alert("No se pudo procesar el registro")
     })
 }
+
+function ListarBotones() {
+    $.get("PaginaTipoUsuario/listarBotones", function (data) {
+        var contenido = "<table class='table'>";
+        contenido += "<thead>";
+        contenido += "<tr>";
+        contenido += "<td></td>";
+        contenido += "<td>Nombre Boton</td>";
+        contenido += "</tr>";
+        contenido += "</thead>";
+        contenido += "<tbody>";
+        for (var i = 0; i < data.length; i++) {
+            contenido += "<tr>";
+            contenido += "<td> <input type='checkbox' class='checkbox' id='chk" + data[i].iidboton + "' /> </td>";
+            contenido += "<td>" + data[i].nombre + "</td>";
+            contenido += "</tr>";
+        }
+        contenido += "</tbody>";
+        contenido += "<table>";
+
+        document.getElementById("divBotones").innerHTML = contenido;
+        recuperar();
+    })
+}
 /*--------------------Asigna Roles--------------------*/
 
 /*--------------------LOGIN--------------------*/
