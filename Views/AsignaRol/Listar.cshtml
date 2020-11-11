@@ -24,11 +24,12 @@
             <form asp-controller="AsignaRol" asp-action="Index" method="post" id="frmFilter">
                 <div class="row">
                     <div class="col-md-12 col-lg-12">
-                        <h6 class="text-dark" style="text-align:center;">
+                        <h4 class="text-dark" style="text-align:center;">
                             Procesando: @ViewBag.Usuario
-                        </h6>
+                        </h4>
                     </div>
                     <input type="hidden" id="UserType" value="@ViewBag.TipoUsu" />
+                    <br style="color:black" />
                 </div>
                 <div class="row contenedorBotones">
                     <div class="col-md-2 col-lg-2 text-right">
@@ -68,7 +69,7 @@
                                     <td>@Html.DisplayFor(m => item.Controlador)</td>
                                     <td>
                                         <input type="checkbox" class="checkbox"
-                                               id=@item.PaginaId />
+                                               id=@item.PaginaId/>
                                     </td>
                                 </tr>
                             }

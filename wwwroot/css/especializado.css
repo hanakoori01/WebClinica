@@ -171,6 +171,21 @@
     .boton-edit:hover {
         background-color: rgba(199, 199, 199, 1);
     }
+
+.boton-listar {
+    background-color: white;
+    border: none;
+    background-color: transparent;
+    font-size: 20px;
+}
+
+    .boton-listar:hover {
+        background-color: rgba(199, 199, 199, 1);
+    }
+
+
+
+
 /*CREATE*/
 .contenedorPrincipal {
     margin-top: 15px;

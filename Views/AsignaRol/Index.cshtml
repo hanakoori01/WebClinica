@@ -44,6 +44,7 @@
                                 <th>@Html.DisplayNameFor(model => model.TipoUsuarioId)</th>
                                 <th>@Html.DisplayNameFor(model => model.Nombre)</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -52,22 +53,12 @@
                             <tr>
                                 <td>@Html.DisplayFor(m => item.TipoUsuarioId)</td>
                                 <td>@Html.DisplayFor(m => item.Nombre)</td>
-                                <td>
-                                    <a class="btn btn-success fa fa-plus-circle" aria-hidden="true"
+                                <td class="text-align-right">
+                                    <a class="btn fa fa-user-plus boton-listar" aria-hidden="true"
                                        asp-controller="AsignaRol" asp-action="Listar"
                                        asp-route-id="@item.TipoUsuarioId"></a>
 
-                                    <a class="fa fa-pencil btn btn-info" aria-hidden="true"
-                                       asp-controller="AsignarRol" asp-action="Edit"
-                                       asp-route-id="@item.TipoUsuarioId"></a>
-
-                                    <a class="fa fa-info-circle btn btn-primary" aria-hidden="true"
-                                       asp-controller="AsignarRol" asp-action="Details"
-                                       asp-route-id="@item.TipoUsuarioId"></a>
-
-                                    <a class="fa fa-info-circle btn btn-primary" aria-hidden="true"
-                                       asp-controller="AsignarRol" asp-action="Delete"
-                                       asp-route-id="@item.TipoUsuarioId"></a>
+                                    <partial name="_AddEditAndView" model="@item.TipoUsuarioId" />
                                 </td>
                             </tr>
                             }

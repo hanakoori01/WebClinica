@@ -28,11 +28,6 @@
                             Regresar al menú
                         </a>
                     </div>
-                    <div class="col-md-2 col-lg-2 text-right">
-                        <a asp-controller="ConsultaUsuario" asp-action="Index" class="btn btn-success fa fa-search-plus consulta">
-                            Consulta
-                        </a>
-                    </div>
                 </div>
                 <div class="col-md-12" style="color:black;"><hr></div>
             </form>
@@ -42,6 +37,7 @@
                     <table class="table table-hover border .table-responsive" id="TbEspecial">
                         <thead class="thead-dark">
                             <tr class="table-secondary trs">
+                                <th>@Html.DisplayNameFor(model => model.UsuarioId)</th>
                                 <th>@Html.DisplayNameFor(model => model.Nombre)</th>
                                 <th>@Html.DisplayNameFor(model => model.TipoUsuarioNombre)</th>
                                 <th></th>
@@ -50,11 +46,12 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                <tr>
-                                    <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-                                    <td> @Html.DisplayFor(modelItem => item.TipoUsuarioNombre)</td>
-                                    <partial name="_AddEditAndView" model="item.UsuarioId" />
-                                </tr>
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.UsuarioId)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                                <td> @Html.DisplayFor(modelItem => item.TipoUsuarioNombre)</td>
+                                <partial name="_AddEditAndView" model="item.UsuarioId" />
+                            </tr>
                             }
                         </tbody>
                     </table>
