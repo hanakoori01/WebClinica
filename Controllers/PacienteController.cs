@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using WebClinica.Filter;
 using WebClinica.Models;
 
 namespace WebClinica.Controllers
 {
+    [ServiceFilter(typeof(Seguridad))]
     public class PacienteController : Controller
     {
         private readonly DBClinicaAcmeContext _db;

@@ -6,10 +6,12 @@ using System.Transactions;
 using Clinica.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using WebClinica.Filter;
 using WebClinica.Models;
 
 namespace WebClinica.Controllers
 {
+    [ServiceFilter(typeof(Seguridad))]
     public class AsignaRoleController : Controller
     {
         public static List<TipoUsuarioPagina> Lista;

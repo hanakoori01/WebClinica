@@ -95,10 +95,11 @@ function pintarPantallaCRUD(url, campos, propiedadId, nombreController,
 
 function correcto(title = "Listo!") {
     Swal.fire({
-        position: 'top-end',
+        
+        position: 'center',
         icon: 'success',
         title: title,
-        showConfirmButton: false,
+        showConfirmButton: true,
         timer: 3500
     })
 }

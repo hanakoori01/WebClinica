@@ -36,7 +36,7 @@ namespace Clinica.Controllers
                     rpta = "OK";
                     Usuario User = _db.Usuario.Where(u => u.Nombre == user
                             && u.Password == claveCifrada).First();
-                    HttpContext.Session.SetString("usuarioId", User.UsuarioId.ToString());
+                    HttpContext.Session.SetString("UsuarioId", User.UsuarioId.ToString());
                     HttpContext.Session.SetString("nombreUsuario", User.Nombre);
                     //int idTipo = User.TipoUsuarioId;
                     List<Pagina> lista = new List<Pagina>();

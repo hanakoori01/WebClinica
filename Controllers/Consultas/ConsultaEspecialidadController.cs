@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Clinica.Models;
 using Microsoft.AspNetCore.Mvc;
+using WebClinica.Filter;
 using WebClinica.Models;
 
 namespace WebClinica.Controllers
 {
+    [ServiceFilter(typeof(Seguridad))]
     public class ConsultaEspecialidadController : Controller
     {
         static List<Especialidad> lista = new List<Especialidad>();

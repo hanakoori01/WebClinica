@@ -22,7 +22,7 @@ namespace WebClinica.Filter
             var user = context.HttpContext.Session.GetString("UsuarioId");
             if (user == null)
             {
-                context.Result = new RedirectResult("Login");
+                context.Result = new RedirectResult("/Login/Index");
             }
         }
     }

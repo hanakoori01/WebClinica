@@ -6,11 +6,13 @@ using Clinica.Models;
 using Clinica.Models.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebClinica.Filter;
 using WebClinica.Models;
 using WebClinica.Models.ViewModel;
 
 namespace Clinica.Controllers.Consultas
 {
+    [ServiceFilter(typeof(Seguridad))]
     public class ConsultaUsuarioController : Controller
     {
         private readonly DBClinicaAcmeContext _db;

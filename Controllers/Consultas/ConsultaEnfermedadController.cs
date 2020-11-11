@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Clinica.Models;
 using Microsoft.AspNetCore.Mvc;
+using WebClinica.Filter;
 using WebClinica.Models;
 
 namespace WebClinica.Controllers
 {
+    [ServiceFilter(typeof(Seguridad))]
     public class ConsultaEnfermedadController : Controller
     {
         private readonly DBClinicaAcmeContext _db;

@@ -127,8 +127,9 @@ function Enviar2() {
         data: { "user": user, "pass": pass },
         success: function (data) {
             if (data == "") {
-                error("Usuario o contaseña incorrecto!");
+                error("Usuario o contraseña incorrecto!");
             } else {
+                correcto("Bienvenido!")
                 document.location.href = "/Home/Index"
             }
         },
