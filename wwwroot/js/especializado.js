@@ -68,6 +68,40 @@ function ListarBotones() {
         recuperar();
     })
 }
+
+function ListarPaginas() {
+    $.get("AsignaRol/CargarPaginas", function (data) {
+        var contenido = "<table class='table'>";
+        contenido += "<thead>";
+        contenido += "<tr>";
+        contenido += "<td></td>";
+        contenido += "<td>Nombre página</td>";
+        contenido += "</tr>";
+        contenido += "</thead>";
+        contenido += "<tbody>";
+        for (var i = 0; i < data.length; i++) {
+            contenido += "<tr>";
+            contenido += "<td> <input type='checkbox' class='checkbox' id='"
+                + data[i].paginaid + "' /> </td>";
+            contenido += "</tr>";
+        }
+        contenido += "</tbody>";
+        contenido += "<table>";
+        document.getElementById("divPaginas").innerHTML = contenido;
+        recuperar();
+    })
+}
+
+function recuperar() {
+    var tipousuarioid = document.getElementById("UserType").value;
+    $.get("AsignaRol/RecuperarPaginas/?tipousuarioid" + tipousuarioid, function (data) {
+        for (var i = 0; i < data.length; i++) {
+            var pagid = data[i].Paginaid;
+            var idgene = pagid;
+            document.getElementById(idgene).checked = true;
+        }
+    });
+}
 /*--------------------Asigna Roles--------------------*/
 
 /*--------------------LOGIN--------------------*/

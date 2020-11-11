@@ -19,5 +19,10 @@ namespace Clinica.Models
         public int BotonHabilitado { get; set; }
         public virtual ICollection<TipoUsuarioPagina> TipoUsuarioPagina { get; set; }
         public virtual ICollection<Usuario> Usuario { get; set; }
+
+        [Display(Name = "Descripcion:")]
+        [StringLength(400, ErrorMessage = "Ha excedido los 400 caracteres")]
+        [Required(ErrorMessage = "Debe digitar la descripción de la Especialidad")]
+        public string Descripcion { get; set; }
     }
 }

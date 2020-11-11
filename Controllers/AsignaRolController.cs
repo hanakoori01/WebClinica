@@ -29,11 +29,13 @@ namespace WebClinica.Controllers
                             {
                                 TipoUsuarioId = tipousu.TipoUsuarioId,
                                 Nombre = tipousu.Nombre,
+                                Descripcion = tipousu.Descripcion,
                             }).ToList();
             if (oTipoUsuario.Nombre != null && oTipoUsuario.TipoUsuarioId != 0)
             {
 
                 ViewBag.Nombre = oTipoUsuario.Nombre;
+                ViewBag.Descripcion = oTipoUsuario.Descripcion;
                 ViewBag.TipoUsuarioId = oTipoUsuario.TipoUsuarioId;
             }
 
@@ -80,6 +82,7 @@ namespace WebClinica.Controllers
 
             ViewBag.TipoUsu = (int)_TipoUsuario.TipoUsuarioId;
             ViewBag.Usuario = _TipoUsuario.Nombre;
+            ViewBag.TipoUsu = _TipoUsuario.Descripcion;
             return View(listaPagina);
         }
 
@@ -112,5 +115,7 @@ namespace WebClinica.Controllers
                          .Where(p => p.TipoUsuarioId == id).First();
             return View(oTipoUsuario);
         }
+
+       
     }
 }

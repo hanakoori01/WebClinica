@@ -233,6 +233,11 @@ namespace WebClinica.Models
 
                 entity.Property(e => e.BotonHabilitado)
                   .HasColumnName("BotonHabilitado");
+
+                entity.Property(e => e.Descripcion)
+                  .HasColumnName("Descripcion")
+                  .HasMaxLength(400)
+                  .IsUnicode(false);
             });
 
             modelBuilder.Entity<TipoUsuarioPagina>(entity =>
