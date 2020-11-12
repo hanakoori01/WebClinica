@@ -164,7 +164,16 @@ namespace WebClinica.Controllers
                 }
                 else
                 {
-                    _db.Medico.Update(medico);
+                    Medico _medico = new Medico {
+                        MedicoId = medico.MedicoId,
+                        Nombre = medico.Nombre,
+                        Apellidos = medico.Apellidos,
+                        Direccion = medico.Direccion,
+                        TelefonoFijo = medico.TelefonoFijo,
+                        TelefonoCelular = medico.TelefonoCelular,
+                        EspecialidadId = medico.EspecialidadId
+                    };
+                    _db.Medico.Update(_medico);
                     _db.SaveChanges();
                 }
             }

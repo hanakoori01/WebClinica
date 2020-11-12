@@ -17,6 +17,7 @@
                 <span class="phone-icon"><i class="fa fa-phone"></i> 010-060-0160</span>
                 <span class="date-icon"><i class="fa fa-calendar-plus-o"></i> 6:00 AM - 10:00 PM (Lun-Vie)</span>
                 <span class="email-icon"><i class="fa fa-envelope-o"></i> <a href="#">info@company.com</a></span>
+                <span ><a asp-area="" asp-controller="Login" asp-action="CerrarSesion"><i class="fa fa-key" aria-hidden="true"></i>Salir</a></span>
             </div>
         </div>
     </div>
@@ -44,157 +45,164 @@
                 <li class="navbar-nav flex-grow-1">
                 <li class="nav-item dropdown text-white-50" onmouseover="">
 
-                        @if (Clinica.Models.Utilitarios.MenuMant != "")
-                        {
+                    @if (Clinica.Models.Utilitarios.MenuMant != "")
+                    {
+                    <li class="submenu">
+                        <a href="#" class="nav-link dropdown-toggle" id="NavBar1"
+                           role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            Mantenimiento
+                        </a>
+                        <ul class="dropdown-menu children" aria-labelledby="navabarDropDownMenuLink">
+                            @if (Clinica.Models.Utilitarios.ListaController.Contains("Enfermedad"))
+                            {
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Enfermedad" asp-action="Index">
+                                        <i class="fa fa-folder-open" aria-hidden="true"></i> Enfermedad
+                                    </a>
+                                </li>
+                            }
+
+                            @if (Clinica.Models.Utilitarios.ListaController.Contains("Especialidad"))
+                            {
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Especialidad" asp-action="Index">
+                                        <i class="fa fa-stethoscope" aria-hidden="true"></i> Especialidades
+                                    </a>
+                                </li>
+                            }
+
+                            @if (Clinica.Models.Utilitarios.ListaController.Contains("Medico"))
+                            {
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Medico" asp-action="Index">
+                                        <i class="fa fa-medkit" aria-hidden="true"></i> Médicos
+                                    </a>
+                                </li>
+                            }
+                            @if (Clinica.Models.Utilitarios.ListaController.Contains("Paciente"))
+                            {
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Paciente" asp-action="Index">
+                                        <i class="fa fa-heartbeat" aria-hidden="true"></i> Pacientes
+                                    </a>
+                                </li>
+                            }
+
+
+                        </ul>
+                    </li>
+                }
+                    @if (Clinica.Models.Utilitarios.MenuCons != "")
+                    {
                         <li class="submenu">
                             <a href="#" class="nav-link dropdown-toggle" id="NavBar1"
                                role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
-                                Mantenimiento
+                                Consultas Generales
                             </a>
                             <ul class="dropdown-menu children" aria-labelledby="navabarDropDownMenuLink">
-                                @if (Clinica.Models.Utilitarios.ListaController.Contains("Enfermedad"))
+                                @if (Clinica.Models.Utilitarios.ListaController.Contains("ConsultaEspecialidad"))
                                 {
                                     <li>
-                                        <a class="dropdown-item" asp-controller="Enfermedad" asp-action="Index">
-                                            <i class="fa fa-folder-open" aria-hidden="true"></i> Enfermedad
-                                        </a>
-                                    </li>
-                                }
-
-                                @if (Clinica.Models.Utilitarios.ListaController.Contains("Especialidad"))
-                                {
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="Especialidad" asp-action="Index">
+                                        <a class="dropdown-item" asp-controller="ConsultaEspecialidad" asp-action="Index">
                                             <i class="fa fa-stethoscope" aria-hidden="true"></i> Especialidades
                                         </a>
                                     </li>
                                 }
 
-                                @if (Clinica.Models.Utilitarios.ListaController.Contains("Medico"))
+                                @if (Clinica.Models.Utilitarios.ListaController.Contains("ConsultaMedico"))
                                 {
                                     <li>
-                                        <a class="dropdown-item" asp-controller="Medico" asp-action="Index">
+                                        <a class="dropdown-item" asp-controller="ConsultaMedico" asp-action="Index">
                                             <i class="fa fa-medkit" aria-hidden="true"></i> Médicos
                                         </a>
                                     </li>
                                 }
-                                @if (Clinica.Models.Utilitarios.ListaController.Contains("Paciente"))
+
+                                @if (Clinica.Models.Utilitarios.ListaController.Contains("ConsultaPacientes"))
                                 {
                                     <li>
-                                        <a class="dropdown-item" asp-controller="Paciente" asp-action="Index">
+                                        <a class="dropdown-item" asp-controller="ConsultaPacientes" asp-action="Index">
                                             <i class="fa fa-heartbeat" aria-hidden="true"></i> Pacientes
                                         </a>
                                     </li>
                                 }
+                                @if (Clinica.Models.Utilitarios.ListaController.Contains("ConsultaCitas"))
+                                {
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="ConsultaCitas" asp-action="Index">
+                                            <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Citas
+                                        </a>
+                                    </li>
+                                }
+                                @if (Clinica.Models.Utilitarios.ListaController.Contains("ConsultaEnfermedad"))
+                                {
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="ConsultaEnfermedad" asp-action="Index">
+                                            <i class="fa fa-folder-open" aria-hidden="true"></i> Enfermedad
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    @if (Clinica.Models.Utilitarios.MenuAcce != "")
+                    {
+                        <li class="submenu">
+                            <a href="#" class="nav-link dropdown-toggle" id="NavBar1"
+                               role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                Accesibilidad
+                            </a>
+                            <ul class="dropdown-menu children" aria-labelledby="navabarDropDownMenuLink">
+                                @if (Clinica.Models.Utilitarios.ListaController.Contains("Usuario"))
+                                {
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Usuario" asp-action="Index">
+                                            <i class="fa fa-female" aria-hidden="true"></i> Usuarios
+                                        </a>
+                                    </li>
+                                }
 
+                                @if (Clinica.Models.Utilitarios.ListaController.Contains("ConsultaUsuario"))
+                                {
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="ConsultaUsuario" asp-action="Index">
+                                            <i class="fa fa-user-circle-o" aria-hidden="true"></i> Consulta Usuario
+                                        </a>
+                                    </li>
+                                }
+
+                                @if (Clinica.Models.Utilitarios.ListaController.Contains("TipoUsuarios"))
+                                {
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="TipoUsuarios" asp-action="Index">
+                                            <i class="fa fa-user-times" aria-hidden="true"></i> Tipos de usuario
+                                        </a>
+                                    </li>
+                                }
+                                @if (Clinica.Models.Utilitarios.ListaController.Contains("AsignaRol"))
+                                {
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="AsignaRol" asp-action="Index">
+                                            <i class="fa fa-binoculars" aria-hidden="true"></i> Roles
+                                        </a>
+                                    </li>
+                                }
 
                             </ul>
                         </li>
                     }
-                        @if (Clinica.Models.Utilitarios.MenuCons != "")
-                        {
-                            <li class="submenu">
-                                <a href="#" class="nav-link dropdown-toggle" id="NavBar1"
-                                   role="button" data-toggle="dropdown"
-                                   aria-haspopup="true" aria-expanded="false">
-                                    Consultas Generales
-                                </a>
-                                <ul class="dropdown-menu children" aria-labelledby="navabarDropDownMenuLink">
-                                    @if (Clinica.Models.Utilitarios.ListaController.Contains("ConsultaEspecialidad"))
-                                    {
-                                        <li>
-                                            <a class="dropdown-item" asp-controller="ConsultaEspecialidad" asp-action="Index">
-                                                <i class="fa fa-stethoscope" aria-hidden="true"></i>Especialidades
-                                            </a>
-                                        </li>
-                                    }
-
-                                    @if (Clinica.Models.Utilitarios.ListaController.Contains("ConsultaMedico"))
-                                    {
-                                        <li>
-                                            <a class="dropdown-item" asp-controller="ConsultaMedico" asp-action="Index">
-                                                <i class="fa fa-medkit" aria-hidden="true"></i>Médicos
-                                            </a>
-                                        </li>
-                                    }
-
-                                    @if (Clinica.Models.Utilitarios.ListaController.Contains("ConsultaPacientes"))
-                                    {
-                                        <li>
-                                            <a class="dropdown-item" asp-controller="ConsultaPacientes" asp-action="Index">
-                                                <i class="fa fa-heartbeat" aria-hidden="true"></i>Pacientes
-                                            </a>
-                                        </li>
-                                    }
-                                    @if (Clinica.Models.Utilitarios.ListaController.Contains("ConsultaCitas"))
-                                    {
-                                        <li>
-                                            <a class="dropdown-item" asp-controller="ConsultaCitas" asp-action="Index">
-                                                <i class="fa fa-calendar-check-o" aria-hidden="true"></i>Citas
-                                            </a>
-                                        </li>
-                                    }
-                                    @if (Clinica.Models.Utilitarios.ListaController.Contains("ConsultaEnfermedad"))
-                                    {
-                                        <li>
-                                            <a class="dropdown-item" asp-controller="ConsultaEnfermedad" asp-action="Index">
-                                                <i class="fa fa-folder-open" aria-hidden="true"></i>Enfermedad
-                                            </a>
-                                        </li>
-                                    }
-                                </ul>
-                            </li>
-                        }
-                        @if (Clinica.Models.Utilitarios.MenuAcce != "")
-                        {
-                            <li class="submenu">
-                                <a href="#" class="nav-link dropdown-toggle" id="NavBar1"
-                                   role="button" data-toggle="dropdown"
-                                   aria-haspopup="true" aria-expanded="false">
-                                    Accesibilidad
-                                </a>
-                                <ul class="dropdown-menu children" aria-labelledby="navabarDropDownMenuLink">
-                                    @if (Clinica.Models.Utilitarios.ListaController.Contains("Usuario"))
-                                    {
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="Usuario" asp-action="Index">
-                                            <i class="fa fa-female" aria-hidden="true"></i>Usuarios
-                                        </a>
-                                    </li>
-                                    }
-
-                                    @if (Clinica.Models.Utilitarios.ListaController.Contains("ConsultaUsuario"))
-                                    {
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="ConsultaUsuario" asp-action="Index">
-                                            <i class="fa fa-female" aria-hidden="true"></i>Consulta Usuario
-                                        </a>
-                                    </li>
-                                    }
-
-                                    @if (Clinica.Models.Utilitarios.ListaController.Contains("TipoUsuarios"))
-                                    {
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="TipoUsuarios" asp-action="Index">
-                                            <i class="fa fa-female" aria-hidden="true"></i>Tipos de usuario
-                                        </a>
-                                    </li>
-                                    }
-                                    @if (Clinica.Models.Utilitarios.ListaController.Contains("AsignaRol"))
-                                    {
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="AsignaRol" asp-action="Index">
-                                            <i class="fa fa-female" aria-hidden="true"></i>Roles
-                                        </a>
-                                    </li>
-                                    }
-                               
-                                </ul>
-                            </li>
-                        }
-                    <li class="appointment-btn"><a asp-controller="Citas" asp-action="Index">Haga su cita</a></li>
+                    @if (Clinica.Models.Utilitarios.ListaController.Contains("Citas"))
+                    {
+                        <li class="appointment-btn">
+                            <a asp-controller="Citas" asp-action="Index">
+                                <i class="fa fa-calendar"> Haga su cita</i>
+                            </a>
+                        </li>
+                    }
                 </ul>
+            </div>
         </div>
-    </div>
-</section>
+    </section>

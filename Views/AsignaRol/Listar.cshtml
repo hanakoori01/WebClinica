@@ -47,12 +47,17 @@
                             Guardar Roles
                         </a>
                     </div>
+                    <div class="col-md-2 colo-lg-2 text-right">
+                        <a class="btn btn-info fa fa fa-arrow-circle-left inicio" onclick="ListarPaginas()">
+                            Recuperar Roles
+                        </a>
+                    </div>
                 </div>
                 <div class="col-md-12 divisor"><hr></div>
             </form>
             @if (Model.Count() > 0)
             {
-                <div class="contenedorTablas">
+                <div class="contenedorTablas divPaginas">
                     <table class="table table-hover border .table-responsive" id="TbEspecial">
                         <thead class="thead-dark">
                             <tr class="table-secondary trs">
@@ -76,7 +81,6 @@
                         </tbody>
                     </table>
                 </div>
-
             }
             else
             {

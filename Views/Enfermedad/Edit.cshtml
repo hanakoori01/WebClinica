@@ -17,7 +17,15 @@
                         <legend class="text-center header">Editar Enfermedad</legend>
                         <br/>
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                      
+                        <div class="form-group row">
+                            <div class="col-md-3 text-align-right">
+                                <label asp-for="EnfermedadId" class="control-label"></label>
+                            </div>
+                            <div class="col-md-6">
+                                <input asp-for="EnfermedadId" readonly="readonly" class="form-control" placeholder="EnfermedadID" />
+                            </div>
+                            <span asp-validation-for="EnfermedadId" class="text-danger"></span>
+                        </div>
                         <div class="form-group row">
                             <div class="col-md-3 text-align-right">
                                 <label asp-for="Nombre" class="control-label"></label>

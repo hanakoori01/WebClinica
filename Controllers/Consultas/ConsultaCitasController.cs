@@ -26,8 +26,6 @@ namespace Clinica.Controllers
         {
            String _FechaInicio =  FechaInicio.ToString("dd-MM-yyyy");
            String _FechaFinal = FechaFinal.ToString("dd-MM-yyyy");
-
-
             if ((_FechaInicio == "01-01-0001") || (_FechaFinal == "01-01-0001"))
             {
                 listaCitas = (from citas in _db.Citas
@@ -51,7 +49,8 @@ namespace Clinica.Controllers
                                   MedicoId = medico.MedicoId,
                                   NombreMedico = medico.Nombre + " " + medico.Apellidos,
                                   NombreEspecialidad = especialidad.Nombre,
-                                  FechaCita = citas.FechaCita
+                                  FechaCita = citas.FechaCita,
+                                  Diagnostico = citas.Diagnostico
                               }).ToList();
                 ViewBag.Especialidad = "";
             }
@@ -82,7 +81,8 @@ namespace Clinica.Controllers
                                   MedicoId = medico.MedicoId,
                                   NombreMedico = medico.Nombre + " " + medico.Apellidos,
                                   NombreEspecialidad = especialidad.Nombre,
-                                  FechaCita = citas.FechaCita
+                                  FechaCita = citas.FechaCita,
+                                  Diagnostico = citas.Diagnostico
                               }).ToList();
                 ViewBag.fechaInicio = FechaInicio.ToString("yyyy-MM-dd");
                 ViewBag.fechaFinal = FechaFinal.ToString("yyyy-MM-dd");
@@ -94,9 +94,9 @@ namespace Clinica.Controllers
         public FileResult exportarExcel()
         {
             Utilitarios util = new Utilitarios();
-            string[] cabeceras = { "Cita ID", "Paciente", "Medico","Especialidad", "Fecha Cita" };
+            string[] cabeceras = { "Cita ID", "Paciente", "Medico","Especialidad", "Fecha Cita", "Diagnostico" };
             string[] nombrePropiedades = { "CitaId", "NombrePaciente", "NombreMedico",
-                                           "NombreEspecialidad","FechaCita"};
+                                           "NombreEspecialidad","FechaCita", "Diagnostico"};
             byte[] buffer = util.generarExcel(cabeceras, nombrePropiedades, lista);
             //content type mime xlsx google
             return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
@@ -104,10 +104,10 @@ namespace Clinica.Controllers
         public FileResult exportarPDF()
         {
             Utilitarios util = new Utilitarios();
-            string[] cabeceras = { "Cita ID", "Paciente", "Medico", "Especialidad", "Fecha Cita" };
+            string[] cabeceras = { "Cita ID", "Paciente", "Medico", "Especialidad", "Fecha Cita", "Diagnostico" };
 
             string[] nombrePropiedades = { "CitaId", "NombrePaciente", "NombreMedico",
-                                           "NombreEspecialidad","FechaCita"};
+                                           "NombreEspecialidad","FechaCita", "Diagnostico"};
             string titulo = "Reporte de Citas Médicas";
             byte[] buffer = util.ExportarPDFDatos(nombrePropiedades, lista, titulo);
             return File(buffer, "application/pdf");

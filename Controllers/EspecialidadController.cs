@@ -109,7 +109,13 @@ namespace WebClinica.Controllers
                 }
                 else
                 {
-                    _db.Especialidad.Update(especialidad);
+                    Especialidad _especialidad = new Especialidad
+                    {
+                        EspecialidadId = especialidad.EspecialidadId,
+                        Nombre = especialidad.Nombre,
+                        Descripcion = especialidad.Descripcion
+                    };
+                    _db.Especialidad.Update(_especialidad);
                     _db.SaveChanges();
                 }
             }

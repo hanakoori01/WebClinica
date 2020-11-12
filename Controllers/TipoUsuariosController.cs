@@ -28,7 +28,8 @@ namespace Clinica.Controllers
                              {
                                  TipoUsuarioId = tipoUsuario.TipoUsuarioId,
                                  Nombre = tipoUsuario.Nombre,
-                                 BotonHabilitado = tipoUsuario.BotonHabilitado
+                                 BotonHabilitado = tipoUsuario.BotonHabilitado,
+                                 Descripcion = tipoUsuario.Descripcion
                              }).ToList();
             return listaTipoUsuarios;
         }
@@ -75,7 +76,8 @@ namespace Clinica.Controllers
                     {
                         TipoUsuarioId = ViewBag.ID,
                         Nombre = tipoUsuario.Nombre,
-                        BotonHabilitado = tipoUsuario.BotonHabilitado,
+                        BotonHabilitado = 1,
+                        Descripcion = tipoUsuario.Descripcion
                     };
 
                     _db.TipoUsuario.Add(_tipoUsuario);
@@ -157,7 +159,8 @@ namespace Clinica.Controllers
                     {
                         TipoUsuarioId= tipoUsuario.TipoUsuarioId,
                         Nombre = tipoUsuario.Nombre,
-                        BotonHabilitado = tipoUsuario.BotonHabilitado
+                        BotonHabilitado = tipoUsuario.BotonHabilitado,
+                        Descripcion = tipoUsuario.Descripcion
                     };
                     
                     _db.TipoUsuario.Update(_tipoUsuario);

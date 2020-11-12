@@ -12,11 +12,11 @@ $(document).ready(function () {
 
 /*--------------------Asigna Roles--------------------*/
 function Guardar(url) {
-    var tipousuarioid = document.getElementById("UserType").value;
-    var bHabilitado = 1;
+    var TipoUsuarioId = document.getElementById("UserType").value;
+    var BotonHabilitado = 1;
     var frm = new FormData;
-    frm.append("tipousuarioid", tipousuarioid);
-    frm.append("Bhabilitado", bHabilitado);
+    frm.append("TipoUsuarioId", TipoUsuarioId);
+    frm.append("BotonHabilitado", BotonHabilitado);
     var checks = document.getElementsByClassName("checkbox");
     var nchecks = checks.length
     for (var i = 0; i < nchecks; i++) {
@@ -70,7 +70,7 @@ function ListarBotones() {
 }
 
 function ListarPaginas() {
-    $.get("AsignaRol/CargarPaginas", function (data) {
+    $.get("/AsignaRol/CargarPaginas/", function (data) {
         var contenido = "<table class='table'>";
         contenido += "<thead>";
         contenido += "<tr>";
@@ -94,7 +94,7 @@ function ListarPaginas() {
 
 function recuperar() {
     var tipousuarioid = document.getElementById("UserType").value;
-    $.get("AsignaRol/RecuperarPaginas/?tipousuarioid" + tipousuarioid, function (data) {
+    $.get("/AsignaRol/RecuperarPaginas/?tipousuarioid/" + tipousuarioid, function (data) {
         for (var i = 0; i < data.length; i++) {
             var pagid = data[i].Paginaid;
             var idgene = pagid;

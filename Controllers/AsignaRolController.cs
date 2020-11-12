@@ -84,7 +84,7 @@ namespace WebClinica.Controllers
 
             ViewBag.TipoUsu = (int)_TipoUsuario.TipoUsuarioId;
             ViewBag.Usuario = _TipoUsuario.Nombre;
-            ViewBag.TipoUsu = _TipoUsuario.Descripcion;
+            ViewBag.Descripcion = _TipoUsuario.Descripcion;
             return View(listaPagina);
         }
 
