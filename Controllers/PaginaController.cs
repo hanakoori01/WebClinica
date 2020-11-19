@@ -21,212 +21,144 @@ namespace Clinica.Controllers
         {
             _db = db;
         }
-        public IActionResult Index(string mensaje)
+        private void CargarMenus()
         {
-            CargarMenus();
-            DeterminarUltimoRegistro();
-            List<Pagina> listaPagina = new List<Pagina>();
-            if (mensaje == null || mensaje == "")
-            {
-                listaPagina = (from pagina in _db.Pagina
-                               where pagina.BotonHabilitado == 1
-                               select new Pagina
-                               {
-                                   PaginaId = pagina.PaginaId,
-                                   Menu = pagina.Menu,
-                                   Accion = pagina.Accion,
-                                   Controlador = pagina.Controlador
-                               }).ToList();
-                ViewBag.Menu = "";
-            }
-            else
-            {
-                listaPagina = (from pagina in _db.Pagina
-                               where pagina.BotonHabilitado == 1
-                               && pagina.Menu.Contains(mensaje)
-                               select new Pagina
-                               {
-                                   PaginaId = pagina.PaginaId,
-                                   Menu = pagina.Menu,
-                                   Accion = pagina.Accion,
-                                   Controlador = pagina.Controlador
-                               }).ToList();
-            }
-            ViewBag.Menu = mensaje;
-            lista = listaPagina;
-            return View(lista);
+            var list = new SelectList(
+                new[]{
+                    new{ID="1",Name="Mantenimiento"},
+                    new{ID="2",Name="Consultas"},
+                    new{ID="3",Name="Citas"},
+                    new{ID="4",Name="Accesibilidad"},
+                            }, "ID", "Name", 1);
+            ViewBag.ListaMenu = list;
         }
-        private void DeterminarUltimoRegistro()
+        /*CRUD*/
+        private void CargarUltimoRegistro()
         {
-            var ultimoRegistro = _db.Set<Pagina>().OrderByDescending(
-                e => e.PaginaId).FirstOrDefault();
-            if (ultimoRegistro != null)
-            {
-                ViewBag.ID = ultimoRegistro.PaginaId + 1;
-            }
-            else
+            var ultimoRegistro = _db.Set<Pagina>().OrderByDescending(e => e.PaginaId).FirstOrDefault();
+            if (ultimoRegistro == null)
             {
                 ViewBag.ID = 1;
             }
-        }
-
-
-        public List<Pagina> ListarPaginas(string mensaje)
-        {
-            List<Pagina> listaPagina = new List<Pagina>();
-            if (mensaje == null || mensaje == "")
-            {
-                listaPagina = (from pagina in _db.Pagina
-                               where pagina.BotonHabilitado == 1
-                               select new Pagina
-                               {
-                                   PaginaId = pagina.PaginaId,
-                                   Menu = pagina.Menu,
-                                   Accion = pagina.Accion,
-                                   Controlador = pagina.Controlador
-                               }).ToList();
-            }
             else
             {
-                listaPagina = (from pagina in _db.Pagina
-                               where pagina.BotonHabilitado == 1
-                               && pagina.Menu.Contains(mensaje)
-                               select new Pagina
-                               {
-                                   PaginaId = pagina.PaginaId,
-                                   Menu = pagina.Menu,
-                                   Accion = pagina.Accion,
-                                   Controlador = pagina.Controlador
-                               }).ToList();
+                ViewBag.ID = ultimoRegistro.PaginaId + 1;
             }
-            lista = listaPagina;
-            return listaPagina;
         }
 
-        public IActionResult Agregar()
+        [HttpGet]
+        public IActionResult Create()
         {
+
             CargarMenus();
+            CargarUltimoRegistro();
             return View();
         }
 
-        public IActionResult Eliminar(int paginaId)
+        [HttpPost]
+        public IActionResult Create(Pagina pagina)
         {
-
-            Pagina oPagina = _db.Pagina.Where(p => p.PaginaId == paginaId).First();
-            _db.Pagina.Remove(oPagina);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        public int EliminarPagina(int paginaId)
-        {
-            int rpta = 0;
             string Error = "";
             try
             {
-                Pagina oPagina = _db.Pagina.Where(p => p.PaginaId == paginaId).First();
-                _db.Pagina.Remove(oPagina);
-                _db.SaveChanges();
-                rpta = 1;
+                if (!ModelState.IsValid)
+                {
+                    return View(pagina);
+                }
+                else
+                {
+
+                    CargarUltimoRegistro();
+                    Pagina _pagina = new Pagina()
+                    {
+                        PaginaId = ViewBag.ID,
+                        Menu = pagina.Menu,
+                        BotonHabilitado = 1,
+                        Accion = pagina.Accion,
+                        Controlador = pagina.Controlador,
+                    };
+
+                    _db.Pagina.Add(_pagina);
+                    _db.SaveChanges();
+                }
             }
             catch (Exception ex)
             {
                 Error = ex.Message;
-                rpta = 0;
             }
-            return rpta;
+            return RedirectToAction("Index", "TipoUsuario");
         }
-        private void CargarMenus()
-        {
-            var list = new SelectList(new[]
-                                     {
-                                      new {ID="1",Name="Mantenimiento"},
-                                      new{ID="2",Name="Consultas"},
-                                      new{ID="3",Name="Citas"},
-                                      new{ID="4",Name="Accesibilidad"},
-                                             },
-                               "ID", "Name", 1);
-            ViewBag.ListaMenu = list;
-        }
-        public IActionResult Editar(int id)
+
+        public IActionResult Details(int id)
         {
             CargarMenus();
-            Pagina oPagina = new Pagina();
-            oPagina = (from pagina in _db.Pagina
-                       where pagina.PaginaId == id
-                       select new Pagina
-                       {
-                           PaginaId = pagina.PaginaId,
-                           Menu = pagina.Menu,
-                           Accion = pagina.Accion,
-                           Controlador = pagina.Controlador
-                       }).First();
-            return View(oPagina);
+            CargarUltimoRegistro();
+            int recCount = _db.Pagina.Count(e => e.PaginaId == id);
+            Pagina _pagina = (from p in _db.Pagina
+                              where p.PaginaId == id
+                              select p).DefaultIfEmpty().Single();
+            return View(_pagina);
+        }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            CargarMenus();
+            CargarUltimoRegistro();
+            int recCount = _db.Pagina.Count(e => e.PaginaId == id);
+            Pagina _pagina = (from p in _db.Pagina
+                              where p.PaginaId == id
+                              select p).DefaultIfEmpty().Single();
+            return View(_pagina);
         }
 
-
-        //realizar la inserciòn
         [HttpPost]
-        public IActionResult Guardar(Pagina oPagina)
+        public IActionResult Edit(Pagina pagina)
         {
-            string nombreVista = "";
-            int nveces = 0;
+            string rpta = "";
             try
             {
-                if (oPagina.PaginaId == 0) nombreVista = "Agregar";
-                else nombreVista = "Editar";
-                if (oPagina.PaginaId == 0)
+                if (!ModelState.IsValid)
                 {
-                    nveces = _db.Pagina
-                   .Where(p => p.Menu.ToUpper().Trim() ==
-                   oPagina.Menu.ToUpper().Trim()).Count();
+                    return View(pagina);
                 }
                 else
                 {
-                    nveces = _db.Pagina
-                       .Where(p => p.Menu.ToUpper().Trim() ==
-                       oPagina.Menu.ToUpper().Trim() &&
-                       p.PaginaId != oPagina.PaginaId).Count();
-                }
+                    rpta = "OK";
 
-                if (!ModelState.IsValid || nveces >= 1)
-                {
-                    if (nveces >= 1) ViewBag.mensajeError =
-                            "Ya existe el mensaje de la  pagina ingresada";
-                    return View(nombreVista, oPagina);
-                }
-                else
-                {
-                    if (oPagina.PaginaId == 0)
+                    Pagina _pagina = new Pagina()
                     {
-                        Pagina _oPagina = new Pagina
-                        {
-                            Menu = oPagina.Menu,
-                            Controlador = oPagina.Controlador,
-                            Accion = oPagina.Accion,
-                            BotonHabilitado = 1
-                        };
-                        _db.Pagina.Add(oPagina);
-                        _db.SaveChanges();
-                    }
-                    else
-                    {
-                        Pagina _Opagina = _db.Pagina
-                            .Where(p => p.PaginaId == oPagina.PaginaId).First();
-                        _Opagina.Menu = oPagina.Menu;
-                        _Opagina.Controlador = oPagina.Controlador;
-                        _Opagina.Accion = oPagina.Accion;
-                        _db.SaveChanges();
-                    }
+                        PaginaId = pagina.PaginaId,
+                        Menu = pagina.Menu,
+                        BotonHabilitado = 1,
+                        Accion = pagina.Accion,
+                        Controlador = pagina.Controlador,
+                    };
+                    _db.Pagina.Update(_pagina);
+                    _db.SaveChanges();
                 }
             }
             catch (Exception ex)
             {
-                string Error = ex.Message;
-                return View(nombreVista, oPagina);
+                rpta = ex.Message;
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "TipoUsuario");
         }
-
+        [HttpPost]
+        public IActionResult Delete(int PaginaId)
+        {
+            var Error = "";
+            try
+            {
+                Pagina _pagina = _db.Pagina
+                             .Where(e => e.PaginaId == PaginaId).First();
+                _db.Pagina.Remove(_pagina);
+                _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Error = ex.Message;
+            }
+            return RedirectToAction("Index", "TipoUsuario");
+        }
     }
 }

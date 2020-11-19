@@ -50,16 +50,16 @@ namespace Clinica.Controllers.Consultas
         public FileResult exportarExcel()
         {
             Utilitarios util = new Utilitarios();
-            string[] cabeceras = { "Nombre", "Tipo Usuario", "Password" };
-            string[] nombrePropiedades = { "Nombre", "TipoUsuarioNombre", "Password"};
+            string[] cabeceras = {"Identificacion", "Nombre", "Tipo Usuario", "Password" };
+            string[] nombrePropiedades = { "UsuarioId" ,"Nombre", "TipoUsuarioNombre", "Password"};
             byte[] buffer = util.generarExcel(cabeceras, nombrePropiedades, lista);
             return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         }
         public FileResult exportarPDF()
         {
             Utilitarios util = new Utilitarios();
-            string[] cabeceras = { "Nombre", "Tipo Usuario", "Password" };
-            string[] nombrePropiedades = { "Nombre", "TipoUsuarioNombre", "Password" };
+            string[] cabeceras = { "Identificacion", "Nombre", "Tipo Usuario", "Password" };
+            string[] nombrePropiedades = { "UsuarioId", "Nombre", "TipoUsuarioNombre", "Password" };
             string titulo = "Reporte de usuarios";
             byte[] buffer = util.ExportarPDFDatos(nombrePropiedades, lista, titulo);
             return File(buffer, "application/pdf");

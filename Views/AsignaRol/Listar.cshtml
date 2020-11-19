@@ -6,7 +6,7 @@
 }
 
 <head>
-    <title>Lista de paginas</title>
+    <title>Lista de páginas</title>
 </head>
 <partial name="_Menu" />
 <div class="container">
@@ -15,7 +15,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6 col-lg-12">
-                    <h2 class="text-light">Lista de paginas</h2>
+                    <h2 class="text-light">Páginas</h2>
                 </div>
             </div>
             <br />
@@ -33,7 +33,7 @@
                 </div>
                 <div class="row contenedorBotones">
                     <div class="col-md-2 col-lg-2 text-right">
-                        <a asp-action="Create" class="btn btn-success fa fa-plus-circle crear">
+                        <a asp-controller="Pagina"  asp-action="Create" class="btn btn-success fa fa-plus-circle crear">
                             Nuevo
                         </a>
                     </div>
@@ -64,19 +64,34 @@
                                 <th>@Html.DisplayNameFor(model => model.PaginaId)</th>
                                 <th>@Html.DisplayNameFor(model => model.Controlador)</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                <tr>
-                                    <td>@Html.DisplayFor(m => item.PaginaId)</td>
-                                    <td>@Html.DisplayFor(m => item.Controlador)</td>
-                                    <td>
-                                        <input type="checkbox" class="checkbox"
-                                               id=@item.PaginaId/>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>@Html.DisplayFor(m => item.PaginaId)</td>
+                                <td>@Html.DisplayFor(m => item.Controlador)</td>
+                                <td>
+                                    <input type="checkbox" class="checkbox"
+                                           id=@item.PaginaId />
+                                </td>
+                                <td style="width:150px">
+                                    <div class="btn-group tabla" id="tabla" role="group">
+                                        <a class="btn text-white boton-edit" asp-action="Edit" asp-route-Id="@item.PaginaId" asp-controller="Pagina">
+                                            <img src="~/images/editar.png" style="width:20px; border-color:black;" />
+                                        </a>
+                                        <a class="btn text-white boton-list" asp-action="Details" asp-route-Id="@item.PaginaId" asp-controller="Pagina">
+                                            <img src="~/images/lista.png" style="width:20px; border-color:black;" />
+                                        </a>
+                                        <a class="btn text-white boton-delete" aria-hidden="true" onclick="Eliminar(@item.PaginaId)" asp-controller="Pagina">
+                                            <img src="~/images/eliminar (1).png" style="width:20px; border-color:black;" />
+                                        </a>
+                                    </div>
+                                </td>
+
+                            </tr>
                             }
                         </tbody>
                     </table>
@@ -87,7 +102,7 @@
                 <h2 class="textoInformativo">No hay tipos usuarios en la lista.</h2>
             }
         </div>
-        <form asp-action="Index" asp-controller="AsignaRol"
+        <form asp-action="Index" asp-controller="TipoUsuarios"
               method="post" id="frmRegresar">
         </form>
     </main>

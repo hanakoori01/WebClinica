@@ -144,6 +144,14 @@
                                         </a>
                                     </li>
                                 }
+                                @if (Clinica.Models.Utilitarios.ListaController.Contains("ConsultaTipoUsuario"))
+                                {
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="ConsultaTipoUsuario" asp-action="Index">
+                                            <i class="fa fa-folder-open" aria-hidden="true"></i> Tipo Usuario
+                                        </a>
+                                    </li>
+                                }
                             </ul>
                         </li>
                     }
@@ -182,14 +190,7 @@
                                         </a>
                                     </li>
                                 }
-                                @if (Clinica.Models.Utilitarios.ListaController.Contains("AsignaRol"))
-                                {
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="AsignaRol" asp-action="Index">
-                                            <i class="fa fa-binoculars" aria-hidden="true"></i> Roles
-                                        </a>
-                                    </li>
-                                }
+                               
 
                             </ul>
                         </li>

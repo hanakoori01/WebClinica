@@ -94,8 +94,8 @@ namespace Clinica.Controllers
         public FileResult exportarExcel()
         {
             Utilitarios util = new Utilitarios();
-            string[] cabeceras = { "Cita ID", "Paciente", "Medico","Especialidad", "Fecha Cita", "Diagnostico" };
-            string[] nombrePropiedades = { "CitaId", "NombrePaciente", "NombreMedico",
+            string[] cabeceras = { "Paciente", "Medico","Especialidad", "Fecha Cita", "Diagnostico" };
+            string[] nombrePropiedades = { "NombrePaciente", "NombreMedico",
                                            "NombreEspecialidad","FechaCita", "Diagnostico"};
             byte[] buffer = util.generarExcel(cabeceras, nombrePropiedades, lista);
             //content type mime xlsx google
@@ -104,9 +104,9 @@ namespace Clinica.Controllers
         public FileResult exportarPDF()
         {
             Utilitarios util = new Utilitarios();
-            string[] cabeceras = { "Cita ID", "Paciente", "Medico", "Especialidad", "Fecha Cita", "Diagnostico" };
+            string[] cabeceras = { "Paciente", "Medico", "Especialidad", "Fecha Cita", "Diagnostico" };
 
-            string[] nombrePropiedades = { "CitaId", "NombrePaciente", "NombreMedico",
+            string[] nombrePropiedades = { "NombrePaciente", "NombreMedico",
                                            "NombreEspecialidad","FechaCita", "Diagnostico"};
             string titulo = "Reporte de Citas Médicas";
             byte[] buffer = util.ExportarPDFDatos(nombrePropiedades, lista, titulo);

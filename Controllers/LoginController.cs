@@ -64,7 +64,6 @@ namespace Clinica.Controllers
                                                select new Pagina
                                                {
                                                    PaginaId = (int)tup.PaginaId,
-                                                   BotonId = (int)pgtb.BotonId,
                                                    Controlador = pag.Controlador
                                                }).ToList();
                     Utilitarios.listaBotonesPagina = ListaBoton;
@@ -72,6 +71,7 @@ namespace Clinica.Controllers
                     Utilitarios.MenuMant = "";
                     Utilitarios.MenuCons = "";
                     Utilitarios.MenuAcce = "";
+                    Utilitarios.MenuCita = "";
                     Utilitarios.ListaMenu.Clear();
                     Utilitarios.ListaController.Clear();
                     Utilitarios.ListaAccion.Clear();
@@ -83,15 +83,16 @@ namespace Clinica.Controllers
                         Utilitarios.ListaAccion.Add(_Pagina.Accion);
                         if (_Pagina.Controlador == "Especialidad" ||
                             _Pagina.Controlador == "Medico" ||
-                            _Pagina.Controlador == "Enfermedades" ||
-                            _Pagina.Controlador == "Pacientes")
+                            _Pagina.Controlador == "Enfermedad" ||
+                            _Pagina.Controlador == "Paciente")
 
                         {
                             Utilitarios.MenuMant = "Mantenimiento";
                         }
                         if (_Pagina.Controlador == "ConsultaEspecialidades" ||
                             _Pagina.Controlador == "ConsultaCitas" ||
-                            _Pagina.Controlador == "ConsultaPacientes")
+                            _Pagina.Controlador == "ConsultaPacientes" ||
+                            _Pagina.Controlador == "ConsultaTipoUsuario")
                         {
                             Utilitarios.MenuCons = "Consultas";
                         }
@@ -102,6 +103,10 @@ namespace Clinica.Controllers
                             _Pagina.Controlador == "Pagina")
                         {
                             Utilitarios.MenuAcce = "Accesibilidad";
+                        }
+                        if (_Pagina.Controlador == "Citas") 
+                        {
+                            Utilitarios.MenuCita = "Citas";
                         }
 
                     }

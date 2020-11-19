@@ -17,28 +17,8 @@
                     <h2 class="text-light">Consulta Usuarios</h2>
                 </div>
             </div>
-            <form asp-controller="Usuario" asp-action="Index" method="post" id="frmFilter">
-                <div class="row contenedorBotones">
-                    <div class="col-md-2 col-lg-2 text-right">
-                        <label>Buscar Medico:</label>
-                    </div>
-                    <br />
-                    <div class="col-md-2 col-lg-2 text-align-center">
-                        <input type="text" class="form-control" name="nombre" id="nombre" value="@ViewBag.Medico" />
-                    </div>
-                    <br />
-                    <div class="col-md-2 col-lg-2 text-align-center ">
-                        <a class="btn btn-success fa fa-search botonesTexto buscarConsulta" onclick="buscarConsulta()">
-                            Buscar
-                        </a>
-                    </div>
-                    <br />
-                    <div class="col-md-2 col-lg-2 text-right">
-                        <a class="btn btn-success fa fa-file-excel-o resetearBoton botonesTexto" onclick="Resetear()">
-                            Resetear
-                        </a>
-                    </div>
-                    <br />
+            <form asp-controller="ConsultaUsuario" asp-action="Index" method="post" id="frmFilter">
+                <div class="row contenedorBotones"> 
                     <div class="col-md-2 col-lg-2 text-right">
                         <a asp-controller="ConsultaUsuario" asp-action="exportarPDF" class="btn btn-success fa fa-file-pdf-o crearPDF botonesTexto" target="_blank">
                             Exportar PDF

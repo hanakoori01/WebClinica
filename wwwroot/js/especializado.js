@@ -686,6 +686,10 @@ function Eliminar(id) {
                         } else {
                             if (titulo == "Tipo Usuario") {
                                 EliminarTipoUsuario(id);
+                            } else {
+                                if (titulo == "Asigna roles") {
+                                    EliminarTipoUsuario(id);
+                                }
                             }
                         }
                     }
@@ -694,7 +698,6 @@ function Eliminar(id) {
         }
     }
 }
-
 /* BUSCAR POR NOMBRE CONSULTAS*/
 
 function BuscarConsulta() {

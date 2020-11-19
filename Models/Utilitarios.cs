@@ -182,5 +182,6 @@ namespace Clinica.Models
         public static string MenuMant;
         public static string MenuCons;
         public static string MenuAcce;
+        public static string MenuCita;
     }
 }

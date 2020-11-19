@@ -24,7 +24,7 @@ namespace WebClinica.Controllers
         {
             string nombrecontroller = ControllerContext.ActionDescriptor.ControllerName;
             List<Pagina> lista = Utilitarios.ListarBotonesDatos(nombrecontroller);
-            ViewBag.botones = lista.Select(p => p.BotonId).ToList();
+            ViewBag.botones = lista.Select(p => p.PaginaId).ToList();
             LlenarTipoUsuario();
             return View();
         }

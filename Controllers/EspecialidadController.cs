@@ -143,7 +143,5 @@ namespace WebClinica.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
-      
-      
     }
 }

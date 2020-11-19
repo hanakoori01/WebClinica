@@ -1,0 +1,64 @@
+﻿@model Clinica.Models.Pagina
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Content.cshtml";
+   
+}
+<head>
+    <title>Agregar pagina</title>
+</head>
+<partial name="_Menu" />
+<div class="container contenedorPrincipal">
+    <main class="pb-3" role="main">
+        <div class="row">
+            <form asp-action="Create" method="post" id="viewAgregarPagina">
+                <div class="container-fluid">
+                    <fieldset>
+                        <legend class="text-center header">Agregar nueva pagina</legend>
+                        <br />
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group row">
+                            <div class="col-md-3 text-align-right">
+                                <label asp-for="Menu" class="control-label"></label>
+                            </div>
+                            <div class="col-md-6">
+                                <input asp-for="Menu" class="form-control" placeholder="Menu" />
+                            </div>
+                            <span asp-validation-for="Menu" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3 text-align-right">
+                                <label asp-for="Accion" class="control-label"></label>
+                            </div>
+                            <div class="col-md-6">
+                                <input asp-for="Accion" class="form-control" placeholder="Nombre" />
+                            </div>
+                            <span asp-validation-for="Accion" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3 text-align-right">
+                                <label asp-for="Controlador" class="control-label"></label>
+                            </div>
+                            <div class="col-md-6">
+                                <input asp-for="Controlador" class="form-control" placeholder="Controlador" />
+                            </div>
+                            <span asp-validation-for="Controlador" class="text-danger"></span>
+                        </div>
+                    </fieldset>
+                    <div class="row contenedorBoton">
+                        <div class="col-md-4 text-align-right">
+                            <input type="submit" class="btn btn-primary btn-lg botonAgregar" value="Agregar" id="agregar" onclick="Agregar()" />
+                        </div>
+                        <br />
+                        <div class="col-md-4">
+                            <a class="btn btn-info btn-lg botonRegresar" id="regresar" asp-controller="TipoUsuarios" asp-action="Index">Regresar</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+<partial name="_EndPag" />

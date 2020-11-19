@@ -22,41 +22,6 @@ namespace WebClinica.Controllers
         {
             _db = db;
         }
-        public IActionResult Index(TipoUsuario oTipoUsuario)
-        {
-            List<TipoUsuario> listaTipoUsuario = new List<TipoUsuario>();
-            listaTipoUsuario = (from tipousu in _db.TipoUsuario
-                            where tipousu.BotonHabilitado == 1
-                            select new TipoUsuario
-                            {
-                                TipoUsuarioId = tipousu.TipoUsuarioId,
-                                Nombre = tipousu.Nombre,
-                                Descripcion = tipousu.Descripcion,
-                            }).ToList();
-            if (oTipoUsuario.Nombre != null && oTipoUsuario.TipoUsuarioId != 0)
-            {
-
-                ViewBag.Nombre = oTipoUsuario.Nombre;
-                ViewBag.Descripcion = oTipoUsuario.Descripcion;
-                ViewBag.TipoUsuarioId = oTipoUsuario.TipoUsuarioId;
-            }
-
-            lista = listaTipoUsuario;
-            return View(listaTipoUsuario);
-        }
-
-        private void cargarUltimoRegistro()
-        {
-            var ultimoRegistro = _db.Set<TipoUsuarioPagina>().OrderByDescending(e => e.TipoUsuarioPaginaId).FirstOrDefault();
-            if (ultimoRegistro == null)
-            {
-                ViewBag.ID = 1;
-            }
-            else
-            {
-                ViewBag.ID = ultimoRegistro.TipoUsuarioPaginaId + 1;
-            }
-        }
 
         public List<Pagina> CargarPaginas()
         {
@@ -76,6 +41,67 @@ namespace WebClinica.Controllers
             return listaPagina;
         }
 
+        private void cargarUltimoRegistro()
+        {
+            var ultimoRegistro = _db.Set<TipoUsuarioPagina>().OrderByDescending(e => e.TipoUsuarioPaginaId).FirstOrDefault();
+            if (ultimoRegistro == null)
+            {
+                ViewBag.ID = 1;
+            }
+            else
+            {
+                ViewBag.ID = ultimoRegistro.TipoUsuarioPaginaId + 1;
+            }
+        }
+
+        public string Registrar(int[] _Paginas, int TipoUsuarioId)
+        {
+            string rpta = "OK";
+            using (var trans = new TransactionScope())
+                
+            {
+                foreach (var item in _Paginas)
+                {
+                    cargarUltimoRegistro();
+                    TipoUsuarioPagina _TipoUsuarioPagina = new TipoUsuarioPagina()
+                    {
+                        TipoUsuarioPaginaId = ViewBag.ID,
+                        TipoUsuarioId = TipoUsuarioId,
+                        PaginaId = item,
+                        BotonHabilitado = 1
+                    };
+                    _db.TipoUsuarioPagina.Add(_TipoUsuarioPagina);
+                    _db.SaveChanges();
+                }
+             
+                trans.Complete();
+            }
+            return rpta;
+        }
+
+        public IActionResult Index(TipoUsuario oTipoUsuario)
+        {
+            List<TipoUsuario> listaTipoUsuario = new List<TipoUsuario>();
+            listaTipoUsuario = (from tipousu in _db.TipoUsuario
+                                where tipousu.BotonHabilitado == 1
+                                select new TipoUsuario
+                                {
+                                    TipoUsuarioId = tipousu.TipoUsuarioId,
+                                    Nombre = tipousu.Nombre,
+                                    Descripcion = tipousu.Descripcion,
+                                }).ToList();
+            if (oTipoUsuario.Nombre != null && oTipoUsuario.TipoUsuarioId != 0)
+            {
+
+                ViewBag.Nombre = oTipoUsuario.Nombre;
+                ViewBag.Descripcion = oTipoUsuario.Descripcion;
+                ViewBag.TipoUsuarioId = oTipoUsuario.TipoUsuarioId;
+            }
+
+            lista = listaTipoUsuario;
+            return View(listaTipoUsuario);
+        }
+
         public IActionResult Listar(int? id)
         {
             CargarPaginas();
@@ -87,37 +113,5 @@ namespace WebClinica.Controllers
             ViewBag.Descripcion = _TipoUsuario.Descripcion;
             return View(listaPagina);
         }
-
-        //[HttpPost]
-        public string Registrar(int[] _Paginas, int tipousuarioid)
-        {
-            string rpta = "OK";
-            cargarUltimoRegistro();
-            using (var trans = new TransactionScope())
-
-            {
-                foreach (var item in _Paginas)
-                {
-                    TipoUsuarioPagina _TipoUsuarioPagina = new TipoUsuarioPagina();
-                    _TipoUsuarioPagina.TipoUsuarioPaginaId = ViewBag.ID;
-                    _TipoUsuarioPagina.TipoUsuarioId = tipousuarioid;
-                    _TipoUsuarioPagina.PaginaId= item;
-                    _TipoUsuarioPagina.BotonHabilitado = 1;
-                    _db.TipoUsuarioPagina.Add(_TipoUsuarioPagina);
-                }
-                _db.SaveChanges();
-                trans.Complete();
-            }
-            return rpta;
-        }
-
-        public IActionResult Details(int id)
-        {
-            TipoUsuario oTipoUsuario = _db.TipoUsuario
-                         .Where(p => p.TipoUsuarioId == id).First();
-            return View(oTipoUsuario);
-        }
-
-       
     }
 }
