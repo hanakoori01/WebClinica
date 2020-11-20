@@ -49,6 +49,7 @@
                                 </th>
                                 <th></th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,6 +65,11 @@
                                 <td class="text-align-right">
                                     <a class="btn fa fa-user-plus boton-listar" aria-hidden="true"
                                        asp-controller="AsignaRol" asp-action="Listar"
+                                       asp-route-id="@item.TipoUsuarioId"></a>
+                                </td>
+                                <td>
+                                    <a class="btn fa fa-user-plus boton-listar" aria-hidden="true"
+                                       asp-controller="AsignaRol" asp-action="TipoUsuarioPaginas"
                                        asp-route-id="@item.TipoUsuarioId"></a>
                                 </td>
                                 <partial name="_AddEditAndView" model="item.TipoUsuarioId" />

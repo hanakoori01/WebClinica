@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebClinica.Filter;
 using WebClinica.Models;
+using WebClinica.Models.ViewModel;
 
 namespace WebClinica.Controllers
 {
@@ -17,6 +18,7 @@ namespace WebClinica.Controllers
         public static List<TipoUsuario> lista;
         private List<Pagina> listaPagina = new List<Pagina>();
         public static int UserType;
+        private List<TipoUsuarioPaginas> listaTipoUsuarioPaginas = new List<TipoUsuarioPaginas>();
         private readonly DBClinicaAcmeContext _db;
         public AsignaRolController(DBClinicaAcmeContext db)
         {
@@ -49,6 +51,28 @@ namespace WebClinica.Controllers
                      select new TipoUsuarioPagina
                      {
                          PaginaId = tipoUsuarioPagina.PaginaId
+                     }).ToList();
+            return Lista;
+        }
+
+        public List<TipoUsuarioPaginas> ListarPaginas(int tipoUsuarioId)
+        {
+            List<TipoUsuarioPaginas> Lista = new List<TipoUsuarioPaginas>();
+            Lista = (from tipoUsuarioPagina in _db.TipoUsuarioPagina
+                     join tipoUsuario in _db.TipoUsuario
+                     on tipoUsuarioPagina.TipoUsuarioId equals tipoUsuario.TipoUsuarioId
+                     where tipoUsuarioPagina.TipoUsuarioId == tipoUsuarioId
+                     join pagina in _db.Pagina
+                     on tipoUsuarioPagina.PaginaId equals pagina.PaginaId
+                     select new TipoUsuarioPaginas
+                     {
+                         TipoUsuarioPaginaId = tipoUsuarioPagina.TipoUsuarioPaginaId,
+                         PaginaId = tipoUsuarioPagina.PaginaId,
+                         NombrePagina = pagina.Controlador,
+                         TipoUsuarioId = tipoUsuarioPagina.TipoUsuarioId,
+                         NombreTipoUsuario = tipoUsuario.Nombre,
+                         BotonHabilitado = tipoUsuarioPagina.BotonHabilitado
+
                      }).ToList();
             return Lista;
         }
@@ -91,6 +115,31 @@ namespace WebClinica.Controllers
             return rpta;
         }
 
+        public string Delete(int[] _TipoUsuarioPaginasId)
+        {
+            string rpta = "OK";
+            var Error = "";
+            try
+            {
+                using (var trans = new TransactionScope())
+                {
+                    foreach (var item in _TipoUsuarioPaginasId)
+                    {
+                        TipoUsuarioPagina tpup = _db.TipoUsuarioPagina
+                                .Where(e => e.TipoUsuarioPaginaId == item).First();
+                        _db.TipoUsuarioPagina.Remove(tpup);
+                        _db.SaveChanges();
+                    }
+                    trans.Complete();
+                }
+            }
+            catch (Exception ex)
+            {
+                Error = ex.Message;
+            }
+            return rpta;
+        }
+
         public IActionResult Index(TipoUsuario oTipoUsuario)
         {
             List<TipoUsuario> listaTipoUsuario = new List<TipoUsuario>();
@@ -125,6 +174,16 @@ namespace WebClinica.Controllers
             ViewBag.Usuario = _TipoUsuario.Nombre;
             ViewBag.Descripcion = _TipoUsuario.Descripcion;
             return View(listaPagina);
+        }
+
+        public IActionResult TipoUsuarioPaginas(int id)
+        {
+            TipoUsuario _TipoUsuario = _db.TipoUsuario
+            .Where(p => p.TipoUsuarioId == id).FirstOrDefault();
+            ViewBag.TipoUsu = (int)_TipoUsuario.TipoUsuarioId;
+            ViewBag.Usuario = _TipoUsuario.Nombre;
+            var listaPaginaTipoUsuario = ListarPaginas(id);
+            return View(listaPaginaTipoUsuario);
         }
     }
 }

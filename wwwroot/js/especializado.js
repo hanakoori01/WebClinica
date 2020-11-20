@@ -22,6 +22,8 @@ function Guardar(url) {
     for (var i = 0; i < nchecks; i++) {
         if (checks[i].checked == true) {
             frm.append("_Paginas[]", checks[i].id.replace("/", ""));
+        } else {
+
         }
     }
     $.ajax({
@@ -44,6 +46,37 @@ function Guardar(url) {
         //error: alert("No se pudo procesar el registro")
     })
 }
+function Modificar(url) {
+    var BotonHabilitado = 1;
+    var frm = new FormData;
+    var checks = document.getElementsByClassName("checkbox");
+    var nchecks = checks.length
+    for (var i = 0; i < nchecks; i++) {
+        if (checks[i].checked == false) {
+            frm.append("_TipoUsuarioPaginasId[]", checks[i].id.replace("/", ""));
+        } 
+    }
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: frm,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            if (data == "OK") {
+                correcto("Se actualizó correctamente el rol segun tipo de usuario!");
+                document.getElementById("frmEnviar").submit();
+                document.getElementById("frmRegresar").submit();
+            }
+            else {
+                error("Ocurrió un error, por favor verifique!");
+            }
+        }
+        //},
+        //error: alert("No se pudo procesar el registro")
+    })
+}
+
 
 function ListarBotones() {
     $.get("PaginaTipoUsuario/listarBotones", function (data) {
@@ -94,13 +127,15 @@ function ListarPaginas() {
     })
 }
 
-function recuperar(tipousuarioid) {
+function recuperar(tipoUsuarioid) {
     
-    $.get("/AsignaRol/RecuperarPaginas/?tipousuarioId=" + tipousuarioid, function (data) {
+    $.get("/AsignaRol/RecuperarPaginas/?tipoUsuarioId=" + tipoUsuarioid, function (data) {
         for (var i = 0; i < data.length; i++) {
             var pagid = data[i].paginaId;
             var cajita = document.getElementById(pagid);
             cajita.checked = true
+
+
         }
     });
 }
