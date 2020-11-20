@@ -11,71 +11,62 @@ $(document).ready(function () {
 /*--------------------Tablas--------------------*/
 
 /*--------------------Asigna Roles--------------------*/
-function Guardar(url) {
+function AsignarRol(urlAgregar, urlEliminar) {
     var TipoUsuarioId = document.getElementById("UserType").value;
     var BotonHabilitado = 1;
-    var frm = new FormData;
-    frm.append("TipoUsuarioId", TipoUsuarioId);
-    frm.append("BotonHabilitado", BotonHabilitado);
+    var frmAgregar = new FormData;
+    var frmEliminar = new FormData;
+    frmAgregar.append("TipoUsuarioId", TipoUsuarioId);
+    frmEliminar.append("TipoUsuarioId", TipoUsuarioId);
+    frmAgregar.append("BotonHabilitado", BotonHabilitado);
     var checks = document.getElementsByClassName("checkbox");
     var nchecks = checks.length
     for (var i = 0; i < nchecks; i++) {
         if (checks[i].checked == true) {
-            frm.append("_Paginas[]", checks[i].id.replace("/", ""));
+            frmAgregar.append("_PaginasAgregadas[]", checks[i].id.replace("/", ""));
         } else {
+            frmEliminar.append("_PaginasEliminadas[]", checks[i].id.replace("/", ""));
+        }
+    }
+    $.ajax({
+        type: "POST",
+        url: urlAgregar,
+        data: frmAgregar,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            if (data == "OK") {
+                correcto("Se actualizó correctamente el rol segun tipo de usuario!");
+                document.getElementById("frmAgregar").submit();
+                document.getElementById("frmRegresar").submit();
+            }
+            else {
+                error("Ocurrió un error, por favor verifique!");
+            }
+        }
+        //},
+        //error: alert("No se pudo procesar el registro")
+    })
+    $.ajax({
+        type: "POST",
+        url: urlEliminar,
+        data: frmEliminar,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            if (data == "OK") {
+                correcto("Se actualizó correctamente el rol segun tipo de usuario!");
+                document.getElementById("frmEliminar").submit();
+                document.getElementById("frmRegresar").submit();
+            }
+            else {
+                error("Ocurrió un error, por favor verifique!");
+            }
+        }
+    })
+}
 
-        }
-    }
-    $.ajax({
-        type: "POST",
-        url: url,
-        data: frm,
-        contentType: false,
-        processData: false,
-        success: function (data) {
-            if (data == "OK") {
-                correcto("Se actualizó correctamente el rol segun tipo de usuario!");
-                document.getElementById("frmEnviar").submit();
-                document.getElementById("frmRegresar").submit();
-            }
-            else {
-                error("Ocurrió un error, por favor verifique!");
-            }
-        }
-        //},
-        //error: alert("No se pudo procesar el registro")
-    })
-}
-function Modificar(url) {
-    var BotonHabilitado = 1;
-    var frm = new FormData;
-    var checks = document.getElementsByClassName("checkbox");
-    var nchecks = checks.length
-    for (var i = 0; i < nchecks; i++) {
-        if (checks[i].checked == false) {
-            frm.append("_TipoUsuarioPaginasId[]", checks[i].id.replace("/", ""));
-        } 
-    }
-    $.ajax({
-        type: "POST",
-        url: url,
-        data: frm,
-        contentType: false,
-        processData: false,
-        success: function (data) {
-            if (data == "OK") {
-                correcto("Se actualizó correctamente el rol segun tipo de usuario!");
-                document.getElementById("frmEnviar").submit();
-                document.getElementById("frmRegresar").submit();
-            }
-            else {
-                error("Ocurrió un error, por favor verifique!");
-            }
-        }
-        //},
-        //error: alert("No se pudo procesar el registro")
-    })
-}
+
 
 
 function ListarBotones() {
@@ -133,9 +124,7 @@ function recuperar(tipoUsuarioid) {
         for (var i = 0; i < data.length; i++) {
             var pagid = data[i].paginaId;
             var cajita = document.getElementById(pagid);
-            cajita.checked = true
-
-
+            cajita.checked = true;
         }
     });
 }

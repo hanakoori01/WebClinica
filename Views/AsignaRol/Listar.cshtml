@@ -19,7 +19,9 @@
                 </div>
             </div>
             <br />
-            <form asp-action="Registrar" asp-controller="AsignaRol" method="post" id="frmEnviar">
+            <form asp-action="Registrar" asp-controller="AsignaRol" method="post" id="frmAgregar">
+            </form>
+            <form asp-action="Delete" asp-controller="AsignaRol" method="post" id="frmEliminar">
             </form>
             <form asp-controller="AsignaRol" asp-action="Index" method="post" id="frmFilter">
                 <div class="row">
@@ -43,7 +45,7 @@
                         </a>
                     </div>
                     <div class="col-md-2 colo-lg-2 text-right">
-                        <a class="btn btn-info fa fa fa-arrow-circle-left inicio" onclick="Guardar('/AsignaRol/Registrar/')">
+                        <a class="btn btn-info fa fa fa-arrow-circle-left inicio" onclick="AsignarRol('/AsignaRol/Registrar/','/AsignaRol/Delete/')">
                             Guardar Roles
                         </a>
                     </div>
