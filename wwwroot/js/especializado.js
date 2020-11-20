@@ -74,8 +74,10 @@ function ListarPaginas() {
         var contenido = "<table class='table'>";
         contenido += "<thead>";
         contenido += "<tr>";
-        contenido += "<td></td>";
-        contenido += "<td>Nombre página</td>";
+        contenido += "<th>PaginaId</th>";
+        contenido += "<th>Controlador</th>";
+        contenido += "<th></th>";
+        contenido += "<th></th>";
         contenido += "</tr>";
         contenido += "</thead>";
         contenido += "<tbody>";
@@ -92,13 +94,13 @@ function ListarPaginas() {
     })
 }
 
-function recuperar() {
-    var tipousuarioid = document.getElementById("UserType").value;
-    $.get("/AsignaRol/RecuperarPaginas/?tipousuarioid/" + tipousuarioid, function (data) {
+function recuperar(tipousuarioid) {
+    
+    $.get("/AsignaRol/RecuperarPaginas/?tipousuarioId=" + tipousuarioid, function (data) {
         for (var i = 0; i < data.length; i++) {
-            var pagid = data[i].Paginaid;
-            var idgene = pagid;
-            document.getElementById(idgene).checked = true;
+            var pagid = data[i].paginaId;
+            var cajita = document.getElementById(pagid);
+            cajita.checked = true
         }
     });
 }

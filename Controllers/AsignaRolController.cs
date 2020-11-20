@@ -41,6 +41,18 @@ namespace WebClinica.Controllers
             return listaPagina;
         }
 
+        public List<TipoUsuarioPagina> RecuperarPaginas(int tipoUsuarioId)
+        {
+            List<TipoUsuarioPagina> Lista = new List<TipoUsuarioPagina>();
+            Lista = (from tipoUsuarioPagina in _db.TipoUsuarioPagina
+                     where tipoUsuarioPagina.TipoUsuarioId == tipoUsuarioId
+                     select new TipoUsuarioPagina
+                     {
+                         PaginaId = tipoUsuarioPagina.PaginaId
+                     }).ToList();
+            return Lista;
+        }
+
         private void cargarUltimoRegistro()
         {
             var ultimoRegistro = _db.Set<TipoUsuarioPagina>().OrderByDescending(e => e.TipoUsuarioPaginaId).FirstOrDefault();
@@ -102,9 +114,10 @@ namespace WebClinica.Controllers
             return View(listaTipoUsuario);
         }
 
-        public IActionResult Listar(int? id)
+        public IActionResult Listar(int id)
         {
             CargarPaginas();
+            
             TipoUsuario _TipoUsuario = _db.TipoUsuario
             .Where(p => p.TipoUsuarioId == id).FirstOrDefault();
 
