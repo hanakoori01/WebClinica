@@ -330,6 +330,27 @@ function abrirModalCrearTipoUsuario() {
     })
 }
 
+function abrirModalCrearPagina() {
+    verModal('Agregar página ', '¿Desea guardar la página ?').then((result) => {
+        if (result.value) {
+            var viewAgregarPagina = document.getElementById("viewAgregarPagina");
+            viewAgregarPagina.submit();
+            Swal.fire(
+                'Agregado!',
+                'La página fue agregada!.',
+                'success'
+            )
+        }
+        else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire(
+                'Cancelado',
+                'La página no fue agregada!!!:)',
+                'error'
+            )
+        }
+    })
+}
+
 /*------------------------------------------------------*/
 /*--------------------MODALES EDITAR--------------------*/
 
@@ -455,6 +476,27 @@ function abrirModalEditarTipoUusuario() {
         }
     })
 }
+
+    function abrirModalEditarPagina() {
+        verModal('Modificar página', '¿Desea modificar el página?').then((result) => {
+            if (result.value) {
+                var viewEditarPagina = document.getElementById("viewEditarPagina");
+                viewEditarPagina.submit();
+                Swal.fire(
+                    'Modificado!',
+                    'La página fue modificada!.',
+                    'success'
+                )
+            }
+            else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'Cancelado',
+                    'La página no fue modificada!!!:)',
+                    'error'
+                )
+            }
+        })
+    }
 
 /*--------------------MODALES EDITAR-----------------------*/
 /*--------------------METODOS ELIMINAR--------------------*/
@@ -622,6 +664,30 @@ function EliminarTipoUsuario(TipoUsuarioId) {
         })
 }
 
+function EliminarPagina(PaginaId) {
+    document.getElementById("txtPaginaId").value = PaginaId;
+    verModal('Eliminar página ',
+        '¿Desea eliminar la página con el código '
+        + PaginaId + '?').then((result) => {
+            if (result.value) {
+                var viewEliminarPagina = document.getElementById("viewEliminarPagina");
+                viewEliminarPagina.submit();
+                Swal.fire(
+                    'Eliminación!',
+                    'La página ' + PaginaId + ' fue eliminada!.',
+                    'success'
+                )
+            }
+            else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'Cancelado',
+                    'El tipo de usuario no fue eliminada!!!:)',
+                    'error'
+                )
+            }
+        })
+}
+
 
 /*--------------------METODOS ELIMINAR--------------------*/
 /*--------------------METODOS GLOBALES--------------------*/
@@ -649,6 +715,10 @@ function Agregar() {
                         } else {
                             if (titulo == "Agregar tipo Usuario") {
                                 abrirModalCrearTipoUsuario();
+                            } else {
+                                if (titulo == "Agregar pagina") {
+                                    abrirModalCrearPagina();
+                                }
                             }
                         }
                     }
@@ -681,6 +751,10 @@ function Editar() {
                         } else {
                             if (titulo == "Editar Tipo de Usuario"){
                                 abrirModalEditarTipoUusuario();
+                            } else {
+                                if (titulo == "Lista de páginas") {
+                                    abrirModalEditarPagina();
+                                }
                             }
                         }
                     }
@@ -710,11 +784,15 @@ function Eliminar(id) {
                         if (titulo == "Usuario") {
                             EliminarUsuario(id);
                         } else {
-                            if (titulo == "Tipo Usuario") {
+                            if (titulo == "Tipos de Usuarios") {
                                 EliminarTipoUsuario(id);
                             } else {
                                 if (titulo == "Asigna roles") {
                                     EliminarTipoUsuario(id);
+                                } else {
+                                    if (titulo == "Lista de páginas") {
+                                        EliminarPagina(id);
+                                    }
                                 }
                             }
                         }
@@ -726,22 +804,23 @@ function Eliminar(id) {
 }
 /* BUSCAR POR NOMBRE CONSULTAS*/
 
-function BuscarConsulta() {
-    let titulo = document.title;
-    if (titulo == "Consulta Especialidad") {
-        BuscarEspecialidad();
-    } else {
-        if (titulo == "Consulta Medico") {
-            BuscarMedico();
+    function BuscarConsulta() {
+        let titulo = document.title;
+        if (titulo == "Consulta Especialidad") {
+            BuscarEspecialidad();
         } else {
-            if (titulo == "Consulta Paciente") {
-                BuscarPaciente();
+            if (titulo == "Consulta Medico") {
+                BuscarMedico();
             } else {
-                if (titulo == "Consulta Enfermedad") {
-                    BuscarEnfermedad();
+                if (titulo == "Consulta Paciente") {
+                    BuscarPaciente();
                 } else {
-                    if (titulo == "Consulta Citas") {
-                        BuscarCitas();
+                    if (titulo == "Consulta Enfermedad") {
+                        BuscarEnfermedad();
+                    } else {
+                        if (titulo == "Consulta Citas") {
+                            BuscarCitas();
+                        }
                     }
                 }
             }
@@ -803,4 +882,3 @@ function BuscarConsulta() {
         var value = $('.dataTables_filter input').val();
         alert(value);
     }
-}

@@ -15,7 +15,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6 col-lg-12">
-                    <h2 class="text-light">Tipos de UsuarioS</h2>
+                    <h2 class="text-light">Tipos de Usuarios</h2>
                 </div>
             </div>
             <br />
@@ -67,11 +67,6 @@
                                        asp-controller="AsignaRol" asp-action="Listar"
                                        asp-route-id="@item.TipoUsuarioId"></a>
                                 </td>
-                                <td>
-                                    <a class="btn fa fa-user-plus boton-listar" aria-hidden="true"
-                                       asp-controller="AsignaRol" asp-action="TipoUsuarioPaginas"
-                                       asp-route-id="@item.TipoUsuarioId"></a>
-                                </td>
                                 <partial name="_AddEditAndView" model="item.TipoUsuarioId" />
                             </tr>
                             }
@@ -88,6 +83,7 @@
         <form asp-action="Delete" asp-controller="TipoUsuarios" method="post" id="viewEliminarTipoUsuario">
             <input type="hidden" id="txtTipoUsuarioId" name="TipoUsuarioId" />
         </form>
+
         <form asp-action="Edit" asp-controller="TipoUsuarios" method="post" id="viewEditarTipoUsuarios">
             <input type="hidden" id="txtTipoUsuarioId" name="TipoUsuarioId" />
         </form>

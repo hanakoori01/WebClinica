@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Clinica.Models;
 using Clinica.Models.ViewModel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebClinica.Filter;
@@ -125,56 +126,65 @@ namespace Clinica.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            cargarTipoUsuarios();
-            int recCount = _db.Usuario.Count(e => e.UsuarioId == id);
-            Usuario _usuario = (from u in _db.Usuario
-                                where u.UsuarioId == id
-                                select u).DefaultIfEmpty().Single();
-            _usuario.Password = Utilitarios.DescifrarDatos(_usuario.Password);
-            return View(_usuario);
+            int UsuarioId = Int32.Parse(HttpContext.Session.GetString("UsuarioId"));
+            if (UsuarioId == id)
+            {
+                cargarTipoUsuarios();
+                int recCount = _db.Usuario.Count(e => e.UsuarioId == id);
+                Usuario _usuario = (from u in _db.Usuario
+                                    where u.UsuarioId == id
+                                    select u).DefaultIfEmpty().Single();
+                _usuario.Password = Utilitarios.DescifrarDatos(_usuario.Password);
+                return View(_usuario);
+            }
+            else
+            {
+                return RedirectToAction(nameof(Index));
+            }
+                
         }
 
         [HttpPost]
         public IActionResult Edit(Usuario _Usuario)
         {
-            string rpta = "";
-            try
-            {
-                if (!ModelState.IsValid)
+            string rpta = "";           
+                try
                 {
-                    //Escribimos nuestra logica
-                    var query = (from state in ModelState.Values
-                                 from error in state.Errors
-                                 select error.ErrorMessage).ToList();
-
-                    rpta += "<ul class='list-group'>";
-                    foreach (var item in query)
+                    if (!ModelState.IsValid)
                     {
-                        rpta += "<li class='list-group-item list-group-item-danger'>";
-                        rpta += item;
-                        rpta += "</li>";
+                        //Escribimos nuestra logica
+                        var query = (from state in ModelState.Values
+                                     from error in state.Errors
+                                     select error.ErrorMessage).ToList();
+
+                        rpta += "<ul class='list-group'>";
+                        foreach (var item in query)
+                        {
+                            rpta += "<li class='list-group-item list-group-item-danger'>";
+                            rpta += item;
+                            rpta += "</li>";
+                        }
+                        rpta += "</ul>";
                     }
-                    rpta += "</ul>";
+                    else
+                    {
+                        rpta = "OK";
+                        string pass = Utilitarios.CifrarDatos(_Usuario.Password);
+                        Usuario user = new Usuario();
+                        user.UsuarioId = _Usuario.UsuarioId;
+                        user.Nombre = _Usuario.Nombre;
+                        user.TipoUsuarioId = _Usuario.TipoUsuarioId;
+                        user.Password = pass;
+                        _db.Usuario.Update(user);
+                        _db.SaveChanges();
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    rpta = "OK";
-                    string pass = Utilitarios.CifrarDatos(_Usuario.Password);
-                    Usuario user = new Usuario();
-                    user.UsuarioId = _Usuario.UsuarioId;
-                    user.Nombre = _Usuario.Nombre;
-                    user.TipoUsuarioId = _Usuario.TipoUsuarioId;
-                    user.Password = pass;
-                    _db.Usuario.Update(user);
-                    _db.SaveChanges();
+                    rpta = ex.Message;
                 }
+                return RedirectToAction(nameof(Index));
             }
-            catch (Exception ex)
-            {
-                rpta = ex.Message;
-            }
-            return RedirectToAction(nameof(Index));
-        }
 
         [HttpPost]
         public IActionResult Delete(int UsuarioId)

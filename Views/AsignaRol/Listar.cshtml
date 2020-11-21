@@ -23,7 +23,7 @@
             </form>
             <form asp-action="Delete" asp-controller="AsignaRol" method="post" id="frmEliminar">
             </form>
-            <form asp-controller="AsignaRol" asp-action="Index" method="post" id="frmFilter">
+            <form asp-controller="TipoUsuario" asp-action="Index" method="post" id="frmFilter">
                 <div class="row">
                     <div class="col-md-12 col-lg-12">
                         <h4 class="text-dark" style="text-align:center;">
@@ -46,12 +46,7 @@
                     </div>
                     <div class="col-md-2 colo-lg-2 text-right">
                         <a class="btn btn-info fa fa fa-arrow-circle-left inicio" onclick="AsignarRol('/AsignaRol/Registrar/','/AsignaRol/Delete/')">
-                            Guardar Roles
-                        </a>
-                    </div>
-                    <div class="col-md-2 colo-lg-2 text-right">
-                        <a class="btn btn-info fa fa fa-arrow-circle-left inicio" onclick="recuperar(@ViewBag.TipoUsu)">
-                            Recuperar Roles
+                            Asignar Roles
                         </a>
                     </div>
                 </div>
@@ -88,7 +83,7 @@
                                             <a class="btn text-white boton-list" asp-action="Details" asp-route-Id="@item.PaginaId" asp-controller="Pagina">
                                                 <img src="~/images/lista.png" style="width:20px; border-color:black;" />
                                             </a>
-                                            <a class="btn text-white boton-delete" aria-hidden="true" onclick="Eliminar(@item.PaginaId)" asp-controller="Pagina">
+                                            <a class="btn text-white boton-delete" aria-hidden="true" onclick="EliminarPagina(@item.PaginaId)">
                                                 <img src="~/images/eliminar (1).png" style="width:20px; border-color:black;" />
                                             </a>
                                         </div>
@@ -102,9 +97,15 @@
             }
             else
             {
-                <h2 class="textoInformativo">No hay tipos usuarios en la lista.</h2>
+                <h2 class="textoInformativo">No hay páginas en la lista.</h2>
             }
         </div>
+        <form asp-action="Delete" asp-controller="Pagina" method="post" id="viewEliminarPagina">
+            <input type="hidden" id="txtPaginaId" name="PaginaId" />
+        </form>
+        <form asp-action="Edit" asp-controller="Pagina" method="post" id="viewEditarPagina">
+            <input type="hidden" id="txtPaginaId" name="PaginaId" />
+        </form>
         <form asp-action="Index" asp-controller="TipoUsuarios"
               method="post" id="frmRegresar">
         </form>

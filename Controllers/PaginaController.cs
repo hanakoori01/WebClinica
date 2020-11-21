@@ -86,7 +86,7 @@ namespace Clinica.Controllers
             {
                 Error = ex.Message;
             }
-            return RedirectToAction("Index", "TipoUsuario");
+            return RedirectToAction("Index", "TipoUsuarios");
         }
 
         public IActionResult Details(int id)
@@ -141,7 +141,7 @@ namespace Clinica.Controllers
             {
                 rpta = ex.Message;
             }
-            return RedirectToAction("Index", "TipoUsuario");
+            return RedirectToAction("Index", "TipoUsuarios");
         }
         [HttpPost]
         public IActionResult Delete(int PaginaId)
@@ -158,7 +158,7 @@ namespace Clinica.Controllers
             {
                 Error = ex.Message;
             }
-            return RedirectToAction("Index", "TipoUsuario");
+            return RedirectToAction("Index", "TipoUsuarios");
         }
     }
 }
